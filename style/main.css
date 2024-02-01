@@ -10,7 +10,17 @@
 }
 
 html {
-  font-size: 62.5%;
   scroll-behavior: smooth;
   display: inline-block;
+}
+
+#pokedex {
+  min-height: 50dvh;
+  background-color: rgb(219, 33, 33);
+  color: white;
+}
+
+#pokemonPic {
+  width: 20%;
+  height: auto;
 }/*# sourceMappingURL=main.css.map */

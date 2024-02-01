@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+#pokedex {
+ min-height: 50dvh;   
+ background-color: rgba(219,33,33,1);
+ color: white;
+}
+
+
+#pokemonPic {
+    width: 20%;
+    height: auto;
+}
