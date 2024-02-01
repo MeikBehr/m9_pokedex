@@ -1,0 +1,10 @@
+User-agent: UniversalRobot/1.0
+User-agent: *
+Disallow: /src/
+Disallow: /src/fonts/
+Disallow: /src/img/
+Disallow: /style/
+Disallow: /scripts/
+Disallow: /datenschutz.html
+Disallow: /impressum.html
+Disallow: /kontakt.html
