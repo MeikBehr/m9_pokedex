@@ -15,12 +15,27 @@ html {
 }
 
 #pokedex {
-  min-height: 50dvh;
-  background-color: rgb(219, 33, 33);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 70dvh;
   color: white;
+  gap: 1rem;
+}
+
+.pokedex__overview__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 15%;
+  min-height: 15rem;
+  background-color: rgb(219, 33, 33);
+  border-radius: 1rem;
 }
 
 #pokemonPic {
-  width: 20%;
+  width: 50%;
   height: auto;
 }/*# sourceMappingURL=main.css.map */
