@@ -29,54 +29,46 @@ de : https://pokeapi.co/api/v2/language/6/
 
 - Datastructure:
 
+Wir machen ein ARRAY, wo wir alle einzelne POKEMON reinpushen dürfen:
 
-let pokemonInformations = {
+let datas = [
+	{
+		id			<--- https://pokeapi.co/api/v2/pokemon/${i}			.id
+		name		<--- https://pokeapi.co/api/v2/pokemon/${i}			.name
+		url			https://pokeapi.co/api/v2/pokemon-species/${i}/
+		url_species			<--- https://pokeapi.co/api/v2/pokemon/${i}			.species.url
+		name_de		<-- https://pokeapi.co/api/v2/pokemon-species/${i}/		["names"][5]["name"]
+		types		<--- https://pokeapi.co/api/v2/pokemon/${i}				.types[0].type.name 	UND    .types[1].type.name
+		color		<--- https://pokeapi.co/api/v2/pokemon-species/1/ 		.color.name
+		weight		<--- https://pokeapi.co/api/v2/pokemon/${i}			.weight
+		img_small
+		img_big		<--- https://pokeapi.co/api/v2/pokemon/${i}			.sprites.front_default
+		moves		<--- https://pokeapi.co/api/v2/pokemon/${i}			.moves	<== array drinne	
+		hp					<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[0].base_stat
+		attack				<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[1].base_stat
+		defense				<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[2].base_stat
+		special_attack		<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[3].base_stat
+		special_defense		<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[4].base_stat
+		speed				<--- https://pokeapi.co/api/v2/pokemon/${i}			.stats[5].base_stat
+		abilities		<--- https://pokeapi.co/api/v2/pokemon/${i}				.abilities <= array drinne
+		habitat			<--- https://pokeapi.co/api/v2/pokemon-species/1/		.habitat.name
+  		evolves_from	<--- https://pokeapi.co/api/v2/pokemon-species/1/		.evolves_from_species.name
+	},
+	{},
+	{},
+]
 
-		1: {
-			id: "1",
-			name : "Pokemon",
-			url : "https://pokeapi.co/",
-			abilities : [],
-			types
-		},
-		2: {},
-		3: {},
-		...
-		...
-		425: {},
+Date von:
+- https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500' 		 // shows alle available pokemon
+- https://pokeapi.co/api/v2/pokemon/1							 //  ...1 von 1 bis ?? für exakte Daten
+- https://pokeapi.co/api/v2/pokemon-species/1/					 // ... für deutsche Namen z.B. von Pokemon #1
+- https://pokeapi.co/api/v2/evolution-chain/1/					 // ... für Evolutionen
+	.chain.
 
-
-
-function eventListenerOverlay(i) {
-    document.getElementById(`ol_button`).addEventListener('click', () => {
-        const option = document.getElementById('overlay_select').selectedIndex;
-        const addToCart = createAddToCartObject(i, option);
-        const existingItem = findExistingItem(i, option);
-        existingItem ? existingItem.amount += addToCart.amount : cart.push(addToCart);
-        renderCartItems();
-        hideOptions();
-    }, { once: true });
-}
-
-
-
-	function createAddToCartObject(i, option) {
-    	return {
-        id: i,
-        options: menus[i].options[option],
-        name: menus[i].name,
-        price: menus[i].price[option],
-        amount: parseInt(document.getElementById('ol_amount').textContent),
-    };
-}
-
-}
 
 
 Deutscher NAME?
-
 Wenn man von der SPRITE-URL ausgeht, kann man den NAMEN finden!
-
 let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 		let testJSON = await test.json();
 		console.log(testJSON);
@@ -121,7 +113,7 @@ function creatAddToPokedexObject(currentPokemon, i, url) {
 async function init() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
-	for (let i = 1; i <= 5; i++) {
+	for (let i = 1; i <= 6; i++) {
 		await loadPokemon(i);
 
 		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
@@ -131,10 +123,10 @@ async function init() {
 	
 	}
 
-	let test = await fetch("https://pokeapi.co/api/v2/pokemon-species/1/");
-	let testJSON = await test.json();
-	console.log(testJSON);
-	console.log(testJSON["names"][5]["name"]);
+	// let test = await fetch("https://pokeapi.co/api/v2/pokemon-species/1/");
+	// let testJSON = await test.json();
+	// console.log(testJSON);
+	// console.log(testJSON["names"][5]["name"]);
 	
 }
 
