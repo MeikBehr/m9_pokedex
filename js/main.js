@@ -15,21 +15,48 @@ ToDo:
 - CleanCoding! Funktionen kurz, immer nur auf 1 Tätigkeit ausgerichtet, CSS sauber, CSS-Namen und Funktionsnamen aussagekräftig usw.!
 - Alle Funktionen mit / * * beschreiben. Alle Funktionen sauber beschreiben
 
+- Ladeleiste:  "1 von 20" also Seitenbreites DIV, dass sich langsam füllt und x von Y reinschreibt! !!!
+
 - JSON mit ""!
 
 https://pokeapi.co/docs/v2#pokemon
 de : https://pokeapi.co/api/v2/language/6/
 
+
+- Datastructure:
+
+
+let pokemonInformations = {
+
+		1: {
+			id: "1",
+			name : "Pokemon",
+			url : "https://pokeapi.co/",
+			ability : [],
+		},
+		2: {},
+		3: {},
+		...
+		...
+		425: {},
+
+}
+
+
 */
+
+let pokemonDatas = {};
+
+
 
 let currentPokemon;
 
 
-function init() {
+async function init() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
 	for (let i = 1; i <= 10; i++) {
-		loadPokemon(i);
+		await loadPokemon(i);
 	}
 }
 
@@ -38,12 +65,12 @@ async function loadPokemon(i) {
 	let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 	let response = await fetch(url);
 	currentPokemon = await response.json();
-	console.log(currentPokemon);
-	renderPokemonInfo(currentPokemon);
+	// console.log(currentPokemon);
+	await renderPokemonInfo(currentPokemon);
 }
 
 
-function renderPokemonInfo(currentPokemon) {
+async function renderPokemonInfo(currentPokemon) {
 	const container = document.getElementById('pokedex');
 	const pekomonImage = currentPokemon['sprites']['other']['dream_world']['front_default'];
 	container.innerHTML += /*html*/ `
