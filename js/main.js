@@ -77,11 +77,13 @@ let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 
 */
 
-let pokemonDatas = {};
 
 
-
+let datas = [];
+let numerOfAvailablePokemon = 0;
 let currentPokemon;
+
+
 
 
 function creatAddToPokedexObject(currentPokemon, i, url) {
@@ -111,24 +113,39 @@ function creatAddToPokedexObject(currentPokemon, i, url) {
 
 
 async function init() {
+	await checkNumberOfAvailablePokemon();
+	clearPokedex();
+	renderPokedex();
+}
+
+
+
+async function checkNumberOfAvailablePokemon() {
+	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
+	let response = await fetch(url);
+	let responseJSON = await response.json();
+	numerOfAvailablePokemon = responseJSON['count'];
+	console.log("Max available Pokemon: ", numerOfAvailablePokemon);
+}
+
+
+
+function clearPokedex() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
-	for (let i = 1; i <= 6; i++) {
-		await loadPokemon(i);
+}
 
+
+async function renderPokedex() {
+	for (let i = 1; i <= 2; i++) {
+		await loadPokemon(i);
 		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 		let testJSON = await test.json();
 		console.log(testJSON);
 		console.log(testJSON["names"][5]["name"]);
-	
 	}
-
-	// let test = await fetch("https://pokeapi.co/api/v2/pokemon-species/1/");
-	// let testJSON = await test.json();
-	// console.log(testJSON);
-	// console.log(testJSON["names"][5]["name"]);
-	
 }
+
 
 
 async function loadPokemon(i) {
@@ -140,17 +157,28 @@ async function loadPokemon(i) {
 }
 
 
+
 async function renderPokemonInfo(currentPokemon) {
 	const container = document.getElementById('pokedex');
 	const pekomonImage = currentPokemon['sprites']['other']['dream_world']['front_default'];
 	container.innerHTML += /*html*/ `
-		<div class="pokedex__overview__card">
+		<div class="pokedex__card">
                 <h1 id="pokemonName">${currentPokemon['name']}</h1>
                 <img id="pokemonPic" src="${pekomonImage}" alt="">
          </div>
 		 `
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

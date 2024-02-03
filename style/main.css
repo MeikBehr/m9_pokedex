@@ -23,7 +23,7 @@ html {
   gap: 1rem;
 }
 
-.pokedex__overview__card {
+.pokedex__card {
   display: flex;
   flex-direction: column;
   justify-content: center;
