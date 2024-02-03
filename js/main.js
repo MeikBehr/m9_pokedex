@@ -140,12 +140,15 @@ async function init() {
 	await checkNumberOfAvailablePokemon();
 	await creatingNewDataArrayWithRootData();
 	
-	// clearPokedex();
-	// renderPokedex();
+	clearPokedex();
+	renderPokedex();
 }
 
 
 async function checkNumberOfAvailablePokemon() {
+
+	document.getElementById('loader_container').classList.remove('d-none');
+
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
@@ -153,6 +156,8 @@ async function checkNumberOfAvailablePokemon() {
 	numerOfAvailablePokemon = responseJSON['count'];
 	// console.log(idNameAndUrlOfAllPokemon);
 	// console.log("Max available Pokemon: ", numerOfAvailablePokemon);
+
+	document.getElementById('loader_container').classList.add('d-none');
 }
 
 
@@ -164,13 +169,16 @@ function clearPokedex() {
 
 
 async function renderPokedex() {
-	for (let i = 1; i <= 2; i++) {
+	document.getElementById('loader_container').classList.remove('d-none');
+	for (let i = 1; i <= 5; i++) {
 		await loadPokemon(i);
 		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 		let testJSON = await test.json();
 		// console.log(testJSON);
 		// console.log(testJSON["names"][5]["name"]);
 	}
+
+	document.getElementById('loader_container').classList.add('d-none');
 }
 
 
