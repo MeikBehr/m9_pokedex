@@ -81,22 +81,32 @@ let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 
 let datas = [];
 let numerOfAvailablePokemon = 0;
+let idNameAndUrlOfAllPokemon = {};
 let currentPokemon;
 
 
 
 
-function creatAddToPokedexObject(currentPokemon, i, url) {
+function createNewDataObject(element, index) {
 	return {
-		"id": currentPokemon['id'],
-		"name": currentPokemon['name'],
-		"name_de": '',
-		"url": currentPokemon['species']['url'],
-		"image_small": "",
-		"image_big": "",
-		"abilities": currentPokemon['abilities'],
-		"types": "",
-		"weight": 0,
+		"id": index + 1,
+
+		"technical": {
+			"name": `${element['name']}`,
+			"name_de": "",
+			"url": `${element['url']}`,
+			"url_species": "",
+			"image_small": "",
+			"image_big": "",
+		},
+
+		"attribute": {
+			"types": "",
+			"color": "",
+			"weight": 0,
+			"moves": "",
+			"abilities": "",
+		},
 
 		"stats": {
 			"hp" : 0,
@@ -106,26 +116,43 @@ function creatAddToPokedexObject(currentPokemon, i, url) {
 			"special-defense" : 0,
 			"speed" : 0,
 		}
-
 	}
 }
 
 
 
-async function init() {
-	await checkNumberOfAvailablePokemon();
-	clearPokedex();
-	renderPokedex();
+async function creatingNewDataArrayWithRootData() {
+	// console.log(idNameAndUrlOfAllPokemon[0]);
+	for (let index = 0; index < numerOfAvailablePokemon; index++) {
+		const element = idNameAndUrlOfAllPokemon[index];
+		const newObject = createNewDataObject(element, index);
+		datas.push(newObject);
+	}
 }
 
+
+
+
+
+
+
+async function init() {
+	await checkNumberOfAvailablePokemon();
+	await creatingNewDataArrayWithRootData();
+	
+	// clearPokedex();
+	// renderPokedex();
+}
 
 
 async function checkNumberOfAvailablePokemon() {
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
+	idNameAndUrlOfAllPokemon = responseJSON['results'];
 	numerOfAvailablePokemon = responseJSON['count'];
-	console.log("Max available Pokemon: ", numerOfAvailablePokemon);
+	// console.log(idNameAndUrlOfAllPokemon);
+	// console.log("Max available Pokemon: ", numerOfAvailablePokemon);
 }
 
 
@@ -141,8 +168,8 @@ async function renderPokedex() {
 		await loadPokemon(i);
 		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 		let testJSON = await test.json();
-		console.log(testJSON);
-		console.log(testJSON["names"][5]["name"]);
+		// console.log(testJSON);
+		// console.log(testJSON["names"][5]["name"]);
 	}
 }
 
@@ -152,7 +179,7 @@ async function loadPokemon(i) {
 	let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 	let response = await fetch(url);
 	currentPokemon = await response.json();
-	console.log(currentPokemon);
+	// console.log(currentPokemon);
 	await renderPokemonInfo(currentPokemon);
 }
 
