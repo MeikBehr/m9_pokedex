@@ -121,6 +121,22 @@ function createNewDataObject(element, index) {
 
 
 
+
+
+
+async function init() {
+	await checkNumberOfAvailablePokemon();
+	await creatingNewDataArrayWithRootData();
+
+	await fetchingGermanName();
+	
+	clearPokedex();
+	// renderPokedex();
+}
+
+
+
+
 async function creatingNewDataArrayWithRootData() {
 	// console.log(idNameAndUrlOfAllPokemon[0]);
 	for (let index = 0; index < numerOfAvailablePokemon; index++) {
@@ -133,16 +149,24 @@ async function creatingNewDataArrayWithRootData() {
 
 
 
+async function fetchingGermanName() {
 
+	const startID = 1;
+	const endID = 5;
 
+	for (let i = startID; i < endID; i++) {
+		let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
+		let response = await fetch(url);
+		let responseJSON = await response.json();
 
-async function init() {
-	await checkNumberOfAvailablePokemon();
-	await creatingNewDataArrayWithRootData();
-	
-	clearPokedex();
-	renderPokedex();
+		datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
+		console.log(responseJSON["names"][5]["name"]);
+		
+	}
+
 }
+
+
 
 
 async function checkNumberOfAvailablePokemon() {
