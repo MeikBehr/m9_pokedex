@@ -85,6 +85,10 @@ let idNameAndUrlOfAllPokemon = {};
 let currentPokemon;
 
 
+const startID = 1;
+const endID = 5;
+
+
 
 
 function createNewDataObject(element, index) {
@@ -122,17 +126,38 @@ function createNewDataObject(element, index) {
 
 
 
-
-
 async function init() {
 	await checkNumberOfAvailablePokemon();
 	await creatingNewDataArrayWithRootData();
-
 	await fetchingGermanName();
+
+	await fetchingPokemonData();
 	
 	clearPokedex();
 	// renderPokedex();
 }
+
+
+
+async function fetchingPokemonData() {
+
+	for (let i = startID; i < endID; i++) {
+		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+		let response = await fetch(url);
+		let responseJSON = await response.json();
+
+		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
+
+		// datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
+
+		// console.log(responseJSON);
+
+	}
+
+}
+
+
+
 
 
 
@@ -150,9 +175,6 @@ async function creatingNewDataArrayWithRootData() {
 
 
 async function fetchingGermanName() {
-
-	const startID = 1;
-	const endID = 5;
 
 	for (let i = startID; i < endID; i++) {
 		let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
@@ -192,52 +214,54 @@ function clearPokedex() {
 }
 
 
-async function renderPokedex() {
-	document.getElementById('loader_container').classList.remove('d-none');
-	document.getElementById('loadingbar_container').classList.remove('d-none');
-	const loadingbar = document.getElementById('loadingbar');
-	loadingbar.style.width = `${0}%`;
-	const amountToLoad = 5;
-	const loadingStep = 100 / amountToLoad;
-	for (let i = 1; i <= amountToLoad; i++) {
-		await loadPokemon(i);
-		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
-		let testJSON = await test.json();
-		loadingbar.style.width = `${(loadingStep * i)}%`;
-		loadingbar.innerHTML = currentPokemon['name'] + " loaded";
-		// console.log(testJSON);
-		// console.log(testJSON["names"][5]["name"]);
-	}
+// async function renderPokedex() {
+// 	document.getElementById('loader_container').classList.remove('d-none');
+// 	document.getElementById('loadingbar_container').classList.remove('d-none');
+// 	const loadingbar = document.getElementById('loadingbar');
+// 	loadingbar.style.width = `${0}%`;
+// 	const amountToLoad = 5;
+// 	const loadingStep = 100 / amountToLoad;
+// 	for (let i = 1; i <= amountToLoad; i++) {
+// 		await loadPokemon(i);
+// 		loadingbar.style.width = `${(loadingStep * i)}%`;
+// 		loadingbar.innerHTML = currentPokemon['name'] + " loaded";
+// 		// let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
+// 		// let testJSON = await test.json();
+// 		// console.log(testJSON);
+// 		// console.log(testJSON["names"][5]["name"]);
+// 	}
 
-	document.getElementById('loader_container').classList.add('d-none');
-	document.getElementById('loadingbar_container').classList.add('d-none');
-	loadingbar.innerHTML = '';
-}
-
-
-
-async function loadPokemon(i) {
-	let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-	let response = await fetch(url);
-	currentPokemon = await response.json();
-	// console.log(currentPokemon);
-	await renderPokemonInfo(currentPokemon);
-}
+// 	document.getElementById('loader_container').classList.add('d-none');
+// 	document.getElementById('loadingbar_container').classList.add('d-none');
+// 	loadingbar.innerHTML = '';
+// }
 
 
 
-async function renderPokemonInfo(currentPokemon) {
-	const container = document.getElementById('pokedex');
-	const pekomonImage = currentPokemon['sprites']['other']['dream_world']['front_default'];
-	container.innerHTML += /*html*/ `
-		<div class="pokedex__card">
-                <h1 id="pokemonName">${currentPokemon['name']}</h1>
-                <img id="pokemonPic" src="${pekomonImage}" alt="">
-         </div>
-		 `
 
-}
+// async function renderPokemonInfo(currentPokemon) {
+// 	const container = document.getElementById('pokedex');
+// 	const pekomonImage = currentPokemon['sprites']['other']['dream_world']['front_default'];
+// 	container.innerHTML += /*html*/ `
+// 		<div class="pokedex__card">
+//                 <h1 id="pokemonName">${currentPokemon['name']}</h1>
+//                 <img id="pokemonPic" src="${pekomonImage}" alt="">
+//          </div>
+// 		 `
 
+// }
+
+
+
+
+
+// async function loadPokemon(i) {
+// 	let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+// 	let response = await fetch(url);
+// 	currentPokemon = await response.json();
+// 	// console.log(currentPokemon);
+// 	await renderPokemonInfo(currentPokemon);
+// }
 
 
 
