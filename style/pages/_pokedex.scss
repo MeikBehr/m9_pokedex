@@ -111,3 +111,30 @@ footer {
     width: 50%;
     height: auto;
 }
+
+
+
+
+
+
+#loadingbar_container {
+  position: relative;
+  width: 98%;
+  // border: 1px solid purple;
+  height: 1.5rem;
+}
+
+#loadingbar{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: blue;
+  border: 1px solid black;
+  border-radius: 1000rem;
+  color: white;
+  padding-left: 1rem;
+  line-height: 1.5rem;
+}

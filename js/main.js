@@ -170,15 +170,24 @@ function clearPokedex() {
 
 async function renderPokedex() {
 	document.getElementById('loader_container').classList.remove('d-none');
-	for (let i = 1; i <= 5; i++) {
+	document.getElementById('loadingbar_container').classList.remove('d-none');
+	const loadingbar = document.getElementById('loadingbar');
+	loadingbar.style.width = `${0}%`;
+	const amountToLoad = 5;
+	const loadingStep = 100 / amountToLoad;
+	for (let i = 1; i <= amountToLoad; i++) {
 		await loadPokemon(i);
 		let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
 		let testJSON = await test.json();
+		loadingbar.style.width = `${(loadingStep * i)}%`;
+		loadingbar.innerHTML = currentPokemon['name'] + " loaded";
 		// console.log(testJSON);
 		// console.log(testJSON["names"][5]["name"]);
 	}
 
 	document.getElementById('loader_container').classList.add('d-none');
+	document.getElementById('loadingbar_container').classList.add('d-none');
+	loadingbar.innerHTML = '';
 }
 
 
