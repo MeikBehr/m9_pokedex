@@ -134,30 +134,30 @@ async function init() {
 	await fetchingPokemonData();
 	
 	clearPokedex();
+
+
 	// renderPokedex();
 }
 
 
 
-async function fetchingPokemonData() {
+async function checkNumberOfAvailablePokemon() {
+	document.getElementById('loadingbar_container').classList.remove('d-none');
+	const loadingBar = document.getElementById('loadingbar');
+	loadingBar.classList.remove('d-none');
+	loadingBar.innerHTML = `checking available number of Pokemon...`;
 
-	for (let i = startID; i < endID; i++) {
-		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-		let response = await fetch(url);
-		let responseJSON = await response.json();
+	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
+	let response = await fetch(url);
+	let responseJSON = await response.json();
+	idNameAndUrlOfAllPokemon = responseJSON['results'];
+	numerOfAvailablePokemon = responseJSON['count'];
 
-		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
+	loadingBar.innerHTML = `checking available number of Pokemon... ${numerOfAvailablePokemon}`;
 
-		// datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
-
-		// console.log(responseJSON);
-
-	}
-
+	document.getElementById('loader_container').classList.add('d-none');
+	loadingBar.classList.add('d-none');
 }
-
-
-
 
 
 
@@ -175,36 +175,44 @@ async function creatingNewDataArrayWithRootData() {
 
 
 async function fetchingGermanName() {
+	const loadingBar = document.getElementById('loadingbar');
+	loadingBar.classList.remove('d-none');
+	loadingBar.style.width = `${0}%`;
+	loadingBar.innerHTML = '';
+	const amountToLoad = 5;
+	const loadingStep = 100 / amountToLoad;
 
 	for (let i = startID; i < endID; i++) {
 		let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
 		let response = await fetch(url);
 		let responseJSON = await response.json();
-
+		loadingBar.style.width = `${(loadingStep * i)}%`;
 		datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
 		console.log(responseJSON["names"][5]["name"]);
-		
 	}
-
+	
+	document.getElementById('loadingbar_container').classList.add('d-none');
+	loadingBar.innerHTML = '';
 }
 
 
 
 
-async function checkNumberOfAvailablePokemon() {
 
-	document.getElementById('loader_container').classList.remove('d-none');
+async function fetchingPokemonData() {
 
-	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
-	let response = await fetch(url);
-	let responseJSON = await response.json();
-	idNameAndUrlOfAllPokemon = responseJSON['results'];
-	numerOfAvailablePokemon = responseJSON['count'];
-	// console.log(idNameAndUrlOfAllPokemon);
-	// console.log("Max available Pokemon: ", numerOfAvailablePokemon);
-
-	document.getElementById('loader_container').classList.add('d-none');
+	for (let i = startID; i < endID; i++) {
+		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+		let response = await fetch(url);
+		let responseJSON = await response.json();
+		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
+		// datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
+		// console.log(responseJSON);
+	}
 }
+
+
+
 
 
 
@@ -212,6 +220,36 @@ function clearPokedex() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
 }
+
+
+
+
+
+
+function renderPokedex() {
+	document.getElementById('loader_container').classList.remove('d-none');
+	const loadingBar = document.getElementById('loadingbar');
+	loadingBar.classList.remove('d-none');
+	loadingbar.style.width = `${0}%`;
+	
+	const amountToLoad = 5;
+	const loadingStep = 100 / amountToLoad;
+	document.getElementById('loader_container').classList.add('d-none');
+	document.getElementById('loadingbar_container').classList.add('d-none');
+	loadingbar.innerHTML = '';
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 // async function renderPokedex() {
