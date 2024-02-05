@@ -137,8 +137,8 @@ async function init() {
 	
 	
 	
-	// clearPokedex();
-	// renderPokedex();
+	clearPokedex();
+	renderPokedex();
 }
 
 
@@ -176,6 +176,9 @@ async function creatingNewDataArrayWithRootData() {
 
 async function fetchingPokemonData() {
 
+	document.getElementById('loader_container').classList.remove('d-none');
+
+
 	for (let i = startID; i <= endID; i++) {
 
 		if (!datas[(i - 1)]["loaded"]) {
@@ -192,12 +195,15 @@ async function fetchingPokemonData() {
 		}
 		// console.log(responseJSON);
 	}
+
+	document.getElementById('loader_container').classList.add('d-none');
 }
 
 
 
 
 async function fetchingGermanName() {
+	document.getElementById('loader_container').classList.remove('d-none');
 	const loadingBar = document.getElementById('loadingbar');
 	loadingBar.classList.remove('d-none');
 	loadingBar.style.width = `${0}%`;
@@ -220,6 +226,7 @@ async function fetchingGermanName() {
 	
 	document.getElementById('loadingbar_container').classList.add('d-none');
 	loadingBar.innerHTML = '';
+	document.getElementById('loader_container').classList.add('d-none');
 }
 
 
@@ -237,83 +244,23 @@ function clearPokedex() {
 
 
 function renderPokedex() {
-	document.getElementById('loader_container').classList.remove('d-none');
-	const loadingBar = document.getElementById('loadingbar');
-	loadingBar.classList.remove('d-none');
-	loadingbar.style.width = `${0}%`;
-	
-	const amountToLoad = 5;
-	const loadingStep = 100 / amountToLoad;
-	document.getElementById('loader_container').classList.add('d-none');
-	document.getElementById('loadingbar_container').classList.add('d-none');
-	loadingbar.innerHTML = '';
+	const container = document.getElementById('pokedex');
+
+	for (let i = startID; i <= endID; i++) {
+		const pokemonImage = datas[(i - 1)]["technical"]["url"];
+		const pokemonName = datas[(i - 1)]["technical"]["name"];
+		const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
+		container.innerHTML += /*html*/ `
+			<div class="pokedex__card">
+	                <h1 id="pokemonName">${pokemonName}</h1>
+					<h3>(${pokemonNameDE})</h3>
+					<h2>ID# ${datas[(i - 1)]['id']}</h2>
+	                <img id="pokemonPic" src="${pokemonImage}" alt="">
+	         </div>
+			 `
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// async function renderPokedex() {
-// 	document.getElementById('loader_container').classList.remove('d-none');
-// 	document.getElementById('loadingbar_container').classList.remove('d-none');
-// 	const loadingbar = document.getElementById('loadingbar');
-// 	loadingbar.style.width = `${0}%`;
-// 	const amountToLoad = 5;
-// 	const loadingStep = 100 / amountToLoad;
-// 	for (let i = 1; i <= amountToLoad; i++) {
-// 		await loadPokemon(i);
-// 		loadingbar.style.width = `${(loadingStep * i)}%`;
-// 		loadingbar.innerHTML = currentPokemon['name'] + " loaded";
-// 		// let test = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${i}/`);
-// 		// let testJSON = await test.json();
-// 		// console.log(testJSON);
-// 		// console.log(testJSON["names"][5]["name"]);
-// 	}
-
-// 	document.getElementById('loader_container').classList.add('d-none');
-// 	document.getElementById('loadingbar_container').classList.add('d-none');
-// 	loadingbar.innerHTML = '';
-// }
-
-
-
-
-// async function renderPokemonInfo(currentPokemon) {
-// 	const container = document.getElementById('pokedex');
-// 	const pekomonImage = currentPokemon['sprites']['other']['dream_world']['front_default'];
-// 	container.innerHTML += /*html*/ `
-// 		<div class="pokedex__card">
-//                 <h1 id="pokemonName">${currentPokemon['name']}</h1>
-//                 <img id="pokemonPic" src="${pekomonImage}" alt="">
-//          </div>
-// 		 `
-
-// }
-
-
-
-
-
-// async function loadPokemon(i) {
-// 	let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-// 	let response = await fetch(url);
-// 	currentPokemon = await response.json();
-// 	// console.log(currentPokemon);
-// 	await renderPokemonInfo(currentPokemon);
-// }
-
-
-
-
 
 
 

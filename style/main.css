@@ -98,10 +98,15 @@ footer {
   background-color: rgb(219, 33, 33);
   border-radius: 1rem;
 }
+.pokedex__card:hover #pokemonPic {
+  transition: transform 125ms ease-in-out;
+  transform: scale(1.75) translateX(10px) translateY(10px);
+}
 
 #pokemonPic {
   width: 50%;
   height: auto;
+  transition: transform 125ms ease-in-out;
 }
 
 #loadingbar_container {
