@@ -104,6 +104,7 @@ footer {
     height: 15rem;
     background-color: rgba(219,33,33,1);
     border-radius: 1rem;
+    cursor: pointer;
 
     &:hover #pokemonPic {
       transition: transform 125ms ease-in-out;
