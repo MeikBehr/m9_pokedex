@@ -176,12 +176,20 @@ async function creatingNewDataArrayWithRootData() {
 
 async function fetchingPokemonData() {
 
-	for (let i = startID; i < endID; i++) {
-		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-		let response = await fetch(url);
-		let responseJSON = await response.json();
-		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
-		datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
+	for (let i = startID; i <= endID; i++) {
+
+		if (!datas[(i - 1)]["loaded"]) {
+			let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+			let response = await fetch(url);
+			let responseJSON = await response.json();
+			
+			let name = responseJSON["name"];
+			name = name.charAt(0).toUpperCase() + name.slice(1);
+
+			datas[(i - 1)]["technical"]["name"] = name;
+			datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default'];
+			datas[(i - 1)]["loaded"] = true;
+		}
 		// console.log(responseJSON);
 	}
 }
@@ -197,13 +205,17 @@ async function fetchingGermanName() {
 	const amountToLoad = 5;
 	const loadingStep = 100 / amountToLoad;
 
-	for (let i = startID; i < endID; i++) {
-		let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
-		let response = await fetch(url);
-		let responseJSON = await response.json();
-		loadingBar.style.width = `${(loadingStep * i)}%`;
-		datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
-		console.log(responseJSON["names"][5]["name"]);
+	for (let i = startID; i <= endID; i++) {
+
+		if (datas[(i - 1)]["technical"]["name_de"] === '') {
+			let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
+			let response = await fetch(url);
+			let responseJSON = await response.json();
+			loadingBar.style.width = `${(loadingStep * i)}%`;
+			datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
+			console.log(responseJSON["names"][5]["name"]);	
+		}
+		
 	}
 	
 	document.getElementById('loadingbar_container').classList.add('d-none');
