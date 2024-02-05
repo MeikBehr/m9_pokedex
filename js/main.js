@@ -94,6 +94,7 @@ const endID = 5;
 function createNewDataObject(element, index) {
 	return {
 		"id": index + 1,
+		"loaded": false,
 
 		"technical": {
 			"name": `${element['name']}`,
@@ -129,20 +130,20 @@ function createNewDataObject(element, index) {
 async function init() {
 	await checkNumberOfAvailablePokemon();
 	await creatingNewDataArrayWithRootData();
-	await fetchingGermanName();
 
 	await fetchingPokemonData();
+
+	await fetchingGermanName();
 	
-	clearPokedex();
-
-
+	
+	
+	// clearPokedex();
 	// renderPokedex();
 }
 
 
 
 async function checkNumberOfAvailablePokemon() {
-	document.getElementById('loadingbar_container').classList.remove('d-none');
 	const loadingBar = document.getElementById('loadingbar');
 	loadingBar.classList.remove('d-none');
 	loadingBar.innerHTML = `checking available number of Pokemon...`;
@@ -154,20 +155,34 @@ async function checkNumberOfAvailablePokemon() {
 	numerOfAvailablePokemon = responseJSON['count'];
 
 	loadingBar.innerHTML = `checking available number of Pokemon... ${numerOfAvailablePokemon}`;
-
-	document.getElementById('loader_container').classList.add('d-none');
 	loadingBar.classList.add('d-none');
 }
 
 
 
-
 async function creatingNewDataArrayWithRootData() {
 	// console.log(idNameAndUrlOfAllPokemon[0]);
+	numerOfAvailablePokemon = endID;											// WARNING! Set  numerOfAvailablePokemon = endID	for demonstration purposes!
 	for (let index = 0; index < numerOfAvailablePokemon; index++) {
 		const element = idNameAndUrlOfAllPokemon[index];
 		const newObject = createNewDataObject(element, index);
 		datas.push(newObject);
+	}
+}
+
+
+
+
+
+async function fetchingPokemonData() {
+
+	for (let i = startID; i < endID; i++) {
+		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+		let response = await fetch(url);
+		let responseJSON = await response.json();
+		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
+		datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
+		// console.log(responseJSON);
 	}
 }
 
@@ -194,23 +209,6 @@ async function fetchingGermanName() {
 	document.getElementById('loadingbar_container').classList.add('d-none');
 	loadingBar.innerHTML = '';
 }
-
-
-
-
-
-async function fetchingPokemonData() {
-
-	for (let i = startID; i < endID; i++) {
-		let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-		let response = await fetch(url);
-		let responseJSON = await response.json();
-		datas[(i - 1)]["technical"]["name"] = responseJSON["name"];
-		// datas[(i - 1)]["technical"]["url"] = responseJSON['sprites']['other']['dream_world']['front_default']
-		// console.log(responseJSON);
-	}
-}
-
 
 
 
