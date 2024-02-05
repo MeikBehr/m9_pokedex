@@ -38,7 +38,7 @@ let currentPokemon;
 
 
 const startID = 1;
-const endID = 5;
+const endID = 20;
 
 
 

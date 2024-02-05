@@ -82,9 +82,10 @@ footer {
   flex-direction: row;
   flex-wrap: wrap;
   min-height: 70dvh;
-  color: white;
+  color: black;
   gap: 1rem;
   border: 1px solid blue;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .pokedex__card {
@@ -99,14 +100,14 @@ footer {
   border-radius: 1rem;
   cursor: pointer;
 }
+
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
   transform: scale(1.75) translateX(10px) translateY(10px);
 }
 
 #pokemonPic {
-  width: 50%;
-  height: auto;
+  max-height: 35%;
   transition: transform 125ms ease-in-out;
 }
 
