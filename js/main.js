@@ -130,50 +130,68 @@ async function creatingNewDataArrayWithRootData() {
 
 
 
-// diese Funktion umschreiben um ALLE gleichzeitig zu laden!
+
 async function fetchingPokemonData() {
-
-	document.getElementById('loader_container').classList.remove('d-none');
-
-
+	const promises = [];
 	for (let i = startID; i <= endID; i++) {
-
-		if (!datas[(i - 1)]["loaded"]) {
-			let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-			let response = await fetch(url);
-			let responseJSON = await response.json();
-			
-			let name = responseJSON["name"];
-			name = name.charAt(0).toUpperCase() + name.slice(1);
-
-			datas[(i - 1)]["technical"]["name"] = name;
-			datas[(i - 1)]["technical"]["image_big"] = responseJSON['sprites']['other']['dream_world']['front_default'];
-			datas[(i - 1)]["loaded"] = true;
-			datas[(i - 1)]["technical"]["url_species"] = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
-
-			datas[(i - 1)]["stats"]["hp"] = responseJSON.stats[0].base_stat
-			datas[(i - 1)]["stats"]["attack"] =  responseJSON.stats[1].base_stat
-			datas[(i - 1)]["stats"]["defense"] =  responseJSON.stats[2].base_stat
-			datas[(i - 1)]["stats"]["special-attack"] =  responseJSON.stats[3].base_stat
-			datas[(i - 1)]["stats"]["special-defense"] =  responseJSON.stats[4].base_stat
-			datas[(i - 1)]["stats"]["speed"] =  responseJSON.stats[5].base_stat
-
-			datas[(i - 1)]["attribute"]["types"] = responseJSON.types;
-			datas[(i - 1)]["attribute"]["weight"] = responseJSON.weight;
-			datas[(i - 1)]["attribute"]["abilities"] = responseJSON.abilities;
-
-			console.log(responseJSON);
-		}
-		// console.log(responseJSON);
+		const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+		promises.push(fetch(url).then(response => response.json()));
 	}
+    const responses = await Promise.all(promises);
 
-	document.getElementById('loader_container').classList.add('d-none');
+    responses.forEach((response, index) => {
+        const pokemonID = startID + index;
+        const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
+        const image = response.sprites.other.dream_world.front_default;
+
+        datas[pokemonID - 1] = {
+            id: pokemonID,
+            loaded: false,
+            technical: {
+                name: name,
+                name_de: "",
+                url: response.url,
+                url_species: `https://pokeapi.co/api/v2/pokemon-species/${pokemonID}/`,
+                image_small: "",
+                image_big: image
+            },
+            attribute: {
+                types: response.types,
+                color: "",
+                weight: response.weight,
+                abilities: response.abilities
+            },
+            stats: {
+                hp: response.stats[0].base_stat,
+                attack: response.stats[1].base_stat,
+                defense: response.stats[2].base_stat,
+                'special-attack': response.stats[3].base_stat,
+                'special-defense': response.stats[4].base_stat,
+                speed: response.stats[5].base_stat
+            }
+        };
+    });
 }
 
 
 
 
+
+
+
+
+
+
+
+// diese Funktion umschreiben um ALLE gleichzeitig zu laden! Siehe fetchingPokemonData
+
+
+
+
+
+/*
 async function fetchingGermanName() {
+	console.log("Fetching German Names...");
 	document.getElementById('loader_container').classList.remove('d-none');
 	const loadingBar = document.getElementById('loadingbar');
 	loadingBar.classList.remove('d-none');
@@ -201,6 +219,27 @@ async function fetchingGermanName() {
 	loadingBar.innerHTML = '';
 	document.getElementById('loader_container').classList.add('d-none');
 }
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -234,11 +273,6 @@ function renderPokedex() {
 	}
 
 }
-
-
-
-
-
 
 
 
