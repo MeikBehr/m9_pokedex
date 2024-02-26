@@ -102,8 +102,14 @@ async function checkNumberOfAvailablePokemon() {
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
+
+	// dieses JSON beinhaltet schon die Englischen NAMEN und die URL!
+	console.log(responseJSON);
+
 	idNameAndUrlOfAllPokemon = responseJSON['results'];
 	numerOfAvailablePokemon = responseJSON['count'];
+
+	console.log(numerOfAvailablePokemon);
 
 	loadingBar.innerHTML = `checking available number of Pokemon... ${numerOfAvailablePokemon}`;
 	loadingBar.classList.add('d-none');
@@ -124,6 +130,7 @@ async function creatingNewDataArrayWithRootData() {
 
 
 
+// diese Funktion umschreiben um ALLE gleichzeitig zu laden!
 async function fetchingPokemonData() {
 
 	document.getElementById('loader_container').classList.remove('d-none');
