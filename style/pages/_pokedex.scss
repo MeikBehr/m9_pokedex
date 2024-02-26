@@ -107,6 +107,10 @@ footer {
     border-radius: 1rem;
     cursor: pointer;
 
+    &:hover {
+      
+    }
+
 }
 
 .pokedex__card:hover #pokemonPic {
@@ -119,7 +123,6 @@ footer {
 
 
 #pokemonPic {
-    // min-width: 30%;
     max-height: 35%;
     transition: transform 125ms ease-in-out;
 }
@@ -128,11 +131,10 @@ footer {
 
 
 
-
+// should be eliminated, not nessesary anymore!
 #loadingbar_container {
   position: relative;
   width: 98%;
-  // border: 1px solid purple;
   height: 1.5rem;
 }
 

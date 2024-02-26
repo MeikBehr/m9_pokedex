@@ -38,7 +38,7 @@ let currentPokemon;
 
 
 const startID = 1;
-const endID = 20;
+const endID = 25;
 
 
 
@@ -176,69 +176,31 @@ async function fetchingPokemonData() {
 
 
 
-
-
-
-
-
-
-
-// diese Funktion umschreiben um ALLE gleichzeitig zu laden! Siehe fetchingPokemonData
-
-
-
-
-
-/*
 async function fetchingGermanName() {
-	console.log("Fetching German Names...");
-	document.getElementById('loader_container').classList.remove('d-none');
-	const loadingBar = document.getElementById('loadingbar');
-	loadingBar.classList.remove('d-none');
-	loadingBar.style.width = `${0}%`;
-	loadingBar.innerHTML = '';
-	const amountToLoad = 5;
-	const loadingStep = 100 / amountToLoad;
+    console.log("Fetching German Names...");
+    document.getElementById('loader_container').classList.remove('d-none');
+
+	const promises = [];
 
 	for (let i = startID; i <= endID; i++) {
+        if (datas[(i - 1)]["technical"]["name_de"] === '') {
+            // let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
+            let url = datas[(i - 1)]["technical"]["url_species"];
+            promises.push(fetch(url).then(response => response.json()));
+        }
+    }
+    await Promise.all(promises).then(results => {
+        results.forEach((responseJSON, index) => {
+            const i = startID + index;
+            datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
+            datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
+            console.log(responseJSON["names"][5]["name"]);
+        });
+    });
 
-		if (datas[(i - 1)]["technical"]["name_de"] === '') {
-			// let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
-			let url = datas[(i - 1)]["technical"]["url_species"];
-			let response = await fetch(url);
-			let responseJSON = await response.json();
-			loadingBar.style.width = `${(loadingStep * i)}%`;
-			datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
-			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
-			console.log(responseJSON["names"][5]["name"]);	
-		}
-		
-	}
-	
-	document.getElementById('loadingbar_container').classList.add('d-none');
-	loadingBar.innerHTML = '';
-	document.getElementById('loader_container').classList.add('d-none');
+    document.getElementById('loadingbar_container').classList.add('d-none');
+    document.getElementById('loader_container').classList.add('d-none');
 }
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

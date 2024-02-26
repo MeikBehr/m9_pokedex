@@ -100,7 +100,6 @@ footer {
   border-radius: 1rem;
   cursor: pointer;
 }
-
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
   transform: scale(1.5) translateX(0px) translateY(-50%);
