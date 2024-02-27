@@ -96,9 +96,6 @@ async function init() {
 
 async function checkNumberOfAvailablePokemon() {
 	const loadingBar = document.getElementById('loadingbar');
-	loadingBar.classList.remove('d-none');
-	loadingBar.innerHTML = `checking available number of Pokemon...`;
-
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
@@ -110,9 +107,6 @@ async function checkNumberOfAvailablePokemon() {
 	numerOfAvailablePokemon = responseJSON['count'];
 
 	console.log(numerOfAvailablePokemon);
-
-	loadingBar.innerHTML = `checking available number of Pokemon... ${numerOfAvailablePokemon}`;
-	loadingBar.classList.add('d-none');
 }
 
 
