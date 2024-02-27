@@ -129,4 +129,12 @@ footer {
   color: white;
   padding-left: 1rem;
   line-height: 1.5rem;
+}
+
+.btn {
+  background-color: red;
+  color: white;
+  width: 200px;
+  height: 100px;
+  margin-top: 2rem;
 }/*# sourceMappingURL=main.css.map */

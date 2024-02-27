@@ -37,8 +37,8 @@ let idNameAndUrlOfAllPokemon = {};
 let currentPokemon;
 
 
-const startID = 1;
-const endID = 25;
+let startID = 1;
+let endID = 25;
 
 
 
@@ -83,7 +83,6 @@ async function init() {
 	await creatingNewDataArrayWithRootData();
 
 	await fetchingPokemonData();
-
 	await fetchingGermanName();
 	
 	clearPokedex();
@@ -95,7 +94,6 @@ async function init() {
 
 
 async function checkNumberOfAvailablePokemon() {
-	const loadingBar = document.getElementById('loadingbar');
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
@@ -192,7 +190,6 @@ async function fetchingGermanName() {
         });
     });
 
-    document.getElementById('loadingbar_container').classList.add('d-none');
     document.getElementById('loader_container').classList.add('d-none');
 }
 
@@ -229,6 +226,27 @@ function renderPokedex() {
 	}
 
 }
+
+
+
+
+async function loadmore() {
+	startID = endID + 1;
+	endID = endID + 25;
+	await fetchingPokemonData();
+	await fetchingGermanName();
+	renderPokedex();
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
