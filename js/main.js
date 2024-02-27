@@ -124,6 +124,9 @@ async function creatingNewDataArrayWithRootData() {
 
 
 async function fetchingPokemonData() {
+
+	loadingSpinner(true);
+
 	const promises = [];
 	for (let i = startID; i <= endID; i++) {
 		const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
@@ -163,6 +166,17 @@ async function fetchingPokemonData() {
             }
         };
     });
+
+	loadingSpinner(false);
+}
+
+
+function loadingSpinner(showing) {
+    if (showing == true) {
+		document.getElementById('loader_container').classList.remove('d-none');
+    } else {
+		document.getElementById('loader_container').classList.add('d-none');
+    }
 }
 
 
@@ -170,7 +184,7 @@ async function fetchingPokemonData() {
 
 async function fetchingGermanName() {
     console.log("Fetching German Names...");
-    document.getElementById('loader_container').classList.remove('d-none');
+	loadingSpinner(true);
 
 	const promises = [];
 
@@ -190,7 +204,8 @@ async function fetchingGermanName() {
         });
     });
 
-    document.getElementById('loader_container').classList.add('d-none');
+    // document.getElementById('loader_container').classList.add('d-none');
+	loadingSpinner(false);
 }
 
 
