@@ -18,6 +18,9 @@ header {
 
 
 
+
+
+
 .pokemon {
     position: relative;
     height: 100px;
@@ -107,6 +110,7 @@ footer {
     border-radius: 1rem;
     cursor: pointer;
     box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
+    transition: filter 500ms ease-in-out;
 
     & > h1 {
         font-size: 1.5rem;
@@ -116,11 +120,20 @@ footer {
 }
 
 
+
+
+.pokedex__card:hover {
+    transition: transform 125ms ease-in-out;
+    transform: scale(1.1) translateX(0px) translateY(0px);
+}
+
+
+
+
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
   transform: scale(1.5) translateX(0px) translateY(-50%);
 }
-
 
 
 #pokemonPic {
@@ -138,3 +151,10 @@ footer {
   margin-top: 2rem;
   border-radius: 1rem;
 }
+
+
+
+.blur {
+    transition: filter 150ms ease-in-out;
+    filter: opacity(70%);
+  }

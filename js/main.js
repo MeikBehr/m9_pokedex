@@ -249,6 +249,8 @@ function renderPokedex() {
 			 `
 	}
 
+	blurPokedex();
+
 }
 
 
@@ -265,10 +267,27 @@ async function loadmore() {
 
 
 
+function blurPokedex() {
+	const cards = document.querySelectorAll('.pokedex__card');
 
+	cards.forEach(card => {
+	card.addEventListener('mouseover', () => {
+		cards.forEach(otherCard => {
+		if (otherCard !== card) {
+			otherCard.classList.add('blur');
+		}
+		});
+	});
 
-
-
+	card.addEventListener('mouseout', () => {
+		cards.forEach(otherCard => {
+		if (otherCard !== card) {
+			otherCard.classList.remove('blur');
+		}
+		});
+	});
+	});
+}
 
 
 

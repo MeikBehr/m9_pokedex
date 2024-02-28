@@ -115,10 +115,16 @@ footer {
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
+  transition: filter 500ms ease-in-out;
 }
 .pokedex__card > h1 {
   font-size: 1.5rem;
   font-size: 1.5rem;
+}
+
+.pokedex__card:hover {
+  transition: transform 125ms ease-in-out;
+  transform: scale(1.1) translateX(0px) translateY(0px);
 }
 
 .pokedex__card:hover #pokemonPic {
@@ -139,4 +145,9 @@ footer {
   height: 100px;
   margin-top: 2rem;
   border-radius: 1rem;
+}
+
+.blur {
+  transition: filter 150ms ease-in-out;
+  filter: opacity(70%);
 }/*# sourceMappingURL=main.css.map */
