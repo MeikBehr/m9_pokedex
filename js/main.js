@@ -249,7 +249,7 @@ function renderPokedex() {
 			 `
 	}
 
-	blurPokedex();
+	hoverPokedexCSSEffects();
 
 }
 
@@ -267,7 +267,7 @@ async function loadmore() {
 
 
 
-function blurPokedex() {
+function hoverPokedexCSSEffects() {
 	const cards = document.querySelectorAll('.pokedex__card');
 
 	cards.forEach(card => {
