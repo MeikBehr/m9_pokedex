@@ -114,6 +114,11 @@ footer {
   background-color: rgb(219, 33, 33);
   border-radius: 1rem;
   cursor: pointer;
+  box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
+}
+.pokedex__card > h1 {
+  font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .pokedex__card:hover #pokemonPic {

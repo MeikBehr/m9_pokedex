@@ -106,16 +106,20 @@ footer {
     background-color: rgba(219,33,33,1);
     border-radius: 1rem;
     cursor: pointer;
+    box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
 
+    & > h1 {
+        font-size: 1.5rem;
+        font-size: clamp(1rem, 1.5rem, 2rem);
+    }
 
 }
+
 
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
   transform: scale(1.5) translateX(0px) translateY(-50%);
 }
-
-
 
 
 
