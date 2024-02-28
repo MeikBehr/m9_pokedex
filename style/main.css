@@ -12,12 +12,27 @@
 html {
   scroll-behavior: smooth;
   display: inline-block;
+  font-family: "Jost", sans-serif;
 }
 
 .d-none {
   display: none !important;
 }
 
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Jost-VariableFont_wght.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Jost";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/Jost-Italic-VariableFont_wght.ttf") format("truetype");
+}
 header {
   min-height: 100px;
   border: 1px solid red;
