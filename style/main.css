@@ -100,6 +100,7 @@ footer {
   border-radius: 1rem;
   cursor: pointer;
 }
+
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
   transform: scale(1.5) translateX(0px) translateY(-50%);
@@ -110,31 +111,12 @@ footer {
   transition: transform 125ms ease-in-out;
 }
 
-#loadingbar_container {
-  position: relative;
-  width: 98%;
-  height: 1.5rem;
-}
-
-#loadingbar {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background-color: blue;
-  border: 1px solid black;
-  border-radius: 1000rem;
-  color: white;
-  padding-left: 1rem;
-  line-height: 1.5rem;
-}
-
 .btn {
-  background-color: red;
+  background-color: green;
   color: white;
+  font-size: 2rem;
   width: 200px;
   height: 100px;
   margin-top: 2rem;
+  border-radius: 1rem;
 }/*# sourceMappingURL=main.css.map */

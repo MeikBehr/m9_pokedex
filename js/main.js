@@ -171,6 +171,8 @@ async function fetchingPokemonData() {
 }
 
 
+
+
 function loadingSpinner(showing) {
     if (showing == true) {
 		document.getElementById('loader_container').classList.remove('d-none');
@@ -222,7 +224,6 @@ function clearPokedex() {
 
 
 
-
 function renderPokedex() {
 	const container = document.getElementById('pokedex');
 
@@ -230,8 +231,16 @@ function renderPokedex() {
 		const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
 		const pokemonName = datas[(i - 1)]["technical"]["name"];
 		const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
+
+
+		let color = 'black';
+		if (datas[(i - 1)].attribute.color == 'blue' ||
+			datas[(i - 1)].attribute.color == 'black') {
+			color = 'white';
+		}
+
 		container.innerHTML += /*html*/ `
-			<div id="id${i}" class="pokedex__card" onclick="console.log('u clicked me')" style="background-color: ${datas[(i - 1)].attribute.color};">
+			<div id="id${i}" class="pokedex__card" onclick="console.log('u clicked me')" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
 	                <h1 id="pokemonName">${pokemonName}</h1>
 					<h3>(${pokemonNameDE})</h3>
 					<h2>ID# ${datas[(i - 1)]['id']}</h2>
@@ -252,9 +261,6 @@ async function loadmore() {
 	await fetchingGermanName();
 	renderPokedex();
 }
-
-
-
 
 
 
