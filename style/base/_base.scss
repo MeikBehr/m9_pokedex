@@ -16,9 +16,72 @@ html {
     scroll-behavior: smooth;
     display: inline-block;
     font-family: "Jost", sans-serif;
+    color-scheme: light;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: visible;
+    direction: ltr;
+    // background-image: url("../src/img/pexels-mike-fallarme-413195.jpg");
+    background-color: rgba(0,0,0,0.23);
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@supports (min-height: 100dvh) {
+    body {
+      min-height: 100dvh;
+    }
+}
+
+@media (max-width: 900px) {
+    body {
+      background-color: rgba(0,0,0,0.23);
+      background-image: none;
+    }
+}
+  
+.mainframe {
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    max-width: 1440px;
+    background-color: rgba(255, 255, 255,0.05);
 }
 
 
 .d-none {
     display: none!important;
 }
+
+
+
+/* ===== Scrollbar CSS ===== 
+https://codepen.io/stephenpaton-tech/full/JjRvGmY
+*/
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #c0c0c0;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #c0c0c0;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }

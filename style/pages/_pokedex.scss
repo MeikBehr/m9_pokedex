@@ -89,9 +89,10 @@ footer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     min-height: 70dvh;
     color: black;
-    gap: 1rem;
+    gap: 1.5rem;
     border: 1px solid blue;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
@@ -104,7 +105,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 10rem;
+    width: clamp(6rem, 10rem, 15rem);
     height: 15rem;
     background-color: rgba(219,33,33,1);
     border-radius: 1rem;
@@ -132,7 +133,7 @@ footer {
 
 .pokedex__card:hover #pokemonPic {
   transition: transform 125ms ease-in-out;
-  transform: scale(1.5) translateX(0px) translateY(-50%);
+  transform: scale(1.5) translateX(0px) translateY(-20%);
 }
 
 
@@ -156,5 +157,14 @@ footer {
 
 .blur {
     transition: filter 150ms ease-in-out;
-    filter: opacity(70%);
+    // filter: opacity(70%);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
