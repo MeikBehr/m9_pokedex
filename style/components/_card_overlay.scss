@@ -1,0 +1,99 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+
+#card_overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &:target {
+        display: flex;
+
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background-color: rgba(0,0,0,0.85);
+        @supports(backdrop-filter: blur(1rem)) {
+            background-color: rgba(0,0,0,0.15);
+            backdrop-filter: blur(5px);             
+        }
+
+        animation-name: card_overlay--fade-in;
+        animation-duration: 0.25s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+    }
+}
+
+
+@keyframes card_overlay--fade-in {
+    0% {
+        opacity: 0;
+    }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
+
+#card_overlay::before {
+    filter: blur(2px);
+}
+
+
+
+
+
+
+
+#card_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: clamp(12rem, 30vw, 50vw);
+    height: clamp(12rem, 30vw, 50vw);
+    border-radius: 0.25rem;
+    box-shadow: 0 0 1rem black;
+    animation-name: card_container--fade-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: backwards;
+    background-color: rgba(0,0,0,0.8);
+
+    @media (max-width: 70%) {
+        flex-direction: column; 
+    }
+}
+
+
+@keyframes card_container--fade-in {
+    0% {
+        transform: translate(0, calc(-50vh - 50%));
+    }
+    
+    100% {
+        transform: translate(0, 0);
+    }
+}

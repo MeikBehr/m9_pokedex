@@ -6,7 +6,6 @@
 
 header {
     min-height: 100px;
-    // border: 1px solid red;
 }
 
 
@@ -14,7 +13,6 @@ header {
 
 footer {
     min-height: 100px;
-    // border: 1px solid green;
 }
 
 
@@ -26,8 +24,6 @@ footer {
     min-height: 70dvh;
     color: black;
     gap: 1.5rem;
-    // border: 1px solid blue;
-    // box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
 
 
@@ -88,10 +84,10 @@ footer {
 
 
 
-.blur {
-    transition: filter 150ms ease-in-out;
-    // filter: opacity(70%);
-  }
+// .blur {
+//     transition: filter 150ms ease-in-out;
+//     // filter: opacity(70%);
+// }
 
   main {
     display: flex;

@@ -202,7 +202,7 @@ async function fetchingGermanName() {
             const i = startID + index;
             datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
             datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
-            console.log(responseJSON["names"][5]["name"]);
+            // console.log(responseJSON["names"][5]["name"]);
         });
     });
 
@@ -240,7 +240,7 @@ function renderPokedex() {
 		}
 
 		container.innerHTML += /*html*/ `
-			<div id="id${i}" class="pokedex__card" onclick="console.log('u clicked me')" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
+			<div id="id${i}" class="pokedex__card" onclick="showOnePokemonInOverlay(${i})" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
 	                <h1 id="pokemonName">${pokemonName}</h1>
 					<h3>(${pokemonNameDE})</h3>
 					<h2>ID# ${datas[(i - 1)]['id']}</h2>
@@ -249,7 +249,7 @@ function renderPokedex() {
 			 `
 	}
 
-	hoverPokedexCSSEffects();
+	// hoverPokedexCSSEffects();
 
 }
 
@@ -266,28 +266,66 @@ async function loadmore() {
 
 
 
+function showOnePokemonInOverlay(i) {
+	console.log('u clicked me! My ID is ', i);
+	document.getElementById('card_overlay').classList.remove('d-none');
 
-function hoverPokedexCSSEffects() {
-	const cards = document.querySelectorAll('.pokedex__card');
+	console.log("showOnePokemonInOverlay");
 
-	cards.forEach(card => {
-	card.addEventListener('mouseover', () => {
-		cards.forEach(otherCard => {
-		if (otherCard !== card) {
-			otherCard.classList.add('blur');
-		}
-		});
-	});
+	const container = document.getElementById('card_container');
+	container.innerHTML = '';
 
-	card.addEventListener('mouseout', () => {
-		cards.forEach(otherCard => {
-		if (otherCard !== card) {
-			otherCard.classList.remove('blur');
-		}
-		});
-	});
-	});
+	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
+	const pokemonName = datas[(i - 1)]["technical"]["name"];
+	const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
+	let color = 'black';
+	if (datas[(i - 1)].attribute.color == 'blue' ||
+		datas[(i - 1)].attribute.color == 'black') {
+		color = 'white';
+	}
+
+	container.innerHTML += /*html*/ `
+		<div id="id${i}" class="pokedex__card" onclick="showOnePokemonInOverlay(${i})" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
+                <h1 id="pokemonName">${pokemonName}</h1>
+				<h3>(${pokemonNameDE})</h3>
+				<h2>ID# ${datas[(i - 1)]['id']}</h2>
+                <img id="pokemonPic" src="${pokemonImage}" alt="">
+         </div>
+		 `
 }
+
+
+
+
+
+
+// function hoverPokedexCSSEffects() {
+// 	const cards = document.querySelectorAll('.pokedex__card');
+
+// 	cards.forEach(card => {
+// 	card.addEventListener('mouseover', () => {
+// 		cards.forEach(otherCard => {
+// 		if (otherCard !== card) {
+// 			otherCard.classList.add('blur');
+// 		}
+// 		});
+// 	});
+
+// 	card.addEventListener('mouseout', () => {
+// 		cards.forEach(otherCard => {
+// 		if (otherCard !== card) {
+// 			otherCard.classList.remove('blur');
+// 		}
+// 		});
+// 	});
+// 	});
+// }
+
+
+
+
+
+
 
 
 
