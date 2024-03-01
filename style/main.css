@@ -54,6 +54,10 @@ body {
   display: none !important;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 /* ===== Scrollbar CSS ===== 
 https://codepen.io/stephenpaton-tech/full/JjRvGmY
 */
@@ -248,9 +252,9 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
   border-radius: 0.25rem;
   box-shadow: 0 0 1rem black;
   animation-name: card_container--fade-in;
-  animation-duration: 1s;
+  animation-duration: 0.25s;
   animation-timing-function: ease-in-out;
-  animation-delay: 1s;
+  animation-delay: 0.25s;
   animation-iteration-count: 1;
   animation-fill-mode: backwards;
   background-color: rgba(0, 0, 0, 0.8);
@@ -269,6 +273,23 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
     transform: translate(0, 0);
   }
 }
+#card_overlay_close {
+  position: absolute;
+  z-index: 20000;
+  top: 1rem;
+  right: 1rem;
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  text-shadow: 0 0 0.5rem black;
+  color: white;
+  font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 header {
   min-height: 100px;
 }

@@ -88,6 +88,8 @@ async function init() {
 	clearPokedex();
 	renderPokedex();
 
+	setEventListener();
+
 	console.log(datas);
 }
 
@@ -268,9 +270,10 @@ async function loadmore() {
 
 function showOnePokemonInOverlay(i) {
 	console.log('u clicked me! My ID is ', i);
-	document.getElementById('card_overlay').classList.remove('d-none');
-
 	console.log("showOnePokemonInOverlay");
+
+	document.getElementById('card_overlay').classList.remove('d-none');
+	document.body.classList.add('no-scroll');
 
 	const container = document.getElementById('card_container');
 	container.innerHTML = '';
@@ -293,6 +296,45 @@ function showOnePokemonInOverlay(i) {
          </div>
 		 `
 }
+
+
+
+
+
+
+function setEventListener() {
+	const close = document.getElementById(`card_overlay_close`);
+	closeOverlay(close);
+}
+
+
+
+function closeOverlay(close) {
+	close.addEventListener('click', hideOverlay);
+	document.addEventListener('keydown', (event) => {
+		if (event.key === "Escape") {
+			hideOverlay();
+		}
+	});
+}
+
+
+function hideOverlay() {
+	const card_overlay = document.getElementById('card_overlay');
+	card_overlay.classList.add('d-none');
+	document.body.classList.remove('no-scroll');
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
