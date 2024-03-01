@@ -288,11 +288,11 @@ function showOnePokemonInOverlay(i) {
 	}
 
 	container.innerHTML += /*html*/ `
-		<div id="id${i}" class="pokedex__card" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
-                <h1 id="pokemonName">${pokemonName}</h1>
+		<div id="over__id${i}" class="over__pokedex__card" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
+                <h1 id="over__pokemonName">${pokemonName}</h1>
 				<h3>(${pokemonNameDE})</h3>
 				<h2>ID# ${datas[(i - 1)]['id']}</h2>
-                <img id="pokemonPic" src="${pokemonImage}" alt="">
+                <img id="over__pokemonPic" src="${pokemonImage}" alt="">
          </div>
 		 `
 }
