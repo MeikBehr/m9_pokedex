@@ -1,0 +1,10 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+footer {
+    min-height: 100px;
+}
+

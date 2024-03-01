@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+header {
+    min-height: 100px;
+}

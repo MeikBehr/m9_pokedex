@@ -1,3 +1,8 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
 * {
     margin: 0;
     padding: 0;

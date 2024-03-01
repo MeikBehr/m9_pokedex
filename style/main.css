@@ -302,8 +302,8 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
   transition: filter 500ms ease-in-out;
 }
 .over__pokedex__card > h1 {
-  font-size: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 header {
@@ -332,7 +332,6 @@ footer {
   gap: 1rem;
   width: 10rem;
   height: 15rem;
-  background-color: rgb(219, 33, 33);
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);

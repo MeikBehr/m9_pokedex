@@ -4,17 +4,6 @@
 @use "sass:math";
 
 
-header {
-    min-height: 100px;
-}
-
-
-
-
-footer {
-    min-height: 100px;
-}
-
 
 #pokedex {
     display: flex;
@@ -36,7 +25,6 @@ footer {
     gap: 1rem;
     width: clamp(6rem, 10rem, 15rem);
     height: 15rem;
-    background-color: rgba(219,33,33,1);
     border-radius: 1rem;
     cursor: pointer;
     box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
