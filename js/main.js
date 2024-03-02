@@ -139,7 +139,9 @@ async function fetchingPokemonData() {
     responses.forEach((response, index) => {
         const pokemonID = startID + index;
         const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
-        const image = response.sprites.other.dream_world.front_default;
+        const image = response.sprites.other.dream_world.front_default;			// standard
+		const image2 = response.sprites.other.home.front_default;				// modern
+		const image_small = response.sprites.other.showdown.front_default;		// animated one
 		
 		originalDatas.push(response);
 
@@ -151,8 +153,9 @@ async function fetchingPokemonData() {
                 name_de: "",
                 url: response.url,
                 url_species: `https://pokeapi.co/api/v2/pokemon-species/${pokemonID}/`,
-                image_small: "",
-                image_big: image
+                image_small: image_small,
+                image_big: image,
+				image_big2: image2,
             },
             attribute: {
                 types: response.types,
@@ -172,18 +175,11 @@ async function fetchingPokemonData() {
     });
 
 	loadingSpinner(false);
+
+	console.log(originalDatas);
 }
 
 
-
-
-function loadingSpinner(showing) {
-    if (showing == true) {
-		document.getElementById('loader_container').classList.remove('d-none');
-    } else {
-		document.getElementById('loader_container').classList.add('d-none');
-    }
-}
 
 
 
@@ -218,11 +214,22 @@ async function fetchingGermanName() {
 
 
 
+function loadingSpinner(showing) {
+    if (showing == true) {
+		document.getElementById('loader_container').classList.remove('d-none');
+    } else {
+		document.getElementById('loader_container').classList.add('d-none');
+    }
+}
+
+
+
+
+
 function clearPokedex() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
 }
-
 
 
 
@@ -280,6 +287,8 @@ function showOnePokemonInOverlay(i) {
 	container.innerHTML = '';
 
 	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
+	const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
+	const pokemonImageSmall = datas[(i - 1)]["technical"]["image_small"];
 	const pokemonName = datas[(i - 1)]["technical"]["name"];
 	const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
 	let color = 'black';
@@ -293,7 +302,11 @@ function showOnePokemonInOverlay(i) {
                 <h1 id="over__pokemonName">${pokemonName}</h1>
 				<h2>(${pokemonNameDE})</h2>
 				<h2>ID# ${datas[(i - 1)]['id']}</h2>
-                <img id="over__pokemonPic" src="${pokemonImage}" alt="">
+				<div class="multipleImage">
+					<img id="over__pokemonPic" src="${pokemonImage}" alt="">
+					<img id="over__pokemonPic-2" src="${pokemonImage2}" alt="">
+					<img id="over__pokemonPic-small" src="${pokemonImageSmall}" alt="">
+				</div>
          </div>
 		 `
 }

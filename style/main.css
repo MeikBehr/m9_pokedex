@@ -306,6 +306,25 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
   font-size: 2.5rem;
 }
 
+.multipleImage {
+  display: flex;
+}
+
+#over__pokemonPic {
+  width: auto;
+  height: 200px;
+}
+
+#over__pokemonPic-2 {
+  width: auto;
+  height: 300px;
+}
+
+#over__pokemonPic-small {
+  width: auto;
+  height: 50px;
+}
+
 header {
   min-height: 100px;
 }
