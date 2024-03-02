@@ -30,7 +30,7 @@ de : https://pokeapi.co/api/v2/language/6/
 */
 
 
-
+let originalDatas = [];
 let datas = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
@@ -140,6 +140,8 @@ async function fetchingPokemonData() {
         const pokemonID = startID + index;
         const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
         const image = response.sprites.other.dream_world.front_default;
+		
+		originalDatas.push(response);
 
         datas[pokemonID - 1] = {
             id: pokemonID,
@@ -194,7 +196,6 @@ async function fetchingGermanName() {
 
 	for (let i = startID; i <= endID; i++) {
         if (datas[(i - 1)]["technical"]["name_de"] === '') {
-            // let url = `https://pokeapi.co/api/v2/pokemon-species/${i}/`;
             let url = datas[(i - 1)]["technical"]["url_species"];
             promises.push(fetch(url).then(response => response.json()));
         }
