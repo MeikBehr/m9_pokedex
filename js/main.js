@@ -32,7 +32,7 @@ de : https://pokeapi.co/api/v2/language/6/
 
 let originalDatasV2 = [];
 let originalDatasSpecies = [];
-
+let originalDatasEvolution = [];
 let datas = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
@@ -58,6 +58,8 @@ function createNewDataObject(element, index) {
 			"url_evolution": "",
 			"image_small": "",
 			"image_big": "",
+			"evolves_from": "",
+			"evolves_to": "",
 		},
 
 		"attribute": {
@@ -87,6 +89,8 @@ async function init() {
 
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
+
+	await fetchingPokemonDataFromSourceEvolutionChain();
 
 	
 	clearPokedex();
@@ -197,7 +201,9 @@ SPECIES enthält..:
 - url evolutionchains	z.B. "https://pokeapi.co/api/v2/evolution-chain/1/"
 - habitat				z.B. Grassland
 - id					z.B. 1
-- evolves_from_species		z.B. bei Pikachu steht da Pichu
+- evolves_from_species.name		z.B. bei Pikachu steht da Pichu
+
+
 
 */
 async function fetchingPokemonDataFromSourceSpecies() {
@@ -219,11 +225,41 @@ async function fetchingPokemonDataFromSourceSpecies() {
 			datas[(i - 1)]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
 			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
 			originalDatasSpecies.push(responseJSON);
+
             // console.log(responseJSON["names"][5]["name"]);
         });
     });
 
 	console.log(originalDatasSpecies);
+	loadingSpinner(false);
+}
+
+
+
+async function fetchingPokemonDataFromSourceEvolutionChain() {
+    console.log("Fetching EvolutionChain Names...");
+	loadingSpinner(true);
+
+	const promises = [];
+
+	for (let i = startID; i <= endID; i++) {
+        let url = datas[(i - 1)]["technical"]["url_evolution"];
+        promises.push(fetch(url).then(response => response.json()));
+    }
+    await Promise.all(promises).then(results => {
+        results.forEach((responseJSON, index) => {
+            const i = startID + index;
+
+			if (responseJSON["chain"]["evolves_to"].length > 0) {
+			  datas[(i - 1)]["technical"]["evolves_to"] = responseJSON["chain"]["evolves_to"][0]["species"]["name"];
+			}
+
+			originalDatasEvolution.push(responseJSON);
+            // console.log(responseJSON["names"][5]["name"]);
+        });
+    });
+
+	console.log(originalDatasEvolution);
 	loadingSpinner(false);
 }
 
