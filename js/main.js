@@ -7,7 +7,7 @@ Pokedex like:
 https://pokemondb.net/pokedex/charmeleon
 
 
--> als erstes vollständige Datenerfassung bei "fetchingPokemonData()" durchführen! Bisher sind da nur einige wenige Daten erfasst worden!!!!
+-> als erstes vollständige Datenerfassung bei "fetchingPokemonDataFromSourceV2()" durchführen! Bisher sind da nur einige wenige Daten erfasst worden!!!!
 
 - Auf klick einer Karte sollen die exakten Daten von der API geladen werden.
 - Header mit Grafik, searchbar und nav
@@ -30,7 +30,9 @@ de : https://pokeapi.co/api/v2/language/6/
 */
 
 
-let originalDatas = [];
+let originalDatasV2 = [];
+let originalDatasSpecies = [];
+
 let datas = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
@@ -53,6 +55,7 @@ function createNewDataObject(element, index) {
 			"name_de": "",
 			"url": `${element['url']}`,
 			"url_species": "",
+			"url_evolution": "",
 			"image_small": "",
 			"image_big": "",
 		},
@@ -82,8 +85,9 @@ async function init() {
 	await checkNumberOfAvailablePokemon();
 	await creatingNewDataArrayWithRootData();
 
-	await fetchingPokemonData();
-	await fetchingGermanName();
+	await fetchingPokemonDataFromSourceV2();
+	await fetchingPokemonDataFromSourceSpecies();
+
 	
 	clearPokedex();
 	renderPokedex();
@@ -125,7 +129,7 @@ async function creatingNewDataArrayWithRootData() {
 
 
 
-async function fetchingPokemonData() {
+async function fetchingPokemonDataFromSourceV2() {
 
 	loadingSpinner(true);
 
@@ -143,7 +147,7 @@ async function fetchingPokemonData() {
 		const image2 = response.sprites.other.home.front_default;				// modern
 		const image_small = response.sprites.other.showdown.front_default;		// animated one
 		
-		originalDatas.push(response);
+		originalDatasV2.push(response);
 
         datas[pokemonID - 1] = {
             id: pokemonID,
@@ -176,7 +180,7 @@ async function fetchingPokemonData() {
 
 	loadingSpinner(false);
 
-	console.log(originalDatas);
+	console.log(originalDatasV2);
 }
 
 
@@ -184,7 +188,19 @@ async function fetchingPokemonData() {
 
 
 
-async function fetchingGermanName() {
+/*
+SPECIES enthält..:
+
+- deutschen Namen		datas[(i - 1)]["technical"]["name_de"]
+- Farbe					datas[(i - 1)]["attribute"]["color"]
+- egg-groups			Array, z.B. ["monster", "plant"]
+- url evolutionchains	z.B. "https://pokeapi.co/api/v2/evolution-chain/1/"
+- habitat				z.B. Grassland
+- id					z.B. 1
+- evolves_from_species		z.B. bei Pikachu steht da Pichu
+
+*/
+async function fetchingPokemonDataFromSourceSpecies() {
     console.log("Fetching German Names...");
 	loadingSpinner(true);
 
@@ -200,14 +216,17 @@ async function fetchingGermanName() {
         results.forEach((responseJSON, index) => {
             const i = startID + index;
             datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
-            datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
+			datas[(i - 1)]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
+			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
+			originalDatasSpecies.push(responseJSON);
             // console.log(responseJSON["names"][5]["name"]);
         });
     });
 
-    // document.getElementById('loader_container').classList.add('d-none');
+	console.log(originalDatasSpecies);
 	loadingSpinner(false);
 }
+
 
 
 
@@ -269,8 +288,8 @@ function renderPokedex() {
 async function loadmore() {
 	startID = endID + 1;
 	endID = endID + 25;
-	await fetchingPokemonData();
-	await fetchingGermanName();
+	await fetchingPokemonDataFromSourceV2();
+	await fetchingPokemonDataFromSourceSpecies();
 	renderPokedex();
 }
 
