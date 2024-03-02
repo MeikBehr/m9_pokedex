@@ -203,9 +203,9 @@ SPECIES enthält..:
 - id					z.B. 1
 - evolves_from_species.name		z.B. bei Pikachu steht da Pichu
 
-
-
 */
+
+// ACHTUNG: evolution_url ist für alle 3 Pokemon immer die gleiche!!!!
 async function fetchingPokemonDataFromSourceSpecies() {
     console.log("Fetching German Names...");
 	loadingSpinner(true);
@@ -230,12 +230,12 @@ async function fetchingPokemonDataFromSourceSpecies() {
         });
     });
 
-	console.log(originalDatasSpecies);
+	console.log("Species", originalDatasSpecies);
 	loadingSpinner(false);
 }
 
 
-
+// Evolution Chain has to be redone - not working right now
 async function fetchingPokemonDataFromSourceEvolutionChain() {
     console.log("Fetching EvolutionChain Names...");
 	loadingSpinner(true);
@@ -255,15 +255,12 @@ async function fetchingPokemonDataFromSourceEvolutionChain() {
 			}
 
 			originalDatasEvolution.push(responseJSON);
-            // console.log(responseJSON["names"][5]["name"]);
         });
     });
 
-	console.log(originalDatasEvolution);
+	console.log("Evolution", originalDatasEvolution);
 	loadingSpinner(false);
 }
-
-
 
 
 
