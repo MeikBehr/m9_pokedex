@@ -8,6 +8,21 @@ $height-header: 10rem;
 $height-footer: 10rem;
 
 
+$height-grid-item: 12rem;
+$width-grid-item: 12rem;
+$hightOfPokemonCard: 12rem;
+$widthOfPokemonCard: 12rem;
+$border-radius: 2rem;
+$border-width: calc(1rem / 16);
+$border-color: rgba(0, 0, 0, 0.15);
+
+
+
+
+// transition-time intentionally slowed down to show the tilting effect of each cards.
+$transition-time: 2s;
+
+
 
 
 // 1440px max contentwidth

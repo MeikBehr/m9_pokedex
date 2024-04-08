@@ -1,0 +1,283 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+
+.fp-grid-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($width-grid-item, 1fr));
+    gap: 0.1rem;
+    padding: 2rem 5rem;
+    justify-items: center;
+    align-content: baseline;
+    min-height: calc(100dvh - $height-footer - $height-header);
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.fp-grid-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    width: $width-grid-item;
+    height: $height-grid-item;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 2rem;
+    transition: all 250ms linear;
+    background: linear-gradient(0deg, #0ada0a 0%, green 80%);
+    // background: radial-gradient(circle at 100%, #0ada0a 0%, green 80%);
+}
+
+
+.fp-pokemon_card {
+    box-shadow: 0.5rem 0.5rem 2rem rgba(0, 0, 0, 0.5);
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: $border-radius;
+}
+
+.fp-pokemon_card-under {
+    height: 100%;
+    padding: 0 0 2rem 0;
+    background-color: green;
+    background-image:linear-gradient(0deg, rgb(10, 218, 10) 5%, green 70%);
+    border-radius: $border-radius;
+    border-left: $border-width solid $border-color;
+    border-right: $border-width solid $border-color;
+    border-top: $border-width solid $border-color;
+    transition: filter 100ms linear;
+}
+
+
+.fp-pokemon_card-link-text {
+    opacity: 0;
+    color: white;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 2rem;
+    text-shadow: 3px 3px 3px rgba(0,0,0,1.2);
+}
+
+
+.fp-pokemon_card__content {
+    position: relative;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: $border-radius;
+}
+
+
+.fp-pokemon_card__content-heading {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    color: rgba(255,255,255,1);
+    font-size: 1.75rem;
+    font-weight: 500;
+    padding-top: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+}
+
+
+.fp-pokemon_card__content-subhead {
+    position: absolute;
+    top: 3.5rem;
+    left: 1rem;
+    color: rgba(255,255,255,0.95);
+    font-size: 1rem;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+}
+
+
+
+.fp-pokemon_type_container {
+    position: absolute;
+    top: 3.5rem;
+    right: 1rem;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,1.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1rem;
+}
+
+
+.fp-pokemon_type {
+    text-align: center;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.3rem;
+    background-color: inherit;
+    backdrop-filter: brightness(80%);
+}
+
+
+
+@mixin fp-pokemon_card-over-bg($alpha-dt: 0%) {
+    height: 100%;
+    background-image: linear-gradient(0deg, color.scale($color-primary, $alpha: $alpha-dt) 0%, color.scale($color-primary, $lightness: -20%, $alpha: $alpha-dt) 100%);
+}
+
+
+.fp-pokemon_card-over {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: -$border-width;
+    left: -$border-width;
+    right: -$border-width;
+    bottom: -$border-width;
+    z-index: 2;
+    background-color: $color-primary;
+    border-radius: $border-radius;
+    padding-top: 2rem;
+}
+
+
+.fp-pokemon_card-link {
+    color: white;
+    max-height: 100%;
+}
+
+
+.fp-pokemon_card__image-pokemon {
+    width: 50%;
+    z-index: 1000;
+    transition: width 100ms linear;
+    filter: drop-shadow(1px 1px 1px #000000);
+    transition: filter 10s ease-in-out;
+}
+
+
+
+/* ====  3D  Effekt  ==== */
+
+%fp-pokemon_card-container--3dEffekt {
+    perspective: 10000px;
+    .fp-pokemon_card {
+        transform: rotateX(calc(calc(var(--mouse-y, 0.5) - 0.5) * -20deg)) 
+                   rotateY(calc(calc(var(--mouse-x, 0.5) - 0.5) * 20deg));
+        
+    }
+}
+
+
+.fp-pokemon_card-container--3d {
+    @extend %fp-pokemon_card-container--3dEffekt;
+
+    .fp-pokemon_card-over {
+        display: none;
+    }
+}
+
+
+
+.fp-pokemon_card-container--3d-hover {
+    @extend %fp-pokemon_card-container--3dEffekt;
+
+    .fp-pokemon_card {
+        transform-style: preserve-3d;
+    }
+
+    .fp-pokemon_card-over {
+        background-color: transparent;
+        @include fp-pokemon_card-over-bg(-90%);
+        transform: translateZ(1rem);
+        transition: transform 150ms ease-in-out;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .fp-pokemon_card-over:hover {
+        transform: translateZ(2rem);
+        transition: transform $transition-time ease-in-out;
+    }
+
+    &:hover .fp-pokemon_card-under {
+        filter: blur(0.2rem);
+        transition: filter $transition-time ease-in-out;
+    }
+
+    &:hover .fp-pokemon_card-link-text {
+        animation: fp-focus-in-expand 500ms linear 500ms 1 normal none;
+        opacity: 1;
+        transition: opacity $transition-time ease-in-out;
+        // transition-delay: 1s;
+        animation: fp-vibrate-slow 500ms linear 750ms infinite normal none;
+    }
+
+    &:hover .fp-pokemon_card__image-pokemon {
+        width: 100%;
+        transition: width $transition-time linear;
+        animation: fp-shadow-pokemon 750ms linear 100ms 1 normal forwards;
+    }
+
+}
+
+
+@keyframes fp-shadow-pokemon {
+
+    from {
+      filter: drop-shadow(1px 1px 1px #000000);
+    }
+
+    to {
+        filter: drop-shadow(36px 16px 1px #000000);
+      }
+    
+}
+
+
+@keyframes fp-focus-in-expand {
+			
+    0% {
+        letter-spacing:-.5em;
+        filter:blur(6px);
+        opacity:0;
+    }
+    100% {
+        filter:blur(0);
+        opacity:1;
+    }
+}
+
+
+
+@keyframes fp-vibrate-slow {
+			
+    0% {
+        transform:translate(0);
+    }
+    20% {
+        transform:translate(1.5px,-1.5px);
+    }
+    40% {
+        transform:translate(1.5px,1.5px);
+    }
+    60% {
+        transform:translate(-1.5px,1.5px);
+    }
+    80% {
+        transform:translate(-1.5px,-1.5px);
+    }
+    100% {
+        transform:translate(0);
+    }
+}
