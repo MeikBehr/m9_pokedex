@@ -5,59 +5,61 @@
 
 
 
-#pokedex {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    min-height: 70dvh;
-    color: black;
-    gap: 1.5rem;
-}
-
-
-
-.pokedex__card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: clamp(6rem, 10rem, 15rem);
-    height: 15rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
-    transition: filter 500ms ease-in-out;
-
-    & > h1 {
-        font-size: 1.5rem;
-        font-size: clamp(1rem, 1.5rem, 2rem);
-    }
-
-}
+// #pokedex {
+//     display: flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
+//     justify-content: center;
+//     min-height: 70dvh;
+//     color: black;
+//     gap: 1.5rem;
+// }
 
 
 
 
-.pokedex__card:hover {
-    transition: transform 125ms ease-in-out;
-    transform: scale(1.1) translateX(0px) translateY(0px);
-}
+
+// .pokedex__card {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     gap: 1rem;
+//     width: clamp(6rem, 10rem, 15rem);
+//     height: 15rem;
+//     border-radius: 1rem;
+//     cursor: pointer;
+//     box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
+//     transition: filter 500ms ease-in-out;
+
+//     & > h1 {
+//         font-size: 1.5rem;
+//         font-size: clamp(1rem, 1.5rem, 2rem);
+//     }
+
+// }
 
 
 
 
-.pokedex__card:hover #pokemonPic {
-  transition: transform 125ms ease-in-out;
-  transform: scale(1.5) translateX(0px) translateY(-20%);
-}
+// .pokedex__card:hover {
+//     transition: transform 125ms ease-in-out;
+//     transform: scale(1.1) translateX(0px) translateY(0px);
+// }
 
 
-#pokemonPic {
-    max-height: 35%;
-    transition: transform 125ms ease-in-out;
-}
+
+
+// .pokedex__card:hover #pokemonPic {
+//   transition: transform 125ms ease-in-out;
+//   transform: scale(1.5) translateX(0px) translateY(-20%);
+// }
+
+
+// #pokemonPic {
+//     max-height: 35%;
+//     transition: transform 125ms ease-in-out;
+// }
 
 
 .btn {
@@ -68,6 +70,7 @@
   height: 100px;
   margin-top: 2rem;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 
@@ -77,11 +80,19 @@
 //     // filter: opacity(70%);
 // }
 
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-left: 2rem;
-    padding-right: 2rem;
+// main {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     padding-left: 2rem;
+//     padding-right: 2rem;
+// }
+
+
+.load-more-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2rem;
 }

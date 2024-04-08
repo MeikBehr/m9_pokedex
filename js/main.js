@@ -221,8 +221,10 @@ async function fetchingPokemonDataFromSourceSpecies() {
 function loadingSpinner(showing) {
     if (showing == true) {
 		document.getElementById('loader_container').classList.remove('d-none');
+		document.body.classList.add('no-scroll');
     } else {
 		document.getElementById('loader_container').classList.add('d-none');
+		document.body.classList.remove('no-scroll');
     }
 }
 
@@ -289,6 +291,8 @@ function renderPokedex() {
 	         </div> -->
 			 `
 	}
+
+	addMousePositionToCssPokemon();
 
 }
 
@@ -392,11 +396,11 @@ function hideDetail(id) {
 		item.style.zIndex = 0;
 		hidePokemonOverlay();
 	}, 100);
-  }
+}
   
   
   
-  function showDetail(id) {
+function showDetail(id) {
 	  PokemonShowDetailOverlay(id);
 	  const item = document.getElementById(`card-${id}`);
 	  const closeButton = item.querySelector('.detail-close-button');
@@ -415,30 +419,30 @@ function hideDetail(id) {
 		  hideDetail(id);
 		}
 	  });
-  }
+}
   
   
   
-  function PokemonShowDetailOverlay(id) {
+function PokemonShowDetailOverlay(id) {
 	  const overlay = document.getElementById('fp-overlay')
 	  overlay.classList.remove('d-none');
 	  document.body.classList.add('no-scroll');
 	
-  }
+}
   
   
   
-  function hidePokemonOverlay() {
+function hidePokemonOverlay() {
 	 const overlay = document.getElementById('fp-overlay');
 	 overlay.classList.add('d-none');
 	 document.body.classList.remove('no-scroll');
-  }
+}
   
   
   
   
   
-  function addMousePositionToCssPokemon() {
+function addMousePositionToCssPokemon() {
 	const elements = document.querySelectorAll(".fp-card-container");
 	for(const element of elements) {
 		element.addEventListener("mousemove", function(e) {
@@ -451,11 +455,11 @@ function hideDetail(id) {
 			element.style = "";
 		});
 	}
-  }
+}
   
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-	setTimeout(addMousePositionToCssPokemon, 1);
-  } else {
-	document.addEventListener("DOMContentLoaded", addMousePositionToCssPokemon, false);
-  }
+// if (document.readyState === "complete" || document.readyState === "interactive") {
+// 	setTimeout(addMousePositionToCssPokemon, 1);
+// } else {
+// 	document.addEventListener("DOMContentLoaded", addMousePositionToCssPokemon, false);
+// }
   

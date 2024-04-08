@@ -374,6 +374,11 @@ footer {
 footer a {
   color: #eeeeee;
 }
+@media (max-width: 28em) {
+  footer {
+    font-size: 1rem;
+  }
+}
 
 @keyframes animationBackgroundFooter {
   0% {
@@ -414,9 +419,9 @@ footer a {
 .fp-card-container {
   display: flex;
   gap: 2rem;
-  height: 12rem;
-  width: 12rem;
-  min-width: 12rem;
+  height: 15rem;
+  width: 15rem;
+  min-width: 15rem;
   border-radius: 2rem;
 }
 
@@ -570,8 +575,8 @@ footer a {
 .fp-grid-container {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 0.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
   padding: 2rem 5rem;
   justify-items: center;
   align-content: baseline;
@@ -579,6 +584,11 @@ footer a {
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
+}
+@media (max-width: 28em) {
+  .fp-grid-container {
+    padding: 2rem 2rem;
+  }
 }
 
 .fp-grid-item {
@@ -588,8 +598,8 @@ footer a {
   align-items: center;
   color: white;
   font-size: 2rem;
-  width: 12rem;
-  height: 12rem;
+  width: 15rem;
+  height: 15rem;
   background-color: transparent;
   cursor: pointer;
   border-radius: 2rem;
@@ -841,49 +851,6 @@ footer a {
   filter: blur(1px);
 }
 
-#pokedex {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 70dvh;
-  color: black;
-  gap: 1.5rem;
-}
-
-.pokedex__card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  width: 10rem;
-  height: 15rem;
-  border-radius: 1rem;
-  cursor: pointer;
-  box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.6);
-  transition: filter 500ms ease-in-out;
-}
-.pokedex__card > h1 {
-  font-size: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.pokedex__card:hover {
-  transition: transform 125ms ease-in-out;
-  transform: scale(1.1) translateX(0px) translateY(0px);
-}
-
-.pokedex__card:hover #pokemonPic {
-  transition: transform 125ms ease-in-out;
-  transform: scale(1.5) translateX(0px) translateY(-20%);
-}
-
-#pokemonPic {
-  max-height: 35%;
-  transition: transform 125ms ease-in-out;
-}
-
 .btn {
   background-color: green;
   color: white;
@@ -892,13 +859,12 @@ footer a {
   height: 100px;
   margin-top: 2rem;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
-main {
+.load-more-btn {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  margin-bottom: 2rem;
 }/*# sourceMappingURL=main.css.map */

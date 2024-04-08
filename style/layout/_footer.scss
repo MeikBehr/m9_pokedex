@@ -21,6 +21,10 @@ footer {
     & a {
         color: $color-secondary;
     }
+
+    @media (max-width: $breakpoint-xxs) {
+        font-size: 1rem;
+    }
 }
 
 
