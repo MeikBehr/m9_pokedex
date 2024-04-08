@@ -326,11 +326,76 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
 }
 
 header {
-  min-height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10rem;
+  background-image: url(../src/img/pexels-pixabay-206359.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  color: #eeeeee;
+  text-wrap: wrap;
+  text-align: center;
+}
+header img {
+  filter: drop-shadow(5px 5px 8px #000000);
 }
 
+.glowIMG {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  filter: drop-shadow(0px 0px 10px transparent);
+  animation: glowIMG 1s linear infinite alternate;
+}
+
+@keyframes glowIMG {
+  from {
+    filter: drop-shadow(0px 0px 5px blue);
+  }
+  to {
+    filter: drop-shadow(0px 0px 50px #c7ba07);
+  }
+}
 footer {
-  min-height: 100px;
+  color: #eeeeee;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 200;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(116, 69, 226) 60%, rgb(70, 77, 181) 100%);
+  background-size: 200% 200%;
+  animation: animationBackgroundFooter 10s ease-in-out infinite;
+}
+footer a {
+  color: #eeeeee;
+}
+
+@keyframes animationBackgroundFooter {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
+}
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1440px;
+  min-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer a {
+  padding: 0 1rem;
 }
 
 #pokedex {

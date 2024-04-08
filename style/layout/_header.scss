@@ -5,5 +5,59 @@
 
 
 header {
-    min-height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: $height-header;
+    background-image: url(../src/img/pexels-pixabay-206359.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    color: $color-secondary;
+    text-wrap: wrap;
+    text-align: center;
+
+
+    & img {
+        filter: drop-shadow(5px 5px 8px #000000);
+    }
+
+}
+
+
+// .glow {
+//     font-size: 80px;
+//     color: #fff;
+//     text-align: center;
+//     animation: glow 1s linear infinite alternate;
+// }
+  
+// @keyframes glow {
+//     from {
+//       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+//     }
+    
+//     to {
+//       text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+//     }
+// }
+
+
+.glowIMG {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    filter: drop-shadow(0px 0px 10px transparent);
+    animation: glowIMG 1s linear infinite alternate;
+}
+
+
+@keyframes glowIMG {
+    from {
+      filter: drop-shadow(0px 0px 5px blue);
+    }
+    
+    to {
+      filter: drop-shadow(0px 0px 50px #c7ba07);
+    }
 }

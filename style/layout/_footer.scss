@@ -5,6 +5,41 @@
 
 
 footer {
-    min-height: 100px;
+    color: $color-secondary;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    font-weight: 200;
+    height: $height-footer;
+    background-color: rgba(0,0,0,0.3);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(116,69,226,1) 60%, rgba(70,77,181,1) 100%); 
+    background-size: 200% 200%;
+    animation: animationBackgroundFooter 10s ease-in-out infinite;
+    
+
+    & a {
+        color: $color-secondary;
+    }
 }
 
+
+@keyframes animationBackgroundFooter { 
+    0%{background-position:10% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:10% 0%}
+}
+
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1440px;
+    min-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    & a {
+        padding: 0 1rem;
+    }
+}

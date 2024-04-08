@@ -1,0 +1,37 @@
+@use "sass:color";
+@use 'sass:math';
+
+$color-primary: #011820!default;
+$color-secondary: #eeeeee!default;
+
+$height-header: 10rem;
+$height-footer: 10rem;
+
+
+
+
+// 1440px max contentwidth
+$breakpoint-content: 90rem!default;
+
+// 1200px oder schmaler 
+$breakpoint-lg: 75em!default;
+
+// 992px oder schmaler 
+$breakpoint-md: 62em!default;
+
+// 768px oder schmaler 
+$breakpoint-sm: 48em!default;
+
+// 576px oder schmaler 
+$breakpoint-xs: 36em!default;
+
+// 448px oder schmaler 
+$breakpoint-xxs: 28em!default;
+
+// Breakpoints 
+@media (max-width: $breakpoint-content) {}
+@media (max-width: $breakpoint-lg) {}
+@media (max-width: $breakpoint-md) {}
+@media (max-width: $breakpoint-sm) {}
+@media (max-width: $breakpoint-xs) {}
+@media (max-width: $breakpoint-xxs) {}
