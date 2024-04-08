@@ -54,10 +54,11 @@ header {
 
 @keyframes glowIMG {
     from {
-      filter: drop-shadow(0px 0px 5px blue);
+      filter: drop-shadow(0px 0px 2px blue);
     }
     
     to {
-      filter: drop-shadow(0px 0px 50px #c7ba07);
+      filter: drop-shadow(0px 0px 20px #ffcd37);
     }
 }
+
