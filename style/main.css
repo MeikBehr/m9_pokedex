@@ -746,21 +746,21 @@ footer a {
 }
 .fp-pokemon_card-container--3d-hover .fp-pokemon_card-over:hover {
   transform: translateZ(2rem);
-  transition: transform 2s ease-in-out;
+  transition: transform 1s ease-in-out;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card-under {
   filter: blur(0.2rem);
-  transition: filter 2s ease-in-out;
+  transition: filter 1s ease-in-out;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card-link-text {
   animation: fp-focus-in-expand 500ms linear 500ms 1 normal none;
   opacity: 1;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1s ease-in-out;
   animation: fp-vibrate-slow 500ms linear 750ms infinite normal none;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card__image-pokemon {
   width: 100%;
-  transition: width 2s linear;
+  transition: width 1s linear;
   animation: fp-shadow-pokemon 750ms linear 100ms 1 normal forwards;
 }
 
