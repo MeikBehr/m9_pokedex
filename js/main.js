@@ -304,7 +304,7 @@ function renderPokedex() {
 		}
 
 		let backgroundColor = getColor(background);
-		let backgroundColorBrighter = lightenColor(backgroundColor, 20)
+		let backgroundColorBrighter = lightenColor(backgroundColor, 40)
 
 		container.innerHTML += /*html*/ `
 
@@ -313,7 +313,7 @@ function renderPokedex() {
 				<!-- Grid-->
 				<div class="fp-card-container fp-pokemon_card-container--3d-hover">
 					<div class="fp-pokemon_card">
-						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
+						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 70%);">
 							<div class="fp-pokemon_card__content">
 								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonName}</h4>
 								<p class="fp-pokemon_card__content-subhead">(${pokemonNameDE})</p>
