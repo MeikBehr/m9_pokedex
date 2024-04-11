@@ -119,6 +119,7 @@ async function fetchingPokemonDataFromSourceV2() {
 		
 		originalDatasV2.push(response);
 
+
         datas[pokemonID - 1] = {
             id: pokemonID,
             loaded: false,
@@ -295,23 +296,15 @@ function renderPokedex() {
 		const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
 		const background = datas[(i - 1)].attribute.color;
 
-		let color = 'black';
+		let color = 'white';
 		if (datas[(i - 1)].attribute.color == 'blue' ||
 			datas[(i - 1)].attribute.color == 'black') {
 			color = 'white';
+			console.log("color is ", color)
 		}
 
 		let backgroundColor = getColor(background);
-		let backgroundColorBrighter = lightenColor(backgroundColor, 30)
-
-		if (backgroundColor == '#FFFFFF' || '#ffffff') {
-			backgroundColor = '#a4a4a4';
-			color = 'black';
-		}
-
-		console.log(background, " normal = ", backgroundColor);
-		console.log(background, " heller = ", backgroundColorBrighter);
-		
+		let backgroundColorBrighter = lightenColor(backgroundColor, 20)
 
 		container.innerHTML += /*html*/ `
 
@@ -320,13 +313,12 @@ function renderPokedex() {
 				<!-- Grid-->
 				<div class="fp-card-container fp-pokemon_card-container--3d-hover">
 					<div class="fp-pokemon_card">
-						<div class="fp-pokemon_card-under">
+						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
 							<div class="fp-pokemon_card__content">
 								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonName}</h4>
 								<p class="fp-pokemon_card__content-subhead">(${pokemonNameDE})</p>
 								<div class="fp-pokemon_type_container">
-									<div class="fp-pokemon_type">Grass</div>
-									<div class="fp-pokemon_type">Poison</div>
+									${datas[i - 1].attribute.types.map(type => `<div class="fp-pokemon_type">${type.type.name}</div>`).join('')}
 								</div>
 							</div>
 						</div>
@@ -342,7 +334,7 @@ function renderPokedex() {
 				</div>
 
 				<!-- Detail -->
-				<div class="fp-detail-container d-none" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
+				<div class="fp-detail-container d-none" style="color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
 
 					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
 					</div>
@@ -361,8 +353,7 @@ function renderPokedex() {
 						</div>
 						<div>
 							<div class="detail_type_container">
-								<div class="detail_type">Grass</div>
-								<div class="detail_type">Poison</div>
+								${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
 							</div>
 						</div>
 
