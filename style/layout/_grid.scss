@@ -71,8 +71,8 @@
     opacity: 0;
     color: white;
     position: absolute;
-    top: 2rem;
-    left: 2rem;
+    top: -1rem;
+    left: 5rem;
     font-size: 2rem;
     text-shadow: 3px 3px 3px rgba(0,0,0,1.2);
 }
@@ -166,7 +166,11 @@
 
 
 .fp-pokemon_card__image-pokemon {
-    width: 50%;
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    width: 8rem;
+    max-height: 8rem;
     z-index: 1000;
     transition: width 100ms linear;
     filter: drop-shadow(1px 1px 1px #000000);
@@ -180,8 +184,8 @@
 %fp-pokemon_card-container--3dEffekt {
     perspective: 10000px;
     .fp-pokemon_card {
-        transform: rotateX(calc(calc(var(--mouse-y, 0.5) - 0.5) * -20deg)) 
-                   rotateY(calc(calc(var(--mouse-x, 0.5) - 0.5) * 20deg));
+        transform: rotateX(calc(calc(var(--mouse-y, 0.5) - 0.5) * -30deg)) 
+                   rotateY(calc(calc(var(--mouse-x, 0.5) - 0.5) * 30deg));
         
     }
 }
@@ -223,6 +227,7 @@
     }
 
     &:hover .fp-pokemon_card-link-text {
+        // transform: translate(0, -3rem);
         animation: fp-focus-in-expand 500ms linear 500ms 1 normal none;
         opacity: 1;
         transition: opacity $transition-time ease-in-out;
@@ -231,8 +236,12 @@
     }
 
     &:hover .fp-pokemon_card__image-pokemon {
-        width: 100%;
-        transition: width $transition-time linear;
+        // width: 80%;
+        // max-width: 80%;
+        // max-height: 80%;
+        // transition: width $transition-time linear;
+        // transform: translate(36px, 36px);
+        // transition: translate $transition-time linear;
         animation: fp-shadow-pokemon 750ms linear 100ms 1 normal forwards;
     }
 
@@ -243,10 +252,12 @@
 
     from {
       filter: drop-shadow(1px 1px 1px #000000);
+      transform: scale(1) translate(0px, 0px);
     }
 
     to {
         filter: drop-shadow(36px 16px 1px #000000);
+        transform: scale(1.25) translate(36px, -16px);
       }
     
 }

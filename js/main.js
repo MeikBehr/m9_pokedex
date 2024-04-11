@@ -443,7 +443,8 @@ function hidePokemonOverlay() {
   
   
 function addMousePositionToCssPokemon() {
-	const elements = document.querySelectorAll(".fp-card-container");
+	// const elements = document.querySelectorAll(".fp-card-container");
+	const elements = document.querySelectorAll(".fp-grid-item");
 	for(const element of elements) {
 		element.addEventListener("mousemove", function(e) {
 			let rect = element.getBoundingClientRect();

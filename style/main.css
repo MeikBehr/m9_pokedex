@@ -634,8 +634,8 @@ footer a {
   opacity: 0;
   color: white;
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: -1rem;
+  left: 5rem;
   font-size: 2rem;
   text-shadow: 3px 3px 3px rgb(0, 0, 0);
 }
@@ -714,7 +714,11 @@ footer a {
 }
 
 .fp-pokemon_card__image-pokemon {
-  width: 50%;
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  width: 8rem;
+  max-height: 8rem;
   z-index: 1000;
   transition: width 100ms linear;
   filter: drop-shadow(1px 1px 1px #000000);
@@ -726,7 +730,7 @@ footer a {
   perspective: 10000px;
 }
 .fp-pokemon_card-container--3d-hover .fp-pokemon_card, .fp-pokemon_card-container--3d .fp-pokemon_card {
-  transform: rotateX(calc((var(--mouse-y, 0.5) - 0.5) * -20deg)) rotateY(calc((var(--mouse-x, 0.5) - 0.5) * 20deg));
+  transform: rotateX(calc((var(--mouse-y, 0.5) - 0.5) * -30deg)) rotateY(calc((var(--mouse-x, 0.5) - 0.5) * 30deg));
 }
 
 .fp-pokemon_card-container--3d .fp-pokemon_card-over {
@@ -746,30 +750,30 @@ footer a {
 }
 .fp-pokemon_card-container--3d-hover .fp-pokemon_card-over:hover {
   transform: translateZ(2rem);
-  transition: transform 1s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card-under {
   filter: blur(0.2rem);
-  transition: filter 1s ease-in-out;
+  transition: filter 0.5s ease-in-out;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card-link-text {
   animation: fp-focus-in-expand 500ms linear 500ms 1 normal none;
   opacity: 1;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
   animation: fp-vibrate-slow 500ms linear 750ms infinite normal none;
 }
 .fp-pokemon_card-container--3d-hover:hover .fp-pokemon_card__image-pokemon {
-  width: 100%;
-  transition: width 1s linear;
   animation: fp-shadow-pokemon 750ms linear 100ms 1 normal forwards;
 }
 
 @keyframes fp-shadow-pokemon {
   from {
     filter: drop-shadow(1px 1px 1px #000000);
+    transform: scale(1) translate(0px, 0px);
   }
   to {
     filter: drop-shadow(36px 16px 1px #000000);
+    transform: scale(1.25) translate(36px, -16px);
   }
 }
 @keyframes fp-focus-in-expand {
