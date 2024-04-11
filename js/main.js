@@ -304,7 +304,7 @@ function renderPokedex() {
 		}
 
 		let backgroundColor = getColor(background);
-		let backgroundColorBrighter = lightenColor(backgroundColor, 40)
+		let backgroundColorBrighter = lightenColor(backgroundColor, 80)
 
 		container.innerHTML += /*html*/ `
 
