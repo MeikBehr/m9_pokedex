@@ -10,11 +10,34 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 20%;
+    // transform: translate(-50%, -50%);
     transition: width 125ms linear, transform 500ms linear;
-    background-color: green;
-    z-index: 10000000;
+    background-color: gray;
+    z-index: 1000000;
+
+    animation: card-rotation 250ms linear 100ms 1 normal forwards;
 }
+
+
+@keyframes card-rotation {
+
+    from {
+        transform: rotate3d(1,1,0,0deg) translate(0%, 0%);
+    }
+
+    to {
+        transform: rotate3d(1,1,0,-360deg) translate(-50%, -50%);
+      }
+    
+}
+
+
+
+
+
+
 
 
 

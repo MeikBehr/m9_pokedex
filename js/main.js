@@ -274,7 +274,7 @@ function renderPokedex() {
 						</div>
 						<div class="fp-pokemon_card-over">
 							<div>
-								<a class="fp-pokemon_card-link" href="#" onclick="showDetail(${i})">
+								<a class="fp-pokemon_card-link" onclick="showDetail(${i})">
 									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage}"  alt="Bild vom Pokemon ${pokemonName}">
 									<p class="fp-pokemon_card-link-text">Click me!</p>
 								</a>
@@ -390,7 +390,7 @@ function hideDetail(id) {
   
 function showDetail(id) {
 	PokemonShowDetailOverlay(id);
-	console.log("Aufgerufene ID = ", id);
+
 	let item = document.getElementById(`card-${id}`);
 	item.style.zIndex = 1000000;
 	item.classList.remove('flippingDiv-center');
@@ -401,18 +401,18 @@ function showDetail(id) {
 	item.classList.add('flippingDiv-center');
 
 
-	  const closeButton = item.querySelector('.detail-close-button');
-	  const pokemonCard = item.querySelector('.fp-card-container');
-	  const pokemonDetail = item.querySelector('.fp-detail-container');
-	  closeButton.classList.remove('d-none');
-	  pokemonCard.classList.add('d-none');
-	  pokemonDetail.classList.remove('d-none');
+    const closeButton = item.querySelector('.detail-close-button');
+    const pokemonCard = item.querySelector('.fp-card-container');
+    const pokemonDetail = item.querySelector('.fp-detail-container');
+    closeButton.classList.remove('d-none');
+    pokemonCard.classList.add('d-none');
+    pokemonDetail.classList.remove('d-none');
 
-	  document.addEventListener('keydown', (event) => {
-		if (event.key === "Escape") {
+    document.addEventListener('keydown', (event) => {
+    	if (event.key === "Escape") {
 		  hideDetail(id);
 		}
-	  });
+	});
 }
   
   
