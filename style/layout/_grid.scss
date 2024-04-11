@@ -41,7 +41,7 @@
     transition: all 250ms linear;
     transform: scale(1);
     z-index: 0;
-    background: linear-gradient(0deg, #0ada0a 0%, green 80%);
+    // background: linear-gradient(0deg, #0ada0a 0%, green 80%);
 }
 
 
@@ -68,7 +68,8 @@
 
 .fp-pokemon_card-link-text {
     opacity: 0;
-    color: white;
+    color: #ffffff;
+    // color: #a4a4a4;
     position: absolute;
     top: -1rem;
     left: 5rem;

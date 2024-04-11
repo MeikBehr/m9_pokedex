@@ -240,20 +240,94 @@ function clearPokedex() {
 
 
 
+
+function getColor(name) {
+    switch (name) {
+        case 'green':
+            return '#006400'; // Hex-Wert für Grün
+        case 'red':
+            return '#FF0000'; // Hex-Wert für Rot
+        case 'blue':
+            return '#0000FF'; // Hex-Wert für Blau
+        case 'white':
+            return '#FFFFFF'; // Hex-Wert für Weiß
+        case 'yellow':
+            return '#FFFF00'; // Hex-Wert für Gelb
+        case 'brown':
+            return '#A52A2A'; // Hex-Wert für Braun
+        case 'purple':
+            return '#800080'; // Hex-Wert für Lila
+        case 'pink':
+            return '#FFC0CB'; // Hex-Wert für Rosa
+        case 'gray':
+            return '#808080'; // Hex-Wert für Grau
+        case 'black':
+            return '#000000'; // Hex-Wert für Schwarz
+        default:
+            return '#FFFFFF'; // Hex-Wert für Weiß (Default)
+    }
+}
+
+
+
+
+function lightenColor(hex, amount) {
+    // Überprüfen, ob die Farbe im richtigen Format vorliegt (#RRGGBB)
+    if (!/^#[0-9A-F]{6}$/i.test(hex)) {
+        throw new Error('Invalid color format. Please provide a color in the format #RRGGBB.');
+    }
+
+    // Hexadezimalwert in einen Dezimalwert umwandeln und aufhellen
+    let num = parseInt(hex.slice(1), 16);
+    let r = (num >> 16) + amount;
+    let g = ((num >> 8) & 0x00FF) + amount;
+    let b = (num & 0x0000FF) + amount;
+
+    // Grenzwerte für RGB sicherstellen
+    r = Math.min(255, r);
+    g = Math.min(255, g);
+    b = Math.min(255, b);
+
+    // Neue Farbe zurückgeben
+    return '#' + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+}
+
+
+
+
+
+
+
+
+
 function renderPokedex() {
 	const container = document.getElementById('pokedex');
 
 	for (let i = startID; i <= endID; i++) {
+		const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
 		const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
+		const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
 		const pokemonName = datas[(i - 1)]["technical"]["name"];
 		const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
-
+		const background = datas[(i - 1)].attribute.color;
 
 		let color = 'black';
 		if (datas[(i - 1)].attribute.color == 'blue' ||
 			datas[(i - 1)].attribute.color == 'black') {
 			color = 'white';
 		}
+
+		let backgroundColor = getColor(background);
+		let backgroundColorBrighter = lightenColor(backgroundColor, 50)
+
+		if (backgroundColor == '#FFFFFF' || '#ffffff') {
+			backgroundColor = '#a4a4a4';
+			color = 'black';
+		}
+
+		console.log(background, " normal = ", backgroundColor);
+		console.log(background, " heller = ", backgroundColorBrighter);
+		
 
 		container.innerHTML += /*html*/ `
 
@@ -275,7 +349,7 @@ function renderPokedex() {
 						<div class="fp-pokemon_card-over">
 							<div>
 								<a class="fp-pokemon_card-link" onclick="showDetail(${i})">
-									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage}"  alt="Bild vom Pokemon ${pokemonName}">
+									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonName}">
 									<p class="fp-pokemon_card-link-text">Click me!</p>
 								</a>
 							</div>
@@ -284,12 +358,12 @@ function renderPokedex() {
 				</div>
 
 				<!-- Detail -->
-				<div class="fp-detail-container d-none">
+				<div class="fp-detail-container d-none" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 80%);">
 
 					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
 					</div>
 
-					<div class="detail-header">
+					<div class="detail-header" style="color: ${color};">
 
 						<div class="detail-header-nav">
 							<p><</p>
@@ -298,8 +372,8 @@ function renderPokedex() {
 						</div>
 
 						<div class="detail-header-headline">
-							<div>Venusaur</div>
-							<div>#3</div>
+							<div>${pokemonName}</div>
+							<div>#${datas[(i - 1)]['id']}</div>
 						</div>
 						<div>
 							<div class="detail_type_container">
@@ -332,7 +406,7 @@ function renderPokedex() {
 						<div class="detail-content-explanation">
 							<div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
 							<div class="detail-content-image">
-								<img src="${pokemonImage}" alt="Animiertes Bild von XXXX">
+								<img src="${pokemonImageAnimated}" alt="Animiertes Bild von XXXX">
 							</div>
 						</div>
 
@@ -463,84 +537,4 @@ function addMousePositionToCssPokemon() {
   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function showOnePokemonInOverlay(i) {
-// 	console.log('u clicked me! My ID is ', i);
-// 	console.log("showOnePokemonInOverlay");
-
-// 	document.getElementById('card_overlay').classList.remove('d-none');
-// 	document.body.classList.add('no-scroll');
-
-// 	const container = document.getElementById('card_container');
-// 	container.innerHTML = '';
-
-// 	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
-// 	const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
-// 	const pokemonImageSmall = datas[(i - 1)]["technical"]["image_small"];
-// 	const pokemonName = datas[(i - 1)]["technical"]["name"];
-// 	const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
-// 	let color = 'black';
-// 	if (datas[(i - 1)].attribute.color == 'blue' ||
-// 		datas[(i - 1)].attribute.color == 'black') {
-// 		color = 'white';
-// 	}
-
-// 	container.innerHTML += /*html*/ `
-// 		<div id="over__id${i}" class="over__pokedex__card" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
-//                 <h1 id="over__pokemonName">${pokemonName}</h1>
-// 				<h2>(${pokemonNameDE})</h2>
-// 				<h2>ID# ${datas[(i - 1)]['id']}</h2>
-// 				<div class="multipleImage">
-// 					<img id="over__pokemonPic" src="${pokemonImage}" alt="">
-// 					<img id="over__pokemonPic-2" src="${pokemonImage2}" alt="">
-// 					<img id="over__pokemonPic-small" src="${pokemonImageSmall}" alt="">
-// 				</div>
-//          </div>
-// 		 `
-// }
-
-
-
-
-
-
-// function setEventListener() {
-// 	const close = document.getElementById(`card_overlay_close`);
-// 	closeOverlay(close);
-// }
-
-
-
-// function closeOverlay(close) {
-// 	close.addEventListener('click', hideOverlay);
-// 	document.addEventListener('keydown', (event) => {
-// 		if (event.key === "Escape") {
-// 			hideOverlay();
-// 		}
-// 	});
-// }
-
-
-// function hideOverlay() {
-// 	const card_overlay = document.getElementById('card_overlay');
-// 	card_overlay.classList.add('d-none');
-// 	document.body.classList.remove('no-scroll');
-// }
 
