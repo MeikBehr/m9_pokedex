@@ -71,8 +71,8 @@
     color: #ffffff;
     // color: #a4a4a4;
     position: absolute;
-    top: -1rem;
-    left: 5rem;
+    top: 1rem;
+    left: 3.5rem;
     font-size: 2rem;
     text-shadow: 3px 3px 3px rgba(0,0,0,1.2);
 }
@@ -232,7 +232,7 @@
         opacity: 1;
         transition: opacity $transition-time ease-in-out;
         // transition-delay: 1s;
-        animation: fp-vibrate-slow 500ms linear 750ms infinite normal none;
+        animation: fp-vibrate-slow 500ms linear 250ms infinite normal none;
     }
 
     &:hover .fp-pokemon_card__image-pokemon {
@@ -257,7 +257,7 @@
 
     to {
         filter: drop-shadow(36px 16px 1px #000000);
-        transform: scale(1.25) translate(36px, -16px);
+        transform: scale(1.5) translate(36px, -16px);
       }
     
 }
