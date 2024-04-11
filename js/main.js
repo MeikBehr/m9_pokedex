@@ -242,56 +242,40 @@ function clearPokedex() {
 
 
 function getColor(name) {
-    switch (name) {
-        case 'green':
-            return '#006400'; // Hex-Wert für Grün
-        case 'red':
-            return '#FF0000'; // Hex-Wert für Rot
-        case 'blue':
-            return '#0000FF'; // Hex-Wert für Blau
-        case 'white':
-            return '#FFFFFF'; // Hex-Wert für Weiß
-        case 'yellow':
-            return '#FFFF00'; // Hex-Wert für Gelb
-        case 'brown':
-            return '#A52A2A'; // Hex-Wert für Braun
-        case 'purple':
-            return '#800080'; // Hex-Wert für Lila
-        case 'pink':
-            return '#FFC0CB'; // Hex-Wert für Rosa
-        case 'gray':
-            return '#808080'; // Hex-Wert für Grau
-        case 'black':
-            return '#000000'; // Hex-Wert für Schwarz
-        default:
-            return '#FFFFFF'; // Hex-Wert für Weiß (Default)
-    }
+    const colors = {
+        green: '#006400',
+        red: '#FF0000',
+        blue: '#0000FF',
+        white: '#FFFFFF',
+        yellow: '#FFFF00',
+        brown: '#A52A2A',
+        purple: '#800080',
+        pink: '#FFC0CB',
+        gray: '#808080',
+        black: '#000000'
+    };
+    return colors[name] || '#FFFFFF';
 }
 
 
 
 
 function lightenColor(hex, amount) {
-    // Überprüfen, ob die Farbe im richtigen Format vorliegt (#RRGGBB)
     if (!/^#[0-9A-F]{6}$/i.test(hex)) {
         throw new Error('Invalid color format. Please provide a color in the format #RRGGBB.');
     }
 
-    // Hexadezimalwert in einen Dezimalwert umwandeln und aufhellen
-    let num = parseInt(hex.slice(1), 16);
-    let r = (num >> 16) + amount;
-    let g = ((num >> 8) & 0x00FF) + amount;
-    let b = (num & 0x0000FF) + amount;
+    // Farbwerte extrahieren
+    let [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
 
-    // Grenzwerte für RGB sicherstellen
-    r = Math.min(255, r);
-    g = Math.min(255, g);
-    b = Math.min(255, b);
+    // Farben aufhellen und Grenzwerte für RGB sicherstellen
+    r = Math.min(255, r + amount);
+    g = Math.min(255, g + amount);
+    b = Math.min(255, b + amount);
 
     // Neue Farbe zurückgeben
-    return '#' + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+    return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
 }
-
 
 
 
@@ -318,7 +302,7 @@ function renderPokedex() {
 		}
 
 		let backgroundColor = getColor(background);
-		let backgroundColorBrighter = lightenColor(backgroundColor, 50)
+		let backgroundColorBrighter = lightenColor(backgroundColor, 30)
 
 		if (backgroundColor == '#FFFFFF' || '#ffffff') {
 			backgroundColor = '#a4a4a4';
@@ -358,7 +342,7 @@ function renderPokedex() {
 				</div>
 
 				<!-- Detail -->
-				<div class="fp-detail-container d-none" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 80%);">
+				<div class="fp-detail-container d-none" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
 
 					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
 					</div>
