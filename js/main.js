@@ -257,7 +257,8 @@ function renderPokedex() {
 
 		container.innerHTML += /*html*/ `
 
-			<div class="fp-grid-item"  id="card-${i}" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
+			<!-- Karte ${i}-->
+			<div class="fp-grid-item" id="card-${i}" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
 				<!-- Grid-->
 				<div class="fp-card-container fp-pokemon_card-container--3d-hover">
 					<div class="fp-pokemon_card">
@@ -282,13 +283,65 @@ function renderPokedex() {
 					</div>
 				</div>
 
+				<!-- Detail -->
+				<div class="fp-detail-container d-none">
 
-			<!-- <div id="id${i}" class="pokedex__card" onclick="showOnePokemonInOverlay(${i})" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
-	                <h1 id="pokemonName">${pokemonName}</h1>
-					<h3>(${pokemonNameDE})</h3>
-					<h2>ID# ${datas[(i - 1)]['id']}</h2>
-	                <img id="pokemonPic" src="${pokemonImage}" alt="">
-	         </div> -->
+					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
+					</div>
+
+					<div class="detail-header">
+
+						<div class="detail-header-nav">
+							<p><</p>
+							<div class="detail-close-button d-none" onclick="hideDetail(${i})"><div>ESC</div></div>
+							<p>></p>
+						</div>
+
+						<div class="detail-header-headline">
+							<div>Venusaur</div>
+							<div>#3</div>
+						</div>
+						<div>
+							<div class="detail_type_container">
+								<div class="detail_type">Grass</div>
+								<div class="detail_type">Poison</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="detail-content">
+
+						<div>
+							<div class="detail-content-headline">
+								<div>Info</div>
+								<div>Stats</div>
+								<div>Moves</div>
+								<div>Evolution</div>
+							</div>
+						</div>
+
+						<div class="detail-content-stats">
+							<div>Species: Speed Pokemon</div>
+							<div>Height: 0.7m</div>
+							<div>Weight: 6.9kg</div>
+							<div>Abilities: overgrow, chlorophyll</div>
+						</div>
+
+						<div class="detail-content-explanation">
+							<div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
+							<div class="detail-content-image">
+								<img src="${pokemonImage}" alt="Animiertes Bild von XXXX">
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			
+			</div>
+
 			 `
 	}
 
@@ -306,6 +359,125 @@ async function loadmore() {
 	await fetchingPokemonDataFromSourceSpecies();
 	renderPokedex();
 }
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+function hideDetail(id) {
+	const item = document.getElementById(`card-${id}`);
+	const closeButton = item.querySelector('.detail-close-button');
+	item.classList.add('d-none');
+	item.style.transform = '';
+	item.classList.remove('flippingDiv-center');
+	setTimeout(() => {
+		item.classList.remove('d-none');
+		closeButton.classList.add('d-none');
+		const pokemonCard = item.querySelector('.fp-card-container');
+		const pokemonDetail = item.querySelector('.fp-detail-container');
+		pokemonCard.classList.remove('d-none');
+		pokemonDetail.classList.add('d-none');
+		item.style.zIndex = 0;
+		hidePokemonOverlay();
+	}, 100);
+}
+  
+  
+  
+function showDetail(id) {
+	PokemonShowDetailOverlay(id);
+	console.log("Aufgerufene ID = ", id);
+	let item = document.getElementById(`card-${id}`);
+	item.style.zIndex = 1000000;
+	item.classList.remove('flippingDiv-center');
+	item.classList.remove('flippingDiv-center');
+	item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
+	item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
+	item.style.zIndex = 1000000;
+	item.classList.add('flippingDiv-center');
+
+
+	  const closeButton = item.querySelector('.detail-close-button');
+	  const pokemonCard = item.querySelector('.fp-card-container');
+	  const pokemonDetail = item.querySelector('.fp-detail-container');
+	  closeButton.classList.remove('d-none');
+	  pokemonCard.classList.add('d-none');
+	  pokemonDetail.classList.remove('d-none');
+
+	  document.addEventListener('keydown', (event) => {
+		if (event.key === "Escape") {
+		  hideDetail(id);
+		}
+	  });
+}
+  
+  
+
+
+
+
+  
+function PokemonShowDetailOverlay(id) {
+	  const overlay = document.getElementById('fp-overlay')
+	  overlay.classList.remove('d-none');
+	  document.body.classList.add('no-scroll');
+}
+  
+  
+  
+function hidePokemonOverlay() {
+	 const overlay = document.getElementById('fp-overlay');
+	 overlay.classList.add('d-none');
+	 document.body.classList.remove('no-scroll');
+}
+  
+  
+  
+  
+  
+function addMousePositionToCssPokemon() {
+	// const elements = document.querySelectorAll(".fp-card-container");
+	const elements = document.querySelectorAll(".fp-grid-item");
+	for(const element of elements) {
+		element.addEventListener("mousemove", function(e) {
+			let rect = element.getBoundingClientRect();
+			let x = e.clientX - rect.left; 
+			let y = e.clientY - rect.top;
+			element.style = "--mouse-x:" + (x / element.offsetWidth) + ";--mouse-y:" + (y / element.offsetHeight) + ";";
+		});
+		element.addEventListener("mouseout", function(e) {
+			element.style = "";
+		});
+	}
+}
+  
+// if (document.readyState === "complete" || document.readyState === "interactive") {
+// 	setTimeout(addMousePositionToCssPokemon, 1);
+// } else {
+// 	document.addEventListener("DOMContentLoaded", addMousePositionToCssPokemon, false);
+// }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -372,95 +544,3 @@ async function loadmore() {
 // 	document.body.classList.remove('no-scroll');
 // }
 
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-function hideDetail(id) {
-	const item = document.getElementById(`card-${id}`);
-	const closeButton = item.querySelector('.detail-close-button');
-	item.classList.add('d-none');
-	item.style.transform = '';
-	item.classList.remove('flippingDiv-center');
-	setTimeout(() => {
-		item.classList.remove('d-none');
-		closeButton.classList.add('d-none');
-		const pokemonCard = item.querySelector('.fp-card-container');
-		const pokemonDetail = item.querySelector('.fp-detail-container');
-		pokemonCard.classList.remove('d-none');
-		pokemonDetail.classList.add('d-none');
-		item.style.zIndex = 0;
-		hidePokemonOverlay();
-	}, 100);
-}
-  
-  
-  
-function showDetail(id) {
-	  PokemonShowDetailOverlay(id);
-	  const item = document.getElementById(`card-${id}`);
-	  const closeButton = item.querySelector('.detail-close-button');
-	  const pokemonCard = item.querySelector('.fp-card-container');
-	  const pokemonDetail = item.querySelector('.fp-detail-container');
-	  item.classList.remove('flippingDiv-center');
-	  item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
-	  item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
-	  item.style.zIndex = 100000;
-	  item.classList.add('flippingDiv-center');
-	  closeButton.classList.remove('d-none');
-	  pokemonCard.classList.add('d-none');
-	  pokemonDetail.classList.remove('d-none');
-	  document.addEventListener('keydown', (event) => {
-		if (event.key === "Escape") {
-		  hideDetail(id);
-		}
-	  });
-}
-  
-  
-  
-function PokemonShowDetailOverlay(id) {
-	  const overlay = document.getElementById('fp-overlay')
-	  overlay.classList.remove('d-none');
-	  document.body.classList.add('no-scroll');
-	
-}
-  
-  
-  
-function hidePokemonOverlay() {
-	 const overlay = document.getElementById('fp-overlay');
-	 overlay.classList.add('d-none');
-	 document.body.classList.remove('no-scroll');
-}
-  
-  
-  
-  
-  
-function addMousePositionToCssPokemon() {
-	// const elements = document.querySelectorAll(".fp-card-container");
-	const elements = document.querySelectorAll(".fp-grid-item");
-	for(const element of elements) {
-		element.addEventListener("mousemove", function(e) {
-			let rect = element.getBoundingClientRect();
-			let x = e.clientX - rect.left; 
-			let y = e.clientY - rect.top;
-			element.style = "--mouse-x:" + (x / element.offsetWidth) + ";--mouse-y:" + (y / element.offsetHeight) + ";";
-		});
-		element.addEventListener("mouseout", function(e) {
-			element.style = "";
-		});
-	}
-}
-  
-// if (document.readyState === "complete" || document.readyState === "interactive") {
-// 	setTimeout(addMousePositionToCssPokemon, 1);
-// } else {
-// 	document.addEventListener("DOMContentLoaded", addMousePositionToCssPokemon, false);
-// }
-  
