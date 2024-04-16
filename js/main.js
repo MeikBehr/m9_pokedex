@@ -13,7 +13,8 @@ let currentPokemon;
 
 
 let startID = 1;
-let endID = 25;
+// let endID = 25;
+let endID = 5;
 
 
 
@@ -300,7 +301,7 @@ function renderPokedex() {
 		if (datas[(i - 1)].attribute.color == 'blue' ||
 			datas[(i - 1)].attribute.color == 'black') {
 			color = 'white';
-			console.log("color is ", color)
+			// console.log("color is ", color)
 		}
 
 		let backgroundColor = getColor(background);
