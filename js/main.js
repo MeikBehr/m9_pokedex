@@ -322,12 +322,12 @@ function renderPokedex() {
 								</div>
 							</div>
 						</div>
-						<div class="fp-pokemon_card-over">
+						<div class="fp-pokemon_card-over"  onclick="showDetail(${i})">
 							<div>
-								<a class="fp-pokemon_card-link" onclick="showDetail(${i})">
+								<div class="fp-pokemon_card-link">
 									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonName}">
 									<p class="fp-pokemon_card-link-text">Click me!</p>
-								</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -419,22 +419,6 @@ function showDetail(i) {
 		`;
 	
 	
-
-
-	const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
-	const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
-
-
-	// item.querySelector();
-	// item.querySelector();
-
-
-
-
-
-
-
-
 
 
 
