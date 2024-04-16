@@ -634,12 +634,31 @@ footer a {
     transform: translate(0);
   }
 }
+.flippingCard {
+  position: absolute;
+  display: flex;
+  top: calc(50% - 7.5rem);
+  left: calc(50% - 7.5rem);
+  width: 15rem;
+  height: 15rem;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 2rem;
+  transition: all 250ms linear;
+  transform: scale(1);
+}
+
 .flippingDiv-center {
-  width: clamp(18rem, 60vw, 50rem);
-  height: clamp(18rem, 60vh, 50rem);
+  width: 1px;
+  height: 1px;
   position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   transition: width 125ms linear, transform 500ms linear;
   background-color: gray;
   z-index: 1000000;
@@ -648,10 +667,14 @@ footer a {
 
 @keyframes card-rotation {
   from {
-    transform: rotate3d(1, 1, 0, 0deg) translate(0%, 0%);
+    transform: rotate3d(1, 1, 0, 0deg) translate(-50%, -50%);
+    width: 1px;
+    height: 1px;
   }
   to {
     transform: rotate3d(1, 1, 0, -360deg) translate(-50%, -50%);
+    width: clamp(18rem, 60vw, 50rem);
+    height: clamp(18rem, 60vh, 50rem);
   }
 }
 .fp-card-container {

@@ -335,7 +335,7 @@ function renderPokedex() {
 				</div>
 
 				<!-- Detail -->
-				<div class="fp-detail-container d-none" style="color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
+				<!-- <div class="fp-detail-container d-none" style="color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
 
 					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
 					</div>
@@ -388,7 +388,7 @@ function renderPokedex() {
 
 					</div>
 
-				</div>
+				</div> -->
 			
 			</div>
 
@@ -416,62 +416,48 @@ async function loadmore() {
 ////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-function hideDetail(id) {
-	const item = document.getElementById(`card-${id}`);
-	const closeButton = item.querySelector('.detail-close-button');
+  
+  
+function hideDetail() {
+	const item = document.getElementById(`flippingCard`);
 	item.classList.add('d-none');
 	item.style.transform = '';
 	item.classList.remove('flippingDiv-center');
 	setTimeout(() => {
-		item.classList.remove('d-none');
+		const closeButton = item.querySelector('.detail-close-button');
 		closeButton.classList.add('d-none');
-		const pokemonCard = item.querySelector('.fp-card-container');
-		const pokemonDetail = item.querySelector('.fp-detail-container');
-		pokemonCard.classList.remove('d-none');
-		pokemonDetail.classList.add('d-none');
-		item.style.zIndex = 0;
 		hidePokemonOverlay();
 	}, 100);
 }
-  
-  
-  
-function showDetail(id) {
-	PokemonShowDetailOverlay(id);
 
-	let item = document.getElementById(`card-${id}`);
-	item.style.zIndex = 1000000;
-	item.classList.remove('flippingDiv-center');
-	item.classList.remove('flippingDiv-center');
-	item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
-	item.style.transform = 'rotate3d(1,1,0,-360deg) translate(-50%, -50%)';
-	item.style.zIndex = 1000000;
+
+
+
+function showDetail() {
+	PokemonShowDetailOverlay();
+
+	let item = document.getElementById(`flippingCard`);
+	item.classList.remove('flippingDiv-center', 'd-none');
 	item.classList.add('flippingDiv-center');
 
-
     const closeButton = item.querySelector('.detail-close-button');
-    const pokemonCard = item.querySelector('.fp-card-container');
     const pokemonDetail = item.querySelector('.fp-detail-container');
     closeButton.classList.remove('d-none');
-    pokemonCard.classList.add('d-none');
     pokemonDetail.classList.remove('d-none');
 
     document.addEventListener('keydown', (event) => {
     	if (event.key === "Escape") {
-		  hideDetail(id);
+		  hideDetail();
 		}
 	});
 }
+
+
+
+
+
   
-  
-
-
-
-
-  
-function PokemonShowDetailOverlay(id) {
+function PokemonShowDetailOverlay() {
 	  const overlay = document.getElementById('fp-overlay')
 	  overlay.classList.remove('d-none');
 	  document.body.classList.add('no-scroll');
@@ -490,7 +476,6 @@ function hidePokemonOverlay() {
   
   
 function addMousePositionToCssPokemon() {
-	// const elements = document.querySelectorAll(".fp-card-container");
 	const elements = document.querySelectorAll(".fp-grid-item");
 	for(const element of elements) {
 		element.addEventListener("mousemove", function(e) {
