@@ -61,9 +61,9 @@
         <!-- TEST -->
         <section id="flippingCard" class="flippingCard d-none">
 
-            <div class="fp-detail-container" style="color: white;background: linear-gradient(0deg, #006400 0%, #01c901 90%);">
+            <div class="fp-detail-container">
 
-                <div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
+                <div class="fb-detail-shadowpic">
                 </div>
 
                 <div class="detail-header" style="color: white;">
@@ -75,12 +75,9 @@
                     </div>
 
                     <div class="detail-header-headline">
-                        <div>${pokemonName}</div>
-                        <div>#${datas[(i - 1)]['id']}</div>
                     </div>
                     <div>
                         <div class="detail_type_container">
-                            ${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
                         </div>
                     </div>
 
@@ -106,10 +103,7 @@
                     </div>
 
                     <div class="detail-content-explanation">
-                        <div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
-                        <div class="detail-content-image">
-                            <img src="${pokemonImageAnimated}" alt="Animiertes Bild von XXXX">
-                        </div>
+                        
                     </div>
 
                 </div>

@@ -311,7 +311,6 @@ function renderPokedex() {
 
 			<!-- Karte ${i}-->
 			<div class="fp-grid-item" id="card-${i}" style="background-color: ${datas[(i - 1)].attribute.color};color: ${color};">
-				<!-- Grid-->
 				<div class="fp-card-container fp-pokemon_card-container--3d-hover">
 					<div class="fp-pokemon_card">
 						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 70%);">
@@ -333,63 +332,6 @@ function renderPokedex() {
 						</div>
 					</div>
 				</div>
-
-				<!-- Detail -->
-				<!-- <div class="fp-detail-container d-none" style="color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);">
-
-					<div class="fb-detail-shadowpic" style="background: url('${pokemonImage}') center center/contain fixed no-repeat;">
-					</div>
-
-					<div class="detail-header" style="color: ${color};">
-
-						<div class="detail-header-nav">
-							<p><</p>
-							<div class="detail-close-button d-none" onclick="hideDetail(${i})"><div>ESC</div></div>
-							<p>></p>
-						</div>
-
-						<div class="detail-header-headline">
-							<div>${pokemonName}</div>
-							<div>#${datas[(i - 1)]['id']}</div>
-						</div>
-						<div>
-							<div class="detail_type_container">
-								${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
-							</div>
-						</div>
-
-					</div>
-
-
-					<div class="detail-content">
-
-						<div>
-							<div class="detail-content-headline">
-								<div>Info</div>
-								<div>Stats</div>
-								<div>Moves</div>
-								<div>Evolution</div>
-							</div>
-						</div>
-
-						<div class="detail-content-stats">
-							<div>Species: Speed Pokemon</div>
-							<div>Height: 0.7m</div>
-							<div>Weight: 6.9kg</div>
-							<div>Abilities: overgrow, chlorophyll</div>
-						</div>
-
-						<div class="detail-content-explanation">
-							<div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
-							<div class="detail-content-image">
-								<img src="${pokemonImageAnimated}" alt="Animiertes Bild von XXXX">
-							</div>
-						</div>
-
-					</div>
-
-				</div> -->
-			
 			</div>
 
 			 `
@@ -433,14 +375,70 @@ function hideDetail() {
 
 
 
-function showDetail() {
+function showDetail(i) {
 	PokemonShowDetailOverlay();
 
 	let item = document.getElementById(`flippingCard`);
 	item.classList.remove('flippingDiv-center', 'd-none');
 	item.classList.add('flippingDiv-center');
 
-    const closeButton = item.querySelector('.detail-close-button');
+
+	const pokemonName = datas[(i - 1)]["technical"]["name"];
+	item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
+		<div>${pokemonName}</div>
+        <div>#${datas[(i - 1)]['id']}</div>
+	`;
+
+	item.querySelector('.detail_type_container').innerHTML = /*html*/ `
+		${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
+	`;
+
+
+	let color = 'white';
+	if (datas[(i - 1)].attribute.color == 'blue' ||
+		datas[(i - 1)].attribute.color == 'black') {
+		color = 'white';
+		// console.log("color is ", color)
+	}
+	const background = datas[(i - 1)].attribute.color;
+	let backgroundColor = getColor(background);
+	let backgroundColorBrighter = lightenColor(backgroundColor, 80)
+	item.querySelector('.fp-detail-container').style = `color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);`;
+
+
+	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
+	item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
+
+
+	const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
+	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
+			<div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
+            <div class="detail-content-image">
+                <img src="${pokemonImageAnimated}" alt="Animiertes Bild von ${pokemonName}">
+            </div>
+		`;
+	
+	
+
+
+	const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
+	const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
+
+
+	// item.querySelector();
+	// item.querySelector();
+
+
+
+
+
+
+
+
+
+
+
+	const closeButton = item.querySelector('.detail-close-button');
     const pokemonDetail = item.querySelector('.fp-detail-container');
     closeButton.classList.remove('d-none');
     pokemonDetail.classList.remove('d-none');
