@@ -70,8 +70,7 @@ body {
 }
 
 /* ===== Scrollbar CSS ===== 
-https://codepen.io/stephenpaton-tech/full/JjRvGmY
-*/
+https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
 /* Firefox */
 * {
   scrollbar-width: thin;
@@ -91,6 +90,11 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY
   background-color: #000000;
   border-radius: 10px;
   border: 3px solid #ffffff;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c0;
 }
 
 @font-face {
@@ -776,6 +780,8 @@ footer a {
   color: black;
   border-radius: 1rem;
   text-shadow: none;
+  overflow: hidden;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .detail-content-headline {
@@ -828,6 +834,7 @@ footer a {
   background-color: inherit;
   -webkit-backdrop-filter: brightness(80%);
           backdrop-filter: brightness(80%);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .detail-header-headline {

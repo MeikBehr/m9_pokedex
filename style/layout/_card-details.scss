@@ -171,7 +171,10 @@
     color: black;
     border-radius: 1rem;
     text-shadow: none;
+    overflow: hidden;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
+
 
 .detail-content-headline {
     display: flex;
@@ -186,6 +189,8 @@
         cursor: pointer;
     }
 }
+
+
 
 .detail-content-stats {
     display: flex;
@@ -228,6 +233,7 @@
     border-radius: 0.3rem;
     background-color: inherit;
     backdrop-filter: brightness(80%);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 
@@ -236,3 +242,4 @@
     flex-direction: row;
     justify-content: space-between;
 }
+

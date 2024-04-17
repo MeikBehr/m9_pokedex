@@ -137,6 +137,7 @@ async function fetchingPokemonDataFromSourceV2() {
                 types: response.types,
                 color: "",
                 weight: response.weight,
+				height: response.height,
                 abilities: response.abilities
             },
             stats: {
@@ -315,8 +316,8 @@ function renderPokedex() {
 					<div class="fp-pokemon_card">
 						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 70%);">
 							<div class="fp-pokemon_card__content">
-								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonName}</h4>
-								<p class="fp-pokemon_card__content-subhead">(${pokemonNameDE})</p>
+								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonNameDE}</h4>
+								<p class="fp-pokemon_card__content-subhead">(${pokemonName})</p>
 								<div class="fp-pokemon_type_container">
 									${datas[i - 1].attribute.types.map(type => `<div class="fp-pokemon_type">${type.type.name}</div>`).join('')}
 								</div>
@@ -325,7 +326,7 @@ function renderPokedex() {
 						<div class="fp-pokemon_card-over"  onclick="showDetail(${i})">
 							<div>
 								<div class="fp-pokemon_card-link">
-									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonName}">
+									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonNameDE}">
 									<p class="fp-pokemon_card-link-text">Click me!</p>
 								</div>
 							</div>
@@ -383,7 +384,7 @@ function showDetail(i) {
 	item.classList.add('flippingDiv-center');
 
 
-	const pokemonName = datas[(i - 1)]["technical"]["name"];
+	const pokemonName = datas[(i - 1)]["technical"]["name_de"];
 	item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
 		<div>${pokemonName}</div>
         <div>#${datas[(i - 1)]['id']}</div>
@@ -409,10 +410,10 @@ function showDetail(i) {
 	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
 	item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
 
-
+		
 	const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-			<div>For some time after its birth, it grows by gaining nourishment from the seed on its back.</div>
+			<div>${originalDatasSpecies[(i - 1)].flavor_text_entries[25].flavor_text}</div>
             <div class="detail-content-image">
                 <img src="${pokemonImageAnimated}" alt="Animiertes Bild von ${pokemonName}">
             </div>
@@ -426,6 +427,14 @@ function showDetail(i) {
 		<p onclick="showDetail(${left})"><</p>
 		<div class="detail-close-button d-none" onclick="hideDetail()"><div>ESC</div></div>
 		<p onclick="showDetail(${right})">></p>
+	`;
+
+
+	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
+		<div>Spezie: Speed Pokemon</div>
+        <div>Größe: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
+        <div>Gewicht: ${(datas[(i - 1)].attribute.weight / 10).toFixed(1)} kg</div>
+        <div>Fertigkeiten: ${datas[i - 1].attribute.abilities.map(type => type.ability.name).join(', ')}</div>
 	`;
 
 
