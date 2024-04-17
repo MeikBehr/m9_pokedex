@@ -9,10 +9,19 @@ header {
     justify-content: space-around;
     align-items: center;
     height: $height-header;
-    background-image: url(../src/img/pexels-pixabay-206359.jpg);
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
+    // background-image: url(../src/img/pexels-pixabay-206359.jpg);
+    // background-repeat: no-repeat;
+    // background-position: center top;
+    // background-size: cover;
+
+
+    background-color: rgba(0,0,0,0.3);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(116,69,226,1) 60%, rgba(70,77,181,1) 100%); 
+    background-size: 200% 200%;
+    animation: animationBackgroundFooter 10s ease-in-out infinite;
+
+
     color: $color-secondary;
     text-wrap: wrap;
     text-align: center;
@@ -21,6 +30,8 @@ header {
     & img {
         filter: drop-shadow(5px 5px 8px #000000);
     }
+
+    filter: drop-shadow(2px 2px 9px rgba(0,0,0,0.8));
 
 }
 

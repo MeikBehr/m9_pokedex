@@ -26,6 +26,15 @@ $border-color: rgba(0, 0, 0, 0.15);
 $transition-time: 0.35s;
 
 
+@keyframes animationBackgroundFooter { 
+    0%{background-position:10% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:10% 0%}
+}
+
+
+
+
 
 
 // 1440px max contentwidth

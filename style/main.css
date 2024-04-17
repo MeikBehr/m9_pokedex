@@ -1,3 +1,14 @@
+@keyframes animationBackgroundFooter {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
+}
 * {
   margin: 0;
   padding: 0;
@@ -330,13 +341,15 @@ header {
   justify-content: space-around;
   align-items: center;
   height: 10rem;
-  background-image: url(../src/img/pexels-pixabay-206359.jpg);
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.3);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(116, 69, 226) 60%, rgb(70, 77, 181) 100%);
+  background-size: 200% 200%;
+  animation: animationBackgroundFooter 10s ease-in-out infinite;
   color: #eeeeee;
   text-wrap: wrap;
   text-align: center;
+  filter: drop-shadow(2px 2px 9px rgba(0, 0, 0, 0.8));
 }
 header img {
   filter: drop-shadow(5px 5px 8px #000000);
@@ -379,17 +392,6 @@ footer a {
   }
 }
 
-@keyframes animationBackgroundFooter {
-  0% {
-    background-position: 10% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 10% 0%;
-  }
-}
 .footer {
   display: flex;
   justify-content: space-around;
