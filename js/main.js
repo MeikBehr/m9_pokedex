@@ -178,6 +178,7 @@ async function fetchingPokemonDataFromSourceSpecies() {
             datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
 			datas[(i - 1)]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
 			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
+			datas[(i - 1)]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[25].flavor_text;
 			originalDatasSpecies.push(responseJSON);
 
             // console.log(responseJSON["names"][5]["name"]);
@@ -413,7 +414,7 @@ function showDetail(i) {
 		
 	const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-			<div>${originalDatasSpecies[(i - 1)].flavor_text_entries[25].flavor_text}</div>
+			<div>${datas[(i - 1)]["attribute"]["flavor_text_entries"]}</div>
             <div class="detail-content-image">
                 <img src="${pokemonImageAnimated}" alt="Animiertes Bild von ${pokemonName}">
             </div>
