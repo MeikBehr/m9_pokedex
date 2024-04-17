@@ -416,33 +416,20 @@ function showDetail(i) {
             <div class="detail-content-image">
                 <img src="${pokemonImageAnimated}" alt="Animiertes Bild von ${pokemonName}">
             </div>
-		`;
-	
-
-
-
-	let left = i;
-	if (left == 1) {
-		left = endID;
-	} else {
-		left = left - 1;
-	}
-
-	let right = i;
-	if (right == endID) {
-		right = 1;
-	} else {
-		right = right + 1;
-	}
-
-
-	item.querySelector('.detail-header-nav').innerHTML = /*html*/ `
-		<p onclick="showDetail(${left})"><</p>
-        <div class="detail-close-button d-none" onclick="hideDetail()"><div>ESC</div></div>
-        <p onclick="showDetail(${right})">></p>
 	`;
 	
 	
+	const left = (i === 1) ? endID : i - 1;
+	const right = (i === endID) ? 1 : i + 1;
+
+	item.querySelector('.detail-header-nav').innerHTML = /*html*/ `
+		<p onclick="showDetail(${left})"><</p>
+		<div class="detail-close-button d-none" onclick="hideDetail()"><div>ESC</div></div>
+		<p onclick="showDetail(${right})">></p>
+	`;
+
+
+
 
 
 
