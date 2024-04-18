@@ -9,7 +9,6 @@ let originalDatasEvolution = [];
 let datas = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
-let currentPokemon;
 let item = document.getElementById(`flippingCard`);
 
 
@@ -53,15 +52,18 @@ function createNewDataObject(element, index) {
 			"url_evolution": "",
 			"image_small": "",
 			"image_big": "",
+			"image_big2": "",
 			"evolves_from": "",
 			"evolves_to": "",
 		},
 
 		"attribute": {
-			"types": "",
+			"abilities": [],	// link to abilities => text in en/de z.B. https://pokeapi.co/api/v2/ability/65/
 			"color": "",
+			"flavor_text_entries": "",
+			"height": 0,
+			"types": "",
 			"weight": 0,
-			"abilities": "",
 		},
 
 		"stats": {
@@ -91,7 +93,6 @@ async function checkNumberOfAvailablePokemon() {
 
 
 async function creatingNewDataArrayWithRootData() {
-	// console.log(idNameAndUrlOfAllPokemon[0]);
 	numerOfAvailablePokemon = endID;											// WARNING! Set  numerOfAvailablePokemon = endID	for demonstration purposes!
 	for (let index = 0; index < numerOfAvailablePokemon; index++) {
 		const element = idNameAndUrlOfAllPokemon[index];
@@ -141,14 +142,24 @@ async function fetchingPokemonDataFromSourceV2() {
 				height: response.height,
                 abilities: response.abilities
             },
-            stats: {
-                hp: response.stats[0].base_stat,
-                attack: response.stats[1].base_stat,
-                defense: response.stats[2].base_stat,
-                'special-attack': response.stats[3].base_stat,
-                'special-defense': response.stats[4].base_stat,
-                speed: response.stats[5].base_stat
-            }
+            // stats: {
+            //     hp: response.stats[0].base_stat,
+            //     attack: response.stats[1].base_stat,
+            //     defense: response.stats[2].base_stat,
+            //     speed: response.stats[5].base_stat,
+			// 	'special-attack': response.stats[3].base_stat,
+            //     'special-defense': response.stats[4].base_stat,
+            // }
+			stats: [
+				{ name: 'hp', value: response.stats[0].base_stat },
+				{ name: 'attack', value: response.stats[1].base_stat },
+				{ name: 'defense', value: response.stats[2].base_stat },
+				{ name: 'special-attack', value: response.stats[3].base_stat },
+				{ name: 'special-defense', value: response.stats[4].base_stat },
+				{ name: 'speed', value: response.stats[5].base_stat }
+			]
+
+
         };
     });
 
@@ -421,6 +432,7 @@ function showDetail(i) {
 	detailCardInfoMenu(i);
 	detailCardShowInfo(i);
 
+	
 	const closeButton = item.querySelector('.detail-close-button');
     const pokemonDetail = item.querySelector('.fp-detail-container');
     closeButton.classList.remove('d-none');
@@ -432,14 +444,11 @@ function showDetail(i) {
 		}
 
 		if (event.key === "ArrowLeft") {
-			console.log("Left");
 			showDetail(left);
 		}
 
 		if (event.key === "ArrowRight") {
-			console.log("Right");
 			showDetail(right);
-			
 		}
 	}, {once: true});
 }
@@ -476,15 +485,64 @@ function detailCardShowInfo(i) {
 }
 
 
+
 function detailCardShowAttribute (i) {
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
-		<div>Attribute</div>
+		<table>
+            <tbody class="stats-table">
+            </tbody>
+        </table>
+
 	`;
+
+
+
+	const statsTable = item.querySelector('.stats-table');
+	statsTable.innerHTML = '';
+	// console.log(statsTable);
+	datas[i - 1].stats.forEach(stat => {
+		// console.log(stat.name, ":", stat.value);
+		statsTable.innerHTML += /*html*/ `
+			<tr>
+				<td class="stats-table-firstTD">${stat.name}:</td>
+        		<td class="stats-table-secondTD">${stat.value}</td>
+        		<td class="stats-table-thirdTD"> 
+            		<!-- <div id="statsBarEmpty" class="statsBarEmpty"> -->
+					<div class="statsBarEmpty">
+                		<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value)}%;"></div>
+            		</div>
+        		</td>
+            </tr>
+		`;
+
+	});
+
+	const statsBar = document.querySelectorAll('.statsBarEmpty');
+	setTimeout(() => {
+        statsBar.forEach (stat => {
+			stat.style = `width: auto;`;
+		})
+    }, 500);
+
+
+
+
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
 		<div>Eventuelle Explanations</div>
 	`;
 }
+
+
+function getStatsBarWidth(value) {
+    return Number((100 / 154) * value);
+}
+
+
+
+
+
+
 
 function detailCardShowMoves (i) {
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
