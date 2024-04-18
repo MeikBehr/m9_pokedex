@@ -10,6 +10,7 @@ let datas = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
 let currentPokemon;
+let item = document.getElementById(`flippingCard`);
 
 
 let startID = 1;
@@ -158,8 +159,6 @@ async function fetchingPokemonDataFromSourceV2() {
 
 
 
-
-
 async function fetchingPokemonDataFromSourceSpecies() {
     // console.log("Fetching German Names...");
 	loadingSpinner(true);
@@ -293,8 +292,6 @@ function renderPokedex() {
 
 	for (let i = startID; i <= endID; i++) {
 		const pokemonImage2 = datas[(i - 1)]["technical"]["image_big2"];
-		const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
-		const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
 		const pokemonName = datas[(i - 1)]["technical"]["name"];
 		const pokemonNameDE = datas[(i - 1)]["technical"]["name_de"];
 		const background = datas[(i - 1)].attribute.color;
@@ -380,7 +377,6 @@ function hideDetail() {
 function showDetail(i) {
 	PokemonShowDetailOverlay();
 
-	let item = document.getElementById(`flippingCard`);
 	item.classList.remove('flippingDiv-center', 'd-none');
 	item.classList.add('flippingDiv-center');
 
@@ -410,15 +406,6 @@ function showDetail(i) {
 
 	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
 	item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
-
-		
-	const pokemonImageAnimated = datas[(i - 1)]["technical"]["image_small"];
-	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-			<div>${datas[(i - 1)]["attribute"]["flavor_text_entries"]}</div>
-            <div class="detail-content-image">
-                <img src="${pokemonImageAnimated}" alt="Animiertes Bild von ${pokemonName}">
-            </div>
-	`;
 	
 	
 	const left = (i === 1) ? endID : i - 1;
@@ -431,6 +418,47 @@ function showDetail(i) {
 	`;
 
 
+	detailCardInfoMenu(i);
+	detailCardShowInfo(i);
+
+	const closeButton = item.querySelector('.detail-close-button');
+    const pokemonDetail = item.querySelector('.fp-detail-container');
+    closeButton.classList.remove('d-none');
+    pokemonDetail.classList.remove('d-none');
+	
+	document.addEventListener('keydown', (event) => {
+    	if (event.key === "Escape") {
+		  hideDetail();
+		}
+
+		if (event.key === "ArrowLeft") {
+			console.log("Left");
+			showDetail(left);
+		}
+
+		if (event.key === "ArrowRight") {
+			console.log("Right");
+			showDetail(right);
+			
+		}
+	}, {once: true});
+}
+
+
+
+
+
+function detailCardInfoMenu(i) {
+	item.querySelector('.detail-content-headline').innerHTML = /*html*/ `
+		<div id="info" class="detail-content-tab" onclick="detailCardShowInfo(${i})">Info</div>
+        <div id="stats" class="detail-content-tab" onclick="detailCardShowAttribute(${i})">Attribute</div>
+        <div id="moves" class="detail-content-tab" onclick="detailCardShowMoves(${i})">Moves</div>
+        <div id="evo" class="detail-content-tab" onclick="detailCardShowEvo(${i})">Evolution</div>
+	`;
+}
+
+
+function detailCardShowInfo(i) {
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Spezie: Speed Pokemon</div>
         <div>Größe: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
@@ -438,22 +466,48 @@ function showDetail(i) {
         <div>Fertigkeiten: ${datas[i - 1].attribute.abilities.map(type => type.ability.name).join(', ')}</div>
 	`;
 
+	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
+		<div>${datas[(i - 1)]["attribute"]["flavor_text_entries"]}</div>
+		<div class="detail-content-image">
+			<img src="${datas[(i - 1)]["technical"]["image_small"]}" alt="Animiertes Bild von ${datas[(i - 1)]["technical"]["name_de"]}">
+		</div>
+	`;
 
-
-
-
-
-	const closeButton = item.querySelector('.detail-close-button');
-    const pokemonDetail = item.querySelector('.fp-detail-container');
-    closeButton.classList.remove('d-none');
-    pokemonDetail.classList.remove('d-none');
-
-    document.addEventListener('keydown', (event) => {
-    	if (event.key === "Escape") {
-		  hideDetail();
-		}
-	});
 }
+
+
+function detailCardShowAttribute (i) {
+	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
+		<div>Attribute</div>
+	`;
+
+	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
+		<div>Eventuelle Explanations</div>
+	`;
+}
+
+function detailCardShowMoves (i) {
+	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
+		<div>Moves</div>
+	`;
+
+	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
+		<div>Eventuelle Explanations</div>
+	`;
+}
+
+function detailCardShowEvo (i) {
+	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
+		<div>Evo</div>
+	`;
+
+	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
+	<div>Eventuelle Explanations</div>
+`;
+}
+
+
+
 
 
 
