@@ -123,6 +123,7 @@ async function fetchingPokemonDataFromSourceV2() {
 		originalDatasV2.push(response);
 
 
+
         datas[pokemonID - 1] = {
             id: pokemonID,
             loaded: false,
@@ -432,7 +433,7 @@ function showDetail(i) {
 	detailCardInfoMenu(i);
 	detailCardShowInfo(i);
 
-	
+
 	const closeButton = item.querySelector('.detail-close-button');
     const pokemonDetail = item.querySelector('.fp-detail-container');
     closeButton.classList.remove('d-none');
@@ -507,7 +508,6 @@ function detailCardShowAttribute (i) {
 				<td class="stats-table-firstTD">${stat.name}:</td>
         		<td class="stats-table-secondTD">${stat.value}</td>
         		<td class="stats-table-thirdTD"> 
-            		<!-- <div id="statsBarEmpty" class="statsBarEmpty"> -->
 					<div class="statsBarEmpty">
                 		<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value)}%;"></div>
             		</div>
@@ -517,9 +517,9 @@ function detailCardShowAttribute (i) {
 
 	});
 
-	const statsBar = document.querySelectorAll('.statsBarEmpty');
+	const statsBarEmpty = document.querySelectorAll('.statsBarEmpty');
 	setTimeout(() => {
-        statsBar.forEach (stat => {
+        statsBarEmpty.forEach (stat => {
 			stat.style = `width: auto;`;
 		})
     }, 500);
