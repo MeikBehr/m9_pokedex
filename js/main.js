@@ -143,25 +143,22 @@ async function fetchingPokemonDataFromSourceV2() {
 				height: response.height,
                 abilities: response.abilities
             },
-            // stats: {
-            //     hp: response.stats[0].base_stat,
-            //     attack: response.stats[1].base_stat,
-            //     defense: response.stats[2].base_stat,
-            //     speed: response.stats[5].base_stat,
-			// 	'special-attack': response.stats[3].base_stat,
-            //     'special-defense': response.stats[4].base_stat,
-            // }
 			stats: [
 				{ name: 'hp', value: response.stats[0].base_stat },
 				{ name: 'attack', value: response.stats[1].base_stat },
 				{ name: 'defense', value: response.stats[2].base_stat },
 				{ name: 'special-attack', value: response.stats[3].base_stat },
 				{ name: 'special-defense', value: response.stats[4].base_stat },
-				{ name: 'speed', value: response.stats[5].base_stat }
+				{ name: 'speed', value: response.stats[5].base_stat },
 			]
-
-
         };
+
+		let statTotal = 0;
+		datas[pokemonID - 1].stats.forEach(stat => {
+			statTotal = statTotal + stat.value;
+		})
+		datas[pokemonID - 1].stats.push({ name: 'total', value: statTotal})
+
     });
 
 	loadingSpinner(false);
@@ -189,7 +186,7 @@ async function fetchingPokemonDataFromSourceSpecies() {
             datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
 			datas[(i - 1)]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
 			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
-			datas[(i - 1)]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[25].flavor_text;
+			datas[(i - 1)]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[11].flavor_text;
 			originalDatasSpecies.push(responseJSON);
 
             // console.log(responseJSON["names"][5]["name"]);
@@ -326,8 +323,8 @@ function renderPokedex() {
 					<div class="fp-pokemon_card">
 						<div class="fp-pokemon_card-under" style="background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 70%);">
 							<div class="fp-pokemon_card__content">
-								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonNameDE}</h4>
-								<p class="fp-pokemon_card__content-subhead">(${pokemonName})</p>
+								<h4 class="fp-pokemon_card__content-heading">#${datas[(i - 1)]['id']} ${pokemonName}</h4>
+								<p class="fp-pokemon_card__content-subhead">(${pokemonNameDE})</p>
 								<div class="fp-pokemon_type_container">
 									${datas[i - 1].attribute.types.map(type => `<div class="fp-pokemon_type">${type.type.name}</div>`).join('')}
 								</div>
@@ -336,7 +333,7 @@ function renderPokedex() {
 						<div class="fp-pokemon_card-over"  onclick="showDetail(${i})">
 							<div>
 								<div class="fp-pokemon_card-link">
-									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonNameDE}">
+									<img class="fp-pokemon_card__image-pokemon" src="${pokemonImage2}"  alt="Bild vom Pokemon ${pokemonName}">
 									<p class="fp-pokemon_card-link-text">Click me!</p>
 								</div>
 							</div>
@@ -372,6 +369,7 @@ async function loadmore() {
   
   
 function hideDetail() {
+	register = 'info';
 	const item = document.getElementById(`flippingCard`);
 	item.classList.add('d-none');
 	item.style.transform = '';
@@ -384,7 +382,7 @@ function hideDetail() {
 }
 
 
-
+let register = 'info';
 
 function showDetail(i) {
 	PokemonShowDetailOverlay();
@@ -393,7 +391,7 @@ function showDetail(i) {
 	item.classList.add('flippingDiv-center');
 
 
-	const pokemonName = datas[(i - 1)]["technical"]["name_de"];
+	const pokemonName = datas[(i - 1)]["technical"]["name"];
 	item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
 		<div>${pokemonName}</div>
         <div>#${datas[(i - 1)]['id']}</div>
@@ -431,7 +429,22 @@ function showDetail(i) {
 
 
 	detailCardInfoMenu(i);
-	detailCardShowInfo(i);
+
+	if (register === 'info') {
+		detailCardShowInfo(i);
+	}
+
+	if (register === 'attribute') {
+		detailCardShowAttribute(i);
+	}
+
+	if (register === 'moves') {
+		detailCardShowMoves(i);
+	}
+
+	if (register === 'evo') {
+		detailCardShowEvo(i);
+	}
 
 
 	const closeButton = item.querySelector('.detail-close-button');
@@ -469,6 +482,7 @@ function detailCardInfoMenu(i) {
 
 
 function detailCardShowInfo(i) {
+	register = 'info';
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Spezie: Speed Pokemon</div>
         <div>Größe: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
@@ -479,7 +493,7 @@ function detailCardShowInfo(i) {
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
 		<div>${datas[(i - 1)]["attribute"]["flavor_text_entries"]}</div>
 		<div class="detail-content-image">
-			<img src="${datas[(i - 1)]["technical"]["image_small"]}" alt="Animiertes Bild von ${datas[(i - 1)]["technical"]["name_de"]}">
+			<img src="${datas[(i - 1)]["technical"]["image_small"]}" alt="Animiertes Bild von ${datas[(i - 1)]["technical"]["name"]}">
 		</div>
 	`;
 
@@ -488,6 +502,7 @@ function detailCardShowInfo(i) {
 
 
 function detailCardShowAttribute (i) {
+	register = 'attribute';
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<table>
             <tbody class="stats-table">
@@ -509,7 +524,7 @@ function detailCardShowAttribute (i) {
         		<td class="stats-table-secondTD">${stat.value}</td>
         		<td class="stats-table-thirdTD"> 
 					<div class="statsBarEmpty">
-                		<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value)}%;"></div>
+                		<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value, stat.name)}%;"></div>
             		</div>
         		</td>
             </tr>
@@ -534,8 +549,33 @@ function detailCardShowAttribute (i) {
 }
 
 
-function getStatsBarWidth(value) {
-    return Number((100 / 154) * value);
+
+// https://www.serebii.net/pokedex-sm/stat/
+// Highest HP				= 255
+// Highest attack Value 	= 190
+// Highest defense Value 	= 230
+// Highest Speed		 	= 180
+// Highest special attack Value 	= 194
+// Highest special defense Value 	= 230
+// Highest total			= 780
+
+
+function getStatsBarWidth(value, name) {
+
+	const stats = {
+		"hp": 255,
+		"attack": 190,
+		"defense": 230,
+		"speed": 180,
+		"special-attack": 194,
+		"special-defense": 230,
+		"total": 780,
+		
+	};
+
+	const adjustedStat = Number((value / stats[name]) * 100)
+	// console.log(name, " ", value, " wid zu ", adjustedStat);
+    return adjustedStat;
 }
 
 
@@ -545,6 +585,7 @@ function getStatsBarWidth(value) {
 
 
 function detailCardShowMoves (i) {
+	register = 'moves';
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Moves</div>
 	`;
@@ -555,6 +596,7 @@ function detailCardShowMoves (i) {
 }
 
 function detailCardShowEvo (i) {
+	register = 'evo';
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Evo</div>
 	`;
