@@ -12,8 +12,6 @@
     left: calc(50% - $width-grid-item / 2);
     width: $width-grid-item;
     height: $height-grid-item;
-    // z-index: 100000;
-    // display: block;
     justify-content: center;
     align-items: center;
     color: white;
@@ -23,7 +21,9 @@
     border-radius: 2rem;
     transition: all 250ms linear;
     transform: scale(1);
-    // z-index: 0;
+
+    box-shadow: 2px 2px 1px black;
+    
 }
 
 
@@ -173,6 +173,7 @@
     text-shadow: none;
     overflow: hidden;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    // text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
 
@@ -183,8 +184,8 @@
     gap: 0.25rem;
 
     & div {
-        padding: 0.125rem 0.25rem;
-        border: 1px solid rgba(255,255,255,0.7);
+        padding: 0.25rem 0.5rem;
+        border: 2px solid rgba(255,255,255,0.7);
         border-radius: 1rem;
         cursor: pointer;
     }
@@ -269,18 +270,18 @@
     width: 25%;
     // padding-left: 1rem;
     overflow-wrap: break-word;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.7);
 }
 
 .stats-table-secondTD {
     width: 10%;
     text-align: right;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.7);
 }
 
 .stats-table-thirdTD {
     width: 10%;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.7);
 }
 
 .stats-table-fourthTD {
@@ -336,11 +337,10 @@
 }
 
 
+.detail-content-tab {
+    background-color: rgba(255, 255, 255, 0.4);
 
-
-// @media (max-width: 630px) {
-//     .stats-table {
-//         font-size: 0.9rem;
-//         font-size: clamp(0.5rem, 50%, 1rem);
-//     }
-// }
+    &:hover {
+        background-color: rgba(255, 255, 255, 1);
+    }
+}

@@ -44,7 +44,7 @@ const colors = {
 
 let startID = 1;
 // let endID = 25;
-let endID = 5;
+let endID = 13;
 
 
 
@@ -490,16 +490,58 @@ function showDetail(i) {
 
 function detailCardInfoMenu(i) {
 	item.querySelector('.detail-content-headline').innerHTML = /*html*/ `
-		<div id="info" class="detail-content-tab" onclick="detailCardShowInfo(${i})">Info</div>
-        <div id="stats" class="detail-content-tab" onclick="detailCardShowAttribute(${i})">Attribute</div>
-        <div id="moves" class="detail-content-tab" onclick="detailCardShowMoves(${i})">Moves</div>
-        <div id="evo" class="detail-content-tab" onclick="detailCardShowEvo(${i})">Evolution</div>
+		<div id="info" class="detail-content-tab" onclick="setAllRegisterBack(), detailCardShowInfo(${i})">Info</div>
+        <div id="stats" class="detail-content-tab" onclick="setAllRegisterBack(), detailCardShowAttribute(${i})">Stats</div>
+        <div id="moves" class="detail-content-tab" onclick="setAllRegisterBack(), detailCardShowMoves(${i})">Moves</div>
+        <div id="evo" class="detail-content-tab" onclick="setAllRegisterBack(), detailCardShowEvo(${i})">Evolution</div>
 	`;
 }
 
 
+
+
+// const colors = {
+// 	green: '#006400',
+// 	red: '#FF0000',
+// 	blue: '#0000FF',
+// 	white: '#FFFFFF',
+// 	yellow: '#FFFF00',
+// 	brown: '#A52A2A',
+// 	purple: '#800080',
+// 	pink: '#FFC0CB',
+// 	gray: '#808080',
+// 	black: '#000000'
+// };
+
+// wenn datas[(i - 1)].attribute.color = #000000 dann Schriftcolor = #FFFFFF
+// wenn datas[(i - 1)].attribute.color = #0000FF dann Schriftcolor = #FFFFFF
+
+
+
+function colorChangeATdetailCardShowInfo(i) {
+	let backgroundColor = datas[(i - 1)].attribute.color;
+	let fontColor = '#000000';
+	if (backgroundColor === 'black' || 
+		backgroundColor === 'blue') {
+			fontColor = '#FFFFFF';
+			console.log("ist black oder blue");
+			console.log(fontColor, backgroundColor);
+	} 
+	if (backgroundColor === 'white' || 
+		backgroundColor === 'yellow') {
+			console.log("ist white oder yellow");
+			fontColor = '#000000';
+			console.log(fontColor, backgroundColor);
+	}
+	return fontColor;
+}
+
+
+
 function detailCardShowInfo(i) {
 	register = 'info';
+
+	document.getElementById('info').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Spezie: Speed Pokemon</div>
         <div>Größe: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
@@ -517,9 +559,20 @@ function detailCardShowInfo(i) {
 }
 
 
+function setAllRegisterBack() {
+	document.getElementById('info').style = ``;
+	document.getElementById('stats').style = ``;
+	document.getElementById('moves').style = ``;
+	document.getElementById('evo').style = ``;
+}
+
+
+
+
 
 function detailCardShowAttribute (i) {
 	register = 'attribute';
+	document.getElementById('stats').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<table>
             <tbody class="stats-table">
@@ -581,6 +634,7 @@ function getStatsBarColor(i) {
 
 function detailCardShowMoves (i) {
 	register = 'moves';
+	document.getElementById('moves').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Moves</div>
 	`;
@@ -595,6 +649,7 @@ function detailCardShowMoves (i) {
 
 function detailCardShowEvo (i) {
 	register = 'evo';
+	document.getElementById('evo').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
 		<div>Evo</div>
 	`;
