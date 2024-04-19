@@ -847,16 +847,26 @@ footer a {
   display: flex;
 }
 
+.stats-table > tr {
+  line-height: 1.5rem;
+}
+
 .stats-table-firstTD {
-  width: 35%;
+  width: 25%;
   padding-left: 1rem;
+  overflow-wrap: break-word;
 }
 
 .stats-table-secondTD {
-  width: 23%;
+  width: 10%;
+  text-align: right;
 }
 
 .stats-table-thirdTD {
+  width: 15%;
+}
+
+.stats-table-fourthTD {
   width: auto;
   padding-right: 1rem;
 }

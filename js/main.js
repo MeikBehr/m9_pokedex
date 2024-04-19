@@ -14,7 +14,7 @@ let item = document.getElementById(`flippingCard`);
 let register = 'info';
 
 
-// https://www.serebii.net/pokedex-sm/stat/
+// https://www.serebii.net/pokedex-sv/stat/hp.shtml
 const stats = {
 	"hp": 255,
 	"attack": 190,
@@ -541,7 +541,8 @@ function detailCardShowAttribute (i) {
 			<tr>
 				<td class="stats-table-firstTD">${stat.name}:</td>
         		<td class="stats-table-secondTD">${stat.value}</td>
-        		<td class="stats-table-thirdTD"> 
+				<td class="stats-table-thirdTD"> / ${stats[stat.name]}</td>
+        		<td class="stats-table-fourthTD"> 
 					<div class="statsBarEmpty">
 						<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value, stat.name)}%;background: linear-gradient(0deg, ${backgroundColor} 0%, ${lightenColor(backgroundColor, 80)} 70%);"></div>
             		</div>
@@ -558,12 +559,8 @@ function detailCardShowAttribute (i) {
 		})
     }, 500);
 
-
-
-
-
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-		<div>Eventuelle Explanations</div>
+		<div><em>Stats max values tooken from <a href="https://www.serebii.net/pokedex-sv/stat/hp.shtml" target="_blank">https://www.serebii.net/pokedex-sm/stat/</a> Gen VII Dex</em></div>
 	`;
 }
 
@@ -592,6 +589,9 @@ function detailCardShowMoves (i) {
 		<div>Eventuelle Explanations</div>
 	`;
 }
+
+
+
 
 function detailCardShowEvo (i) {
 	register = 'evo';
