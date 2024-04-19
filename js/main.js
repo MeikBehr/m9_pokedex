@@ -541,7 +541,7 @@ function detailCardShowAttribute (i) {
 			<tr>
 				<td class="stats-table-firstTD">${stat.name}:</td>
         		<td class="stats-table-secondTD">${stat.value}</td>
-				<td class="stats-table-thirdTD"> / ${stats[stat.name]}</td>
+				<td class="stats-table-thirdTD">&nbsp;/ ${stats[stat.name]}</td>
         		<td class="stats-table-fourthTD"> 
 					<div class="statsBarEmpty">
 						<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value, stat.name)}%;background: linear-gradient(0deg, ${backgroundColor} 0%, ${lightenColor(backgroundColor, 80)} 70%);"></div>
@@ -560,7 +560,7 @@ function detailCardShowAttribute (i) {
     }, 500);
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-		<div><em>Stats max values tooken from <a href="https://www.serebii.net/pokedex-sv/stat/hp.shtml" target="_blank">https://www.serebii.net/pokedex-sm/stat/</a> Gen VII Dex</em></div>
+		<div><em>Stats max values taken from <a href="https://www.serebii.net/pokedex-sv/stat/hp.shtml" target="_blank">https://www.serebii.net/pokedex-sm/stat/</a> Gen VII Dex</em></div>
 	`;
 }
 
