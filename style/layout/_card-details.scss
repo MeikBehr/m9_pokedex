@@ -267,9 +267,12 @@
     height: 0.7rem;
     border-radius: 10000rem;
     width: 0%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
-
-    animation: stats-width 750ms linear 200ms 1 normal forwards;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7),
+                1px 1px 1px rgba(0, 0, 0, 0.7),
+                1px -1px 1px rgba(0, 0, 0, 0.7),
+                -1px 1px 1px rgba(0, 0, 0, 0.7),
+                -1px -1px 1px rgba(0, 0, 0, 0.7);
+    animation: stats-width 500ms linear 200ms 1 normal forwards;
 }
 
 
@@ -291,10 +294,12 @@
 .statsBar {
     height: 100%;
     border-radius: 10000rem;
-    background-color: rgb(81, 81, 247);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(75, 79, 183) 30%, rgb(37, 51, 245) 90%); 
     background-size: 200% 200%;
     animation: animationBackgroundFooter 5s ease-in-out infinite;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7),
+                1px -1px 1px rgba(0, 0, 0, 0.7),
+                -1px 1px 1px rgba(0, 0, 0, 0.7),
+                -1px -1px 1px rgba(0, 0, 0, 0.7);
 }
 
 

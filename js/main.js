@@ -11,6 +11,36 @@ let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
 let item = document.getElementById(`flippingCard`);
 
+let register = 'info';
+
+
+// https://www.serebii.net/pokedex-sm/stat/
+const stats = {
+	"hp": 255,
+	"attack": 190,
+	"defense": 230,
+	"speed": 180,
+	"special-attack": 194,
+	"special-defense": 230,
+	"total": 780,
+};
+
+
+const colors = {
+	green: '#006400',
+	red: '#FF0000',
+	blue: '#0000FF',
+	white: '#FFFFFF',
+	yellow: '#FFFF00',
+	brown: '#A52A2A',
+	purple: '#800080',
+	pink: '#FFC0CB',
+	gray: '#808080',
+	black: '#000000'
+};
+
+
+
 
 let startID = 1;
 // let endID = 25;
@@ -254,18 +284,6 @@ function clearPokedex() {
 
 
 function getColor(name) {
-    const colors = {
-        green: '#006400',
-        red: '#FF0000',
-        blue: '#0000FF',
-        white: '#FFFFFF',
-        yellow: '#FFFF00',
-        brown: '#A52A2A',
-        purple: '#800080',
-        pink: '#FFC0CB',
-        gray: '#808080',
-        black: '#000000'
-    };
     return colors[name] || '#FFFFFF';
 }
 
@@ -313,7 +331,7 @@ function renderPokedex() {
 		}
 
 		let backgroundColor = getColor(background);
-		let backgroundColorBrighter = lightenColor(backgroundColor, 80)
+		let backgroundColorBrighter = lightenColor(backgroundColor, 80);
 
 		container.innerHTML += /*html*/ `
 
@@ -382,7 +400,6 @@ function hideDetail() {
 }
 
 
-let register = 'info';
 
 function showDetail(i) {
 	PokemonShowDetailOverlay();
@@ -518,13 +535,15 @@ function detailCardShowAttribute (i) {
 	// console.log(statsTable);
 	datas[i - 1].stats.forEach(stat => {
 		// console.log(stat.name, ":", stat.value);
+
+		let backgroundColor = getColor(datas[(i - 1)].attribute.color);
 		statsTable.innerHTML += /*html*/ `
 			<tr>
 				<td class="stats-table-firstTD">${stat.name}:</td>
         		<td class="stats-table-secondTD">${stat.value}</td>
         		<td class="stats-table-thirdTD"> 
 					<div class="statsBarEmpty">
-                		<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value, stat.name)}%;"></div>
+						<div id="statsBar" class="statsBar" style="width: ${getStatsBarWidth(stat.value, stat.name)}%;background: linear-gradient(0deg, ${backgroundColor} 0%, ${lightenColor(backgroundColor, 80)} 70%);"></div>
             		</div>
         		</td>
             </tr>
@@ -549,36 +568,15 @@ function detailCardShowAttribute (i) {
 }
 
 
-
-// https://www.serebii.net/pokedex-sm/stat/
-// Highest HP				= 255
-// Highest attack Value 	= 190
-// Highest defense Value 	= 230
-// Highest Speed		 	= 180
-// Highest special attack Value 	= 194
-// Highest special defense Value 	= 230
-// Highest total			= 780
-
-
 function getStatsBarWidth(value, name) {
-
-	const stats = {
-		"hp": 255,
-		"attack": 190,
-		"defense": 230,
-		"speed": 180,
-		"special-attack": 194,
-		"special-defense": 230,
-		"total": 780,
-		
-	};
-
 	const adjustedStat = Number((value / stats[name]) * 100)
-	// console.log(name, " ", value, " wid zu ", adjustedStat);
     return adjustedStat;
 }
 
 
+function getStatsBarColor(i) {
+	return colors[datas[(i - 1)]["attribute"]["color"]];
+}
 
 
 
