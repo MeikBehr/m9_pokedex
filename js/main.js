@@ -499,39 +499,20 @@ function detailCardInfoMenu(i) {
 
 
 
-
-// const colors = {
-// 	green: '#006400',
-// 	red: '#FF0000',
-// 	blue: '#0000FF',
-// 	white: '#FFFFFF',
-// 	yellow: '#FFFF00',
-// 	brown: '#A52A2A',
-// 	purple: '#800080',
-// 	pink: '#FFC0CB',
-// 	gray: '#808080',
-// 	black: '#000000'
-// };
-
-// wenn datas[(i - 1)].attribute.color = #000000 dann Schriftcolor = #FFFFFF
-// wenn datas[(i - 1)].attribute.color = #0000FF dann Schriftcolor = #FFFFFF
-
-
-
 function colorChangeATdetailCardShowInfo(i) {
 	let backgroundColor = datas[(i - 1)].attribute.color;
 	let fontColor = '#000000';
 	if (backgroundColor === 'black' || 
 		backgroundColor === 'blue') {
 			fontColor = '#FFFFFF';
-			console.log("ist black oder blue");
-			console.log(fontColor, backgroundColor);
+			// console.log("ist black oder blue");
+			// console.log(fontColor, backgroundColor);
 	} 
 	if (backgroundColor === 'white' || 
 		backgroundColor === 'yellow') {
-			console.log("ist white oder yellow");
+			// console.log("ist white oder yellow");
 			fontColor = '#000000';
-			console.log(fontColor, backgroundColor);
+			// console.log(fontColor, backgroundColor);
 	}
 	return fontColor;
 }
@@ -700,12 +681,8 @@ function addMousePositionToCssPokemon() {
 	}
 }
   
-// if (document.readyState === "complete" || document.readyState === "interactive") {
-// 	setTimeout(addMousePositionToCssPokemon, 1);
-// } else {
-// 	document.addEventListener("DOMContentLoaded", addMousePositionToCssPokemon, false);
-// }
-  
+
+
 
 
 
