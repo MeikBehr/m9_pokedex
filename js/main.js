@@ -524,10 +524,10 @@ function detailCardShowInfo(i) {
 
 	document.getElementById('info').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
-		<div>Spezie: Speed Pokemon</div>
-        <div>Größe: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
-        <div>Gewicht: ${(datas[(i - 1)].attribute.weight / 10).toFixed(1)} kg</div>
-        <div>Fertigkeiten: ${datas[i - 1].attribute.abilities.map(type => type.ability.name).join(', ')}</div>
+		<div>Species: Speed Pokemon</div>
+        <div>Height: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
+        <div>Weight: ${(datas[(i - 1)].attribute.weight / 10).toFixed(1)} kg</div>
+        <div>Abilities: ${datas[i - 1].attribute.abilities.map(type => type.ability.name).join(', ')}</div>
 	`;
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
@@ -621,7 +621,7 @@ function detailCardShowMoves (i) {
 	`;
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-		<div>Eventuelle Explanations</div>
+		<div>A Pokémon can only know four moves at a time. In order to learn new moves once four have been learned, it must forget one old move for every new move. Some moves cannot be forgotten naturally, such as moves learned by HM. To remove these, a Trainer must incorporate the help of a Move Deleter.</div>
 	`;
 }
 
