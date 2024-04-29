@@ -201,7 +201,8 @@
 }
 
 .detail-content-explanation {
-    padding: 1rem 0;
+    // padding: 1rem 0;
+    overflow-y: auto;
 }
 
 
@@ -331,10 +332,10 @@
 
 
 
-.detail-content-explanation {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
+// .detail-content-explanation {
+//     padding-left: 1rem;
+//     padding-right: 1rem;
+// }
 
 
 .detail-content-tab {
@@ -344,3 +345,23 @@
         background-color: rgba(255, 255, 255, 1);
     }
 }
+
+
+.container-moves {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.container-move {
+    padding: 0.25rem 0.5rem;
+    color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: small;
+    border-radius: 1rem;
+    box-shadow: 0.25rem 0.25rem 0.5rem -0.25rem rgba(0, 0, 0, 0.6);
+}
+

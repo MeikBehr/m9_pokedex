@@ -171,7 +171,7 @@ async function fetchingPokemonDataFromSourceV2() {
                 color: "",
                 weight: response.weight,
 				height: response.height,
-                abilities: response.abilities
+                abilities: response.abilities,
             },
 			stats: [
 				{ name: 'hp', value: response.stats[0].base_stat },
@@ -180,7 +180,8 @@ async function fetchingPokemonDataFromSourceV2() {
 				{ name: 'special-attack', value: response.stats[3].base_stat },
 				{ name: 'special-defense', value: response.stats[4].base_stat },
 				{ name: 'speed', value: response.stats[5].base_stat },
-			]
+			],
+			moves: response.moves,
         };
 
 		let statTotal = 0;
@@ -617,13 +618,54 @@ function detailCardShowMoves (i) {
 	register = 'moves';
 	document.getElementById('moves').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
-		<div>Moves</div>
+		<div id="moves-container" class="container-moves"></div>
 	`;
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-		<div>A Pokémon can only know four moves at a time. In order to learn new moves once four have been learned, it must forget one old move for every new move. Some moves cannot be forgotten naturally, such as moves learned by HM. To remove these, a Trainer must incorporate the help of a Move Deleter.</div>
+		<div class="overflow-nohi"><i>A Pokémon can only know four moves at a time. In order to learn new moves once four have been learned, it must forget one old move for every new move. Some moves cannot be forgotten naturally, such as moves learned by HM. To remove these, a Trainer must incorporate the help of a Move Deleter. Here, as example, are shown up to 10 possible moves.</i></div>
 	`;
+
+	listMovesToDetailCard(i);
 }
+
+
+
+function listMovesToDetailCard(i) {
+
+	// Hier noch ändern, dass bei mehr als 10 Moves, die Moves random ausgesucht werden!
+	// Dann noch das CSS anpassen, damit alles hübsch aussieht!
+
+	let content = document.getElementById('moves-container');
+    content.innerHTML = '';
+
+	if(datas[(i - 1)]['moves'].length < 10){
+		console.log("Kleiner 10!");
+        for (let j = 0; j < datas[(i - 1)]['moves'].length; j++) {
+            const move = datas[(i - 1)]['moves'][j]['move']['name'];
+			console.log(move);
+            content.innerHTML += /*html*/ `
+				<div class="container-move">${CapitaliseFirstLetter(move)}</div>
+			`;
+        }
+    } else {
+		console.log("Größer 10!)");
+        for (let j = 0; j < 10; j++) {
+            const move = datas[(i - 1)]['moves'][j]['move']['name'];
+			console.log(move);
+            content.innerHTML += /*html*/ `
+			<div class="container-move">${CapitaliseFirstLetter(move)}</div>
+		`;
+        }
+    }
+}
+
+
+
+function CapitaliseFirstLetter(word) {
+    return word[0].toUpperCase() + word.slice(1);
+}
+
+
 
 
 
