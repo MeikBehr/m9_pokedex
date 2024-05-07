@@ -677,13 +677,14 @@ async function detailCardShowEvo (i) {
 
 
 /* gets the evolution data from the PokeApi */
-// async function fetchingPokemonDataFromSourceEvolutionChain(index) {
-
 
 async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
 
-	let index = getId(datas[i]["technical"]["url_evolution"]);
-	let url = `https://pokeapi.co/api/v2/evolution-chain/${index}/`;
+	let index = getId(datas[i-1]["technical"]["url_evolution"]);
+	console.log(index);
+	// let url = `https://pokeapi.co/api/v2/evolution-chain/${index}/`;
+	let url = datas[i-1]["technical"]["url_evolution"];
+	console.log(url);
     let response = await fetch(url);
     let responseAsJson = await response.json();
     evoChain = [];
