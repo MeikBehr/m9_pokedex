@@ -54,7 +54,8 @@ async function init() {
 	await creatingNewDataArrayWithRootData();
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
-	// await fetchingPokemonDataFromSourceEvolutionChain();
+	
+	await fetchingPokemonDataFromSourceEvolutionChain();
 
 	
 	clearPokedex();
@@ -230,33 +231,98 @@ async function fetchingPokemonDataFromSourceSpecies() {
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+// datas[(i - 1)]["technical"]["url_evolution"]
+
+
+
+
+
+
 // Evolution Chain has to be redone - not working right now
-// async function fetchingPokemonDataFromSourceEvolutionChain() {
-//     console.log("Fetching EvolutionChain Names...");
-// 	loadingSpinner(true);
 
-// 	const promises = [];
+let evoData = [];
 
-// 	for (let i = startID; i <= endID; i++) {
-//         let url = datas[(i - 1)]["technical"]["url_evolution"];
-//         promises.push(fetch(url).then(response => response.json()));
-//     }
-//     await Promise.all(promises).then(results => {
-//         results.forEach((responseJSON, index) => {
-//             const i = startID + index;
+async function fetchingPokemonDataFromSourceEvolutionChain() {
+    console.log("Fetching EvolutionChain Names...");
+	loadingSpinner(true);
 
-// 			if (responseJSON["chain"]["evolves_to"].length > 0) {
-// 			  datas[(i - 1)]["technical"]["evolves_to"] = responseJSON["chain"]["evolves_to"][0]["species"]["name"];
-// 			}
+	const promises = [];
 
-// 			originalDatasEvolution.push(responseJSON);
-//         });
-//     });
+	for (let i = startID; i <= endID; i++) {
+        let url = datas[(i - 1)]["technical"]["url_evolution"];
+        promises.push(fetch(url).then(response => response.json()));
+    }
+    await Promise.all(promises).then(results => {
+        results.forEach((responseJSON, index) => {
+            const i = startID + index;
 
-// 	console.log("Evolution", originalDatasEvolution);
-// 	loadingSpinner(false);
-// }
+			if (responseJSON["chain"]["evolves_to"].length > 0) {
+				pushEvo(responseJSON["chain"]["evolves_to"][0].species);
+		
+				if (responseJSON["chain"]["evolves_to"][0]["evolves_to"].length > 0) {
+					pushEvo(responseJSON["chain"]["evolves_to"][0]["evolves_to"][0].species);
+				}
+			}
 
+			originalDatasEvolution.push(responseJSON);
+        });
+    });
+
+	console.log("Evolution", originalDatasEvolution);
+	loadingSpinner(false);
+}
+
+
+function pushEvo(data) {
+    let name = data.name;
+    let id = getId(data.url)
+    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
+    evoData.push(evoJson);
+}
+
+function getId(link) {
+    return link.slice(-5).replace(/\D/g, '');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 
 
