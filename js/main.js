@@ -55,6 +55,8 @@ async function init() {
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
 	
+	getEvolutionForEachPokemonOfDatas();
+
 	await fetchingPokemonDataFromSourceEvolutionChain();
 
 	
@@ -231,6 +233,8 @@ async function fetchingPokemonDataFromSourceSpecies() {
 
 
 
+
+
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
@@ -244,6 +248,37 @@ async function fetchingPokemonDataFromSourceSpecies() {
 
 
 // Evolution Chain has to be redone - not working right now
+
+function getEvolutionForEachPokemonOfDatas() {
+
+	let url_evo = "";
+
+	for (let j = 0; j < datas.length; j++) {
+		// console.log(j, ": ", datas[j]["technical"]["url_evolution"]);
+		// console.log(datas[j]["technical"]["url_evolution"]);
+		// console.log(url_evo);
+		// if (url_evo === datas[j]["technical"]["url_evolution"]) {
+		// 	// console.log("doppelt");
+		// 	continue;
+		// } else {
+		// 	url_evo = datas[j]["technical"]["url_evolution"];
+		// }
+		// console.log(j + " : " + url_evo);
+
+		url_evo = datas[j]["technical"]["url_evolution"];
+		// console.log(datas[j]["technical"]["url_evolution"] + " hat die ID " + extractNumberFromURL(url_evo));
+		datas[j]["technical"]["evo_id"] = extractNumberFromURL(url_evo);
+	}
+
+}
+
+
+function extractNumberFromURL(url) {
+    const regex = /\/(\d+)\/?$/;
+    const match = url.match(regex);
+    return match ? parseInt(match[1]) : null;
+}
+
 
 let evoData = [];
 
@@ -277,18 +312,68 @@ async function fetchingPokemonDataFromSourceEvolutionChain() {
 	loadingSpinner(false);
 }
 
-
 function pushEvo(data) {
-    let name = data.name;
-    let id = getId(data.url)
-    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
-    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
-    evoData.push(evoJson);
-}
+	    let name = data.name;
+	    let id = getId(data.url)
+	    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+	    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
+	    evoData.push(evoJson);
+	}
 
+	
 function getId(link) {
     return link.slice(-5).replace(/\D/g, '');
 }
+
+
+
+
+
+
+// let evoData = [];
+
+// async function fetchingPokemonDataFromSourceEvolutionChain() {
+//     console.log("Fetching EvolutionChain Names...");
+// 	loadingSpinner(true);
+
+// 	const promises = [];
+
+// 	for (let i = startID; i <= endID; i++) {
+//         let url = datas[(i - 1)]["technical"]["url_evolution"];
+//         promises.push(fetch(url).then(response => response.json()));
+//     }
+//     await Promise.all(promises).then(results => {
+//         results.forEach((responseJSON, index) => {
+//             const i = startID + index;
+
+// 			if (responseJSON["chain"]["evolves_to"].length > 0) {
+// 				pushEvo(responseJSON["chain"]["evolves_to"][0].species);
+		
+// 				if (responseJSON["chain"]["evolves_to"][0]["evolves_to"].length > 0) {
+// 					pushEvo(responseJSON["chain"]["evolves_to"][0]["evolves_to"][0].species);
+// 				}
+// 			}
+
+// 			originalDatasEvolution.push(responseJSON);
+//         });
+//     });
+
+// 	console.log("Evolution", originalDatasEvolution);
+// 	loadingSpinner(false);
+// }
+
+
+// function pushEvo(data) {
+//     let name = data.name;
+//     let id = getId(data.url)
+//     let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+//     let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
+//     evoData.push(evoJson);
+// }
+
+// function getId(link) {
+//     return link.slice(-5).replace(/\D/g, '');
+// }
 
 
 
