@@ -7,6 +7,7 @@ let originalDatasV2 = [];
 let originalDatasSpecies = [];
 let originalDatasEvolution = [];
 let datas = [];
+let evoChain = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
 let item = document.getElementById(`flippingCard`);
@@ -55,10 +56,6 @@ async function init() {
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
 	
-	getEvolutionForEachPokemonOfDatas();
-
-	await fetchingPokemonDataFromSourceEvolutionChain();
-
 	
 	clearPokedex();
 	renderPokedex();
@@ -230,184 +227,6 @@ async function fetchingPokemonDataFromSourceSpecies() {
 	// console.log("Species", originalDatasSpecies);
 	loadingSpinner(false);
 }
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-
-// datas[(i - 1)]["technical"]["url_evolution"]
-
-
-
-
-
-
-// Evolution Chain has to be redone - not working right now
-
-function getEvolutionForEachPokemonOfDatas() {
-
-	let url_evo = "";
-
-	for (let j = 0; j < datas.length; j++) {
-		// console.log(j, ": ", datas[j]["technical"]["url_evolution"]);
-		// console.log(datas[j]["technical"]["url_evolution"]);
-		// console.log(url_evo);
-		// if (url_evo === datas[j]["technical"]["url_evolution"]) {
-		// 	// console.log("doppelt");
-		// 	continue;
-		// } else {
-		// 	url_evo = datas[j]["technical"]["url_evolution"];
-		// }
-		// console.log(j + " : " + url_evo);
-
-		url_evo = datas[j]["technical"]["url_evolution"];
-		// console.log(datas[j]["technical"]["url_evolution"] + " hat die ID " + extractNumberFromURL(url_evo));
-		datas[j]["technical"]["evo_id"] = extractNumberFromURL(url_evo);
-	}
-
-}
-
-
-function extractNumberFromURL(url) {
-    const regex = /\/(\d+)\/?$/;
-    const match = url.match(regex);
-    return match ? parseInt(match[1]) : null;
-}
-
-
-let evoData = [];
-
-async function fetchingPokemonDataFromSourceEvolutionChain() {
-    console.log("Fetching EvolutionChain Names...");
-	loadingSpinner(true);
-
-	const promises = [];
-
-	for (let i = startID; i <= endID; i++) {
-        let url = datas[(i - 1)]["technical"]["url_evolution"];
-        promises.push(fetch(url).then(response => response.json()));
-    }
-    await Promise.all(promises).then(results => {
-        results.forEach((responseJSON, index) => {
-            const i = startID + index;
-
-			if (responseJSON["chain"]["evolves_to"].length > 0) {
-				pushEvo(responseJSON["chain"]["evolves_to"][0].species);
-		
-				if (responseJSON["chain"]["evolves_to"][0]["evolves_to"].length > 0) {
-					pushEvo(responseJSON["chain"]["evolves_to"][0]["evolves_to"][0].species);
-				}
-			}
-
-			originalDatasEvolution.push(responseJSON);
-        });
-    });
-
-	console.log("Evolution", originalDatasEvolution);
-	loadingSpinner(false);
-}
-
-function pushEvo(data) {
-	    let name = data.name;
-	    let id = getId(data.url)
-	    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
-	    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
-	    evoData.push(evoJson);
-	}
-
-	
-function getId(link) {
-    return link.slice(-5).replace(/\D/g, '');
-}
-
-
-
-
-
-
-// let evoData = [];
-
-// async function fetchingPokemonDataFromSourceEvolutionChain() {
-//     console.log("Fetching EvolutionChain Names...");
-// 	loadingSpinner(true);
-
-// 	const promises = [];
-
-// 	for (let i = startID; i <= endID; i++) {
-//         let url = datas[(i - 1)]["technical"]["url_evolution"];
-//         promises.push(fetch(url).then(response => response.json()));
-//     }
-//     await Promise.all(promises).then(results => {
-//         results.forEach((responseJSON, index) => {
-//             const i = startID + index;
-
-// 			if (responseJSON["chain"]["evolves_to"].length > 0) {
-// 				pushEvo(responseJSON["chain"]["evolves_to"][0].species);
-		
-// 				if (responseJSON["chain"]["evolves_to"][0]["evolves_to"].length > 0) {
-// 					pushEvo(responseJSON["chain"]["evolves_to"][0]["evolves_to"][0].species);
-// 				}
-// 			}
-
-// 			originalDatasEvolution.push(responseJSON);
-//         });
-//     });
-
-// 	console.log("Evolution", originalDatasEvolution);
-// 	loadingSpinner(false);
-// }
-
-
-// function pushEvo(data) {
-//     let name = data.name;
-//     let id = getId(data.url)
-//     let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
-//     let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
-//     evoData.push(evoJson);
-// }
-
-// function getId(link) {
-//     return link.slice(-5).replace(/\D/g, '');
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -766,6 +585,7 @@ function getStatsBarColor(i) {
 
 
 function detailCardShowMoves (i) {
+
 	register = 'moves';
 	document.getElementById('moves').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
@@ -778,6 +598,8 @@ function detailCardShowMoves (i) {
 
 	listMovesToDetailCard(i);
 }
+
+
 
 
 
@@ -821,7 +643,15 @@ function CapitaliseFirstLetter(word) {
 
 
 
-function detailCardShowEvo (i) {
+
+
+
+async function detailCardShowEvo (i) {
+
+	// XXX
+	await fetchingPokemonDataFromSourceEvolutionChain(i);
+
+
 	register = 'evo';
 	document.getElementById('evo').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
@@ -837,6 +667,63 @@ function detailCardShowEvo (i) {
 
 
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/* gets the evolution data from the PokeApi */
+// async function fetchingPokemonDataFromSourceEvolutionChain(index) {
+
+
+async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
+
+	let index = getId(datas[i]["technical"]["url_evolution"]);
+	let url = `https://pokeapi.co/api/v2/evolution-chain/${index}/`;
+    let response = await fetch(url);
+    let responseAsJson = await response.json();
+    evoChain = [];
+    pushEvo(responseAsJson.chain.species, index);
+
+    if (responseAsJson.chain.evolves_to.length > 0) {
+        pushEvo(responseAsJson.chain.evolves_to[0].species);
+
+        if (responseAsJson.chain.evolves_to[0].evolves_to.length > 0) {
+            pushEvo(responseAsJson.chain.evolves_to[0].evolves_to[0].species);
+        }
+    }
+}
+
+
+/* pushes the evolution data (name, id, sprite) into the evolution json */
+function pushEvo(data, i) {
+    let name = data.name;
+    let id = getId(data.url)
+    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
+
+    evoChain.push(evoJson);
+}
+
+
+function getId(link) {
+    return link.slice(-5).replace(/\D/g, '');
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 
 
