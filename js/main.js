@@ -649,18 +649,28 @@ function CapitaliseFirstLetter(word) {
 async function detailCardShowEvo (i) {
 
 	// XXX
-	await fetchingPokemonDataFromSourceEvolutionChain(i);
+	let evoChain = await fetchingPokemonDataFromSourceEvolutionChain(i);
 
+	console.log(evoChain);
 
 	register = 'evo';
 	document.getElementById('evo').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
-	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
-		<div>Evo</div>
-	`;
+
+	item.querySelector('.detail-content-stats').innerHTML = /*html*/ ``;
+	
+	evoChain.forEach(evo => {
+		item.querySelector('.detail-content-stats').innerHTML += /*html*/ `
+			<div class="evo-chain-link-container">
+				<div class="evo-chain-link-title">ID${evo["id"]} ${evo["name"]}</div>
+				<img class="evo-chain-link-img" src="${evo["sprite"]}">
+			</div>
+		`;
+	});
+	
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-	<div>Eventuelle Explanations</div>
-`;
+		<div>Eventuelle Explanations</div>
+	`;
 }
 
 
@@ -680,11 +690,11 @@ async function detailCardShowEvo (i) {
 
 async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
 
-	let index = getId(datas[i-1]["technical"]["url_evolution"]);
-	console.log(index);
+	const index = getId(datas[i-1]["technical"]["url_evolution"]);
+	// console.log(index);
 	// let url = `https://pokeapi.co/api/v2/evolution-chain/${index}/`;
-	let url = datas[i-1]["technical"]["url_evolution"];
-	console.log(url);
+	const url = datas[i-1]["technical"]["url_evolution"];
+	// console.log(url);
     let response = await fetch(url);
     let responseAsJson = await response.json();
     evoChain = [];
@@ -697,12 +707,17 @@ async function fetchingPokemonDataFromSourceEvolutionChain(i) {
             pushEvo(responseAsJson.chain.evolves_to[0].evolves_to[0].species);
         }
     }
+
+	return evoChain;
 }
 
 
 /* pushes the evolution data (name, id, sprite) into the evolution json */
 function pushEvo(data, i) {
-    let name = data.name;
+    let name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+
+	// const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
+
     let id = getId(data.url)
     let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
     let evoJson = { 'name': name, 'id': id, 'sprite': sprite }

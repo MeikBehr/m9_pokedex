@@ -366,3 +366,27 @@
     box-shadow: 0.25rem 0.25rem 0.5rem -0.25rem rgba(0, 0, 0, 0.6);
 }
 
+
+.evo-chain-link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+
+    @media (max-width: $breakpoint-xs) {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+
+.evo-chain-link-title {
+    
+}
+
+.evo-chain-link-img {
+    width: 75px;
+    height: auto;
+}
