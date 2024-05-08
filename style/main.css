@@ -808,6 +808,22 @@ footer a {
 .detail-content-image {
   width: 4rem;
   height: 4rem;
+  margin-right: 4rem;
+}
+@media (max-width: 75em) {
+  .detail-content-image {
+    margin-right: 3rem;
+  }
+}
+@media (max-width: 48em) {
+  .detail-content-image {
+    margin-right: 2rem;
+  }
+}
+@media (max-width: 36em) {
+  .detail-content-image {
+    margin-right: 1rem;
+  }
 }
 .detail-content-image img {
   width: 100%;
@@ -958,6 +974,18 @@ footer a {
 .evo-chain-link-img {
   width: 75px;
   height: auto;
+}
+
+.detailcard-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.detailcard-info-element {
+  padding-top: 1rem;
 }
 
 #fp-overlay {

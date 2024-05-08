@@ -209,6 +209,19 @@
 .detail-content-image {
     width: 4rem;
     height: 4rem;
+    margin-right: 4rem;
+
+    @media (max-width: $breakpoint-lg) {
+        margin-right: 3rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+        margin-right: 2rem;
+    }
+
+    @media (max-width: $breakpoint-xs) {
+        margin-right: 1rem;
+    }
 
     & img {
         width: 100%;
@@ -400,3 +413,16 @@
     width: 75px;
     height: auto;
 }
+
+.detailcard-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.detailcard-info-element {
+    padding-top: 1rem;
+}
+
