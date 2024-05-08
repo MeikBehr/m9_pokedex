@@ -694,11 +694,6 @@ footer a {
 }
 
 .fp-detail-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -772,7 +767,6 @@ footer a {
 }
 
 .detail-content {
-  height: 80%;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -783,6 +777,7 @@ footer a {
   text-shadow: none;
   overflow: hidden;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  height: clamp(20rem, 45dvh, 40rem);
 }
 
 .detail-content-headline {
@@ -938,8 +933,20 @@ footer a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+@media (max-width: 62em) {
+  .evo-chain-link-container {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+}
+@media (max-width: 48em) {
+  .evo-chain-link-container {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
 }
 @media (max-width: 36em) {
   .evo-chain-link-container {

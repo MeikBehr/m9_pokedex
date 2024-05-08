@@ -495,7 +495,7 @@ function detailCardShowInfo(i) {
 
 	document.getElementById('info').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ `
-		<div>Species: Speed Pokemon</div>
+		<div>Species: ${originalDatasSpecies[(i - 1)].genera[7].genus}</div>
         <div>Height: ${(datas[(i - 1)].attribute.height / 10).toFixed(1)} m</div>
         <div>Weight: ${(datas[(i - 1)].attribute.weight / 10).toFixed(1)} kg</div>
         <div>Abilities: ${datas[i - 1].attribute.abilities.map(type => type.ability.name).join(', ')}</div>
@@ -661,15 +661,15 @@ async function detailCardShowEvo (i) {
 	evoChain.forEach(evo => {
 		item.querySelector('.detail-content-stats').innerHTML += /*html*/ `
 			<div class="evo-chain-link-container">
-				<div class="evo-chain-link-title">ID${evo["id"]} ${evo["name"]}</div>
-				<img class="evo-chain-link-img" src="${evo["sprite"]}">
+				<div class="evo-chain-link-title">#${evo["id"]} ${evo["name"]}</div>
+				<img class="evo-chain-link-img" src="${evo["image"]}">
 			</div>
 		`;
 	});
 	
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-		<div>Eventuelle Explanations</div>
+		<div><i>A Pokémon can evolve in a variety of different ways, such as gaining a level or gaining a new owner, or if it just really likes you.</i></div>
 	`;
 }
 
@@ -712,15 +712,14 @@ async function fetchingPokemonDataFromSourceEvolutionChain(i) {
 }
 
 
-/* pushes the evolution data (name, id, sprite) into the evolution json */
 function pushEvo(data, i) {
     let name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
 
 	// const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
 
     let id = getId(data.url)
-    let sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
-    let evoJson = { 'name': name, 'id': id, 'sprite': sprite }
+    let image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+    let evoJson = { 'name': name, 'id': id, 'image': image }
 
     evoChain.push(evoJson);
 }
