@@ -375,6 +375,38 @@ header img {
     filter: drop-shadow(0px 0px 20px #ffcd37);
   }
 }
+.header-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-inputfield-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
+  height: 80%;
+  width: 15rem;
+}
+
+.header-inputfield {
+  width: 5rem;
+  height: 1.75rem;
+  padding: 0.5rem;
+  transition: width 0.4s ease-in-out;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+}
+.header-inputfield:focus {
+  width: 100%;
+}
+
 footer {
   color: #eeeeee;
   font-size: 1.5rem;

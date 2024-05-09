@@ -628,19 +628,19 @@ function listMovesToDetailCard(i) {
     content.innerHTML = '';
 
 	if(datas[(i - 1)]['moves'].length < 10){
-		console.log("Kleiner 10!");
+		// console.log("Kleiner 10!");
         for (let j = 0; j < datas[(i - 1)]['moves'].length; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
-			console.log(move);
+			// console.log(move);
             content.innerHTML += /*html*/ `
 				<div class="container-move">${CapitaliseFirstLetter(move)}</div>
 			`;
         }
     } else {
-		console.log("Größer 10!)");
+		// console.log("Größer 10!)");
         for (let j = 0; j < 10; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
-			console.log(move);
+			// console.log(move);
             content.innerHTML += /*html*/ `
 			<div class="container-move">${CapitaliseFirstLetter(move)}</div>
 		`;
@@ -664,10 +664,9 @@ function CapitaliseFirstLetter(word) {
 
 async function detailCardShowEvo (i) {
 
-	// XXX
 	let evoChain = await fetchingPokemonDataFromSourceEvolutionChain(i);
 
-	console.log(evoChain);
+	// console.log(evoChain);
 
 	register = 'evo';
 	document.getElementById('evo').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
@@ -691,18 +690,6 @@ async function detailCardShowEvo (i) {
 
 
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/* gets the evolution data from the PokeApi */
 
 async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
 
@@ -750,14 +737,6 @@ function getId(link) {
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-
   
 function PokemonShowDetailOverlay() {
 	  const overlay = document.getElementById('fp-overlay')
@@ -795,5 +774,28 @@ function addMousePositionToCssPokemon() {
 
 
 
+//////////////////////////////////////////
+
+// This function change to search pokemon!
+	
+function myFunction() {
+	// Declare variables
+	var input, filter, ul, li, a, i, txtValue;
+	input = document.getElementById('myInput');
+	filter = input.value.toUpperCase();
+	ul = document.getElementById("myUL");
+	li = ul.getElementsByTagName('li');
+  
+	// Loop through all list items, and hide those who don't match the search query
+	for (i = 0; i < li.length; i++) {
+	  a = li[i].getElementsByTagName("a")[0];
+	  txtValue = a.textContent || a.innerText;
+	  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		li[i].style.display = "";
+	  } else {
+		li[i].style.display = "none";
+	  }
+	}
+  }
 
 
