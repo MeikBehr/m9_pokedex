@@ -786,8 +786,8 @@ function initialiseFindShowWithDatas() {
 		findShow.push(data);
 	})
 
-	console.log(datas);
-	console.log(findShow);
+	// console.log(datas);
+	// console.log(findShow);
 }
 
 
@@ -801,24 +801,33 @@ function startSearch() {
 	// console.log(input);
 	// console.log(input.length);
 
-	if (input.length > 2) {
+	if (input.length > 0) {
 		substring = input.toLowerCase();
 
 		console.log("Substring: ", substring);
 
 
+		const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
 
+		allPossiblePokemon.forEach(pokemon => {
 
-		datas.forEach(data => {
-			const string = data["technical"]["name"].toLowerCase();
-			// console.log("String Data: ", string);
-			if (string.includes(substring)) {
-				console.log(data["technical"]["name"]);
-				console.log(string.includes(substring));
+			let pokemonName = pokemon.querySelector('.fp-pokemon_card__content-heading').innerHTML;
+			console.log(pokemonName);
 
+			if (pokemonName.toLowerCase().includes(substring)) {
+				pokemon.style.display = 'block';
+				console.log("Gefunden");
+			} else {
+				pokemon.style.display = 'none';
+				console.log("1x raus");
 			}
-		})
+		});
 
+	} else {
+			const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
+			allPossiblePokemon.forEach(pokemon => {
+				pokemon.style.display = 'block';
+		});
 	}
 
 }
