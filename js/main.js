@@ -7,6 +7,7 @@ let originalDatasV2 = [];
 let originalDatasSpecies = [];
 let originalDatasEvolution = [];
 let datas = [];
+let findShow = [];
 let evoChain = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
@@ -56,6 +57,7 @@ async function init() {
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
 	
+	initialiseFindShowWithDatas();
 	
 	clearPokedex();
 	renderPokedex();
@@ -63,7 +65,6 @@ async function init() {
 	// setEventListener();
 
 }
-
 
 
 
@@ -776,26 +777,52 @@ function addMousePositionToCssPokemon() {
 
 //////////////////////////////////////////
 
-// This function change to search pokemon!
-	
-function myFunction() {
-	// Declare variables
-	var input, filter, ul, li, a, i, txtValue;
-	input = document.getElementById('myInput');
-	filter = input.value.toUpperCase();
-	ul = document.getElementById("myUL");
-	li = ul.getElementsByTagName('li');
-  
-	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < li.length; i++) {
-	  a = li[i].getElementsByTagName("a")[0];
-	  txtValue = a.textContent || a.innerText;
-	  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		li[i].style.display = "";
-	  } else {
-		li[i].style.display = "none";
-	  }
+
+
+
+function initialiseFindShowWithDatas() {
+	findShow = [];
+	datas.forEach(data => {
+		findShow.push(data);
+	})
+
+	console.log(datas);
+	console.log(findShow);
+}
+
+
+
+
+
+function startSearch() {
+	let input, substring;
+	input = document.getElementById('myInput').value;
+
+	// console.log(input);
+	// console.log(input.length);
+
+	if (input.length > 2) {
+		substring = input.toLowerCase();
+
+		console.log("Substring: ", substring);
+
+
+
+
+		datas.forEach(data => {
+			const string = data["technical"]["name"].toLowerCase();
+			// console.log("String Data: ", string);
+			if (string.includes(substring)) {
+				console.log(data["technical"]["name"]);
+				console.log(string.includes(substring));
+
+			}
+		})
+
 	}
-  }
+
+}
+
+
 
 
