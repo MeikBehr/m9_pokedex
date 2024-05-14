@@ -349,6 +349,7 @@ async function loadmore() {
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
 	renderPokedex();
+	popUpNoShow();
 }
 
 
