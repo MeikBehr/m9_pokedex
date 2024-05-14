@@ -60,7 +60,6 @@
 }
 
 
-
 #card_container {
     display: flex;
     justify-content: center;
@@ -75,7 +74,6 @@
     animation-delay: 0.25s;
     animation-iteration-count: 1;
     animation-fill-mode: backwards;
-    // background-color: rgba(0,0,0,0.8);
 
     @media (max-width: 70%) {
         flex-direction: column; 
@@ -94,8 +92,6 @@
 }
 
 
-
-
 #card_overlay_close {
     position: absolute;
     z-index: 20000;
@@ -112,7 +108,6 @@
     align-items: center;
     cursor: pointer;
 }
-
 
 
 .over__pokedex__card {
@@ -140,15 +135,18 @@
     display: flex;
 }
 
+
 #over__pokemonPic {
     width: auto;
     height: 200px;
 }
 
+
 #over__pokemonPic-2 {
     width: auto;
     height: 300px;
 }
+
 
 #over__pokemonPic-small {
     width: auto;

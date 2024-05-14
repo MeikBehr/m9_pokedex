@@ -24,12 +24,12 @@ html {
     color-scheme: light;
 }
 
+
 body {
     min-height: 100vh;
     width: 100%;
     overflow: visible;
     direction: ltr;
-    // background-image: url("../src/img/pexels-mike-fallarme-413195.jpg");
     background-color: rgba(0,0,0,0.23);
     background-repeat: no-repeat;
     background-position: 0% 50%;
@@ -37,11 +37,13 @@ body {
     background-attachment: fixed;
 }
 
+
 @supports (min-height: 100dvh) {
     body {
       min-height: 100dvh;
     }
 }
+
 
 @media (max-width: 900px) {
     body {
@@ -50,6 +52,7 @@ body {
     }
 }
   
+
 .mainframe {
     position: relative;
     margin: 0 auto;
@@ -72,7 +75,6 @@ body {
 }
 
 
-
 /* ===== Scrollbar CSS ===== 
 https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
 
@@ -82,14 +84,17 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
     scrollbar-color: #000000 #c0c0c0;
 }
 
+
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 16px;
 }
 
+
 *::-webkit-scrollbar-track {
     background: #c0c0c0;
 }
+
 
 *::-webkit-scrollbar-thumb {
     background-color: #000000;
@@ -97,7 +102,7 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
     border: 3px solid #ffffff;
 }
 
-/* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
   background: #c0c0c0;
 }

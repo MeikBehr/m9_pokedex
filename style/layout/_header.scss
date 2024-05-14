@@ -14,12 +14,9 @@ header {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(116,69,226,1) 60%, rgba(70,77,181,1) 100%); 
     background-size: 200% 200%;
     animation: animationBackgroundFooter 10s ease-in-out infinite;
-
-
     color: $color-secondary;
     text-wrap: wrap;
     text-align: center;
-
 
     & img {
         filter: drop-shadow(5px 5px 8px #000000);
@@ -28,24 +25,6 @@ header {
     filter: drop-shadow(2px 2px 9px rgba(0,0,0,0.8));
 
 }
-
-
-// .glow {
-//     font-size: 80px;
-//     color: #fff;
-//     text-align: center;
-//     animation: glow 1s linear infinite alternate;
-// }
-  
-// @keyframes glow {
-//     from {
-//       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-//     }
-    
-//     to {
-//       text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-//     }
-// }
 
 
 .glowIMG {
@@ -75,6 +54,7 @@ header {
   flex-shrink: 0;
 }
 
+
 .header-inputfield-container {
   display: flex;
   flex-direction: row;
@@ -96,7 +76,6 @@ header {
   border-radius: 4px;
   font-size: 16px;
   background-color: white;
-  // background-image: url('searchicon.png');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
 

@@ -41,7 +41,6 @@
     transition: all 250ms linear;
     transform: scale(1);
     z-index: 0;
-    // background: linear-gradient(0deg, #0ada0a 0%, green 80%);
 }
 
 
@@ -52,6 +51,7 @@
     width: 100%;
     border-radius: $border-radius;
 }
+
 
 .fp-pokemon_card-under {
     height: 100%;
@@ -69,7 +69,6 @@
 .fp-pokemon_card-link-text {
     opacity: 0;
     color: #ffffff;
-    // color: #a4a4a4;
     position: absolute;
     top: 1rem;
     left: 3.5rem;
@@ -95,7 +94,6 @@
     font-weight: 500;
     padding-top: 1rem;
     white-space: nowrap;
-    // overflow: hidden;
     text-overflow: ellipsis;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,1), 0px 0px 1px rgba(0,0,0,1);
 }
@@ -109,7 +107,6 @@
     font-size: 1rem;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,1), 0px 0px 1px rgba(0,0,0,1);
 }
-
 
 
 .fp-pokemon_type_container {
@@ -132,7 +129,6 @@
     background-color: inherit;
     backdrop-filter: brightness(80%);
 }
-
 
 
 @mixin fp-pokemon_card-over-bg($alpha-dt: 0%) {
@@ -172,9 +168,7 @@
     width: 8rem;
     max-height: 8rem;
     z-index: 1000;
-    // transition: width 100ms linear;
     filter: drop-shadow(0px 0px 2px #000000);
-    // transition: filter 10s ease-in-out;
 }
 
 
@@ -198,7 +192,6 @@
         display: none;
     }
 }
-
 
 
 .fp-pokemon_card-container--3d-hover {
@@ -227,21 +220,13 @@
     }
 
     &:hover .fp-pokemon_card-link-text {
-        // transform: translate(0, -3rem);
         animation: fp-focus-in-expand 500ms linear 500ms 1 normal none;
         opacity: 1;
         transition: opacity $transition-time ease-in-out;
-        // transition-delay: 1s;
         animation: fp-vibrate-slow 500ms linear 250ms infinite normal none;
     }
 
     &:hover .fp-pokemon_card__image-pokemon {
-        // width: 80%;
-        // max-width: 80%;
-        // max-height: 80%;
-        // transition: width $transition-time linear;
-        // transform: translate(36px, 36px);
-        // transition: translate $transition-time linear;
         animation: fp-shadow-pokemon 750ms linear 100ms 1 normal forwards;
     }
 
@@ -275,7 +260,6 @@
         opacity:1;
     }
 }
-
 
 
 @keyframes fp-vibrate-slow {
