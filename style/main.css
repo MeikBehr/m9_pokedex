@@ -581,7 +581,7 @@ header img {
 
 .input-clear {
   position: absolute;
-  border-radius: 5px;
+  border-radius: 2px;
   z-index: 2;
   border: none;
   top: 2px;

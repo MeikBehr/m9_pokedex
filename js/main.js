@@ -1,8 +1,6 @@
 "use strict";
 
 
-
-
 let originalDatasV2 = [];
 let originalDatasSpecies = [];
 let originalDatasEvolution = [];
@@ -12,7 +10,6 @@ let evoChain = [];
 let numerOfAvailablePokemon = 0;
 let idNameAndUrlOfAllPokemon = {};
 let item = document.getElementById(`flippingCard`);
-
 let register = 'info';
 
 
