@@ -24,7 +24,6 @@
                 <img class="glowIMG" src="./src/img/pokedex.png" alt="">
             </div>
             <form class="header-inputfield-container">
-                <!-- <input id="myInput" onkeyup="myFunction()" class="header-inputfield" type="text" name="search" placeholder="Search..">  -->
                 <input id="myInput" onkeyup="startSearch()" class="header-inputfield" type="text" name="search" placeholder="Search..">
             </form>
         </header>
@@ -43,8 +42,13 @@
 
 
 
-                <div class="load-more-btn">
-                    <button class="btn" onclick="loadmore()">load more</button>
+
+
+                <div class="load-more-btn popup">
+                        <span class="popuptext" id="myPopup">
+                            Let me out!!!
+                        </span>
+                    <button id="btn-load-more" class="btn" onclick="loadmore()">load more</button>
                 </div>
             </main>
 
@@ -63,7 +67,6 @@
         </section>
 
 
-        <!-- TEST -->
         <section id="flippingCard" class="flippingCard d-none">
 
             <div class="fp-detail-container">

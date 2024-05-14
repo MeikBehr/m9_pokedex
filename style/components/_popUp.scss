@@ -1,0 +1,65 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "sass:color";
+@use "sass:math";
+
+
+
+.pop-up-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    width: fit-content;     // important, or the DIVs width is parent-width => pop up is in the center of the width
+}
+  
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #fdfdfd;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 90%;
+    left: 50%;              // centers the pop Up to the center of the DIV, thats why I use width: fit-content for the DIV
+    margin-left: -80px;
+}
+  
+  /* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fdfdfd transparent transparent transparent;
+}
+  
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+  
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}

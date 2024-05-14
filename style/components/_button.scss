@@ -10,6 +10,7 @@
   flex-direction: row;
   justify-content: center;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 
@@ -28,16 +29,42 @@
   &:hover {
     background-color: rgb(7, 189, 7);
     transition: background-color 125ms ease-in-out;
-    animation: shaking 0.25s infinite;
+    animation: shakingButton 750ms linear 0s infinite normal none;
   }
 
 }
 
 
-@keyframes shaking {
-  0% {transform: rotate(0deg);}
-  20% {transform: rotate(-2deg);}
-  50% {transform: rotate(0deg);}
-  70% {transform: rotate(2deg);}
-  100% {transform: rotate(0deg);}
+@keyframes shakingButton {
+  0% {
+    transform:translateY(0) rotate(0deg);
+    transform-origin:50% 50%;
+  }
+  25% {
+    transform:translateY(0) rotate(8deg);
+  }
+  40% {
+    transform:translateY(-6px) rotate(0deg);
+  }
+  55% {
+    transform:translateY(0) rotate(-8deg);
+  }
+  65% {
+    transform:translateY(-6px) rotate(0deg);
+  }
+  75% {
+    transform:translateY(0) rotate(8deg);
+  }
+  82% {
+    transform:translateY(-6px) rotate(0deg);
+  }
+  87% {
+    transform:translateY(0) rotate(-8deg);
+  }
+  93% {
+    transform:translateY(-4px) rotate(0deg);
+  }
+  100% {
+    transform:translateY(0) rotate(0deg);
+  }
 }

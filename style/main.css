@@ -208,6 +208,59 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
     transform: rotate(360deg);
   }
 }
+.pop-up-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #fdfdfd;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 90%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #fdfdfd transparent transparent transparent;
+}
+
+.popup .show {
+  visibility: visible;
+  animation: fadeIn 1s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 #card_overlay {
   display: flex;
   justify-content: center;
@@ -344,6 +397,7 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
   flex-direction: row;
   justify-content: center;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .btn {
@@ -361,24 +415,40 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
 .btn:hover {
   background-color: rgb(7, 189, 7);
   transition: background-color 125ms ease-in-out;
-  animation: shaking 0.25s infinite;
+  animation: shakingButton 750ms linear 0s infinite normal none;
 }
 
-@keyframes shaking {
+@keyframes shakingButton {
   0% {
-    transform: rotate(0deg);
+    transform: translateY(0) rotate(0deg);
+    transform-origin: 50% 50%;
   }
-  20% {
-    transform: rotate(-2deg);
+  25% {
+    transform: translateY(0) rotate(8deg);
   }
-  50% {
-    transform: rotate(0deg);
+  40% {
+    transform: translateY(-6px) rotate(0deg);
   }
-  70% {
-    transform: rotate(2deg);
+  55% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  65% {
+    transform: translateY(-6px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(0) rotate(8deg);
+  }
+  82% {
+    transform: translateY(-6px) rotate(0deg);
+  }
+  87% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  93% {
+    transform: translateY(-4px) rotate(0deg);
   }
   100% {
-    transform: rotate(0deg);
+    transform: translateY(0) rotate(0deg);
   }
 }
 header {

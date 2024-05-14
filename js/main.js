@@ -57,6 +57,7 @@ async function init() {
 	await fetchingPokemonDataFromSourceV2();
 	await fetchingPokemonDataFromSourceSpecies();
 	
+	addEventListenerToLoadMoreButton();
 	initialiseFindShowWithDatas();
 	
 	clearPokedex();
@@ -833,5 +834,19 @@ function startSearch() {
 }
 
 
+function addEventListenerToLoadMoreButton() {
+	const container = document.getElementById('btn-load-more');
+	container.addEventListener('mouseover', popUpShow);
+	container.addEventListener('mouseout', popUpNoShow);
+}
 
 
+function popUpShow() {
+    const popUp = document.getElementById("myPopup");
+    popUp.classList.add("show");
+}
+
+function popUpNoShow() {
+    const popUp = document.getElementById("myPopup");
+    popUp.classList.remove("show");
+}
