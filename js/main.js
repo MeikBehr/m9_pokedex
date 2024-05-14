@@ -45,8 +45,7 @@ const colors = {
 
 
 let startID = 1;
-// let endID = 25;
-let endID = 13;
+let endID = 25;
 
 
 
@@ -62,8 +61,6 @@ async function init() {
 	
 	clearPokedex();
 	renderPokedex();
-
-	// setEventListener();
 
 }
 
@@ -90,7 +87,7 @@ function createNewDataObject(element, index) {
 		},
 
 		"attribute": {
-			"abilities": [],	// link to abilities => text in en/de z.B. https://pokeapi.co/api/v2/ability/65/
+			"abilities": [],
 			"color": "",
 			"flavor_text_entries": "",
 			"height": 0,
@@ -115,17 +112,15 @@ async function checkNumberOfAvailablePokemon() {
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
 	let responseJSON = await response.json();
-	// dieses JSON beinhaltet schon die Englischen NAMEN und die URL!
-	// console.log(responseJSON);
 	idNameAndUrlOfAllPokemon = responseJSON['results'];
 	numerOfAvailablePokemon = responseJSON['count'];
-	// console.log(numerOfAvailablePokemon);
 }
 
 
 
+// WARNING! Set  numerOfAvailablePokemon = endID	for demonstration purposes!
 async function creatingNewDataArrayWithRootData() {
-	numerOfAvailablePokemon = endID;											// WARNING! Set  numerOfAvailablePokemon = endID	for demonstration purposes!
+	numerOfAvailablePokemon = endID;
 	for (let index = 0; index < numerOfAvailablePokemon; index++) {
 		const element = idNameAndUrlOfAllPokemon[index];
 		const newObject = createNewDataObject(element, index);
@@ -148,15 +143,12 @@ async function fetchingPokemonDataFromSourceV2() {
     responses.forEach((response, index) => {
         const pokemonID = startID + index;
         const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
-        const image = response.sprites.other.dream_world.front_default;			// standard
-		const image2 = response.sprites.other.home.front_default;				// modern
-		const image_small = response.sprites.other.showdown.front_default;		// animated one
-		
+        const image = response.sprites.other.dream_world.front_default;
+		const image2 = response.sprites.other.home.front_default;
+		const image_small = response.sprites.other.showdown.front_default;
 		originalDatasV2.push(response);
 
-
-
-        datas[pokemonID - 1] = {
+		datas[pokemonID - 1] = {
             id: pokemonID,
             loaded: false,
             technical: {
@@ -195,14 +187,12 @@ async function fetchingPokemonDataFromSourceV2() {
     });
 
 	loadingSpinner(false);
-	// console.log(originalDatasV2);
 }
 
 
 
 
 async function fetchingPokemonDataFromSourceSpecies() {
-    // console.log("Fetching German Names...");
 	loadingSpinner(true);
 
 	const promises = [];
@@ -221,12 +211,9 @@ async function fetchingPokemonDataFromSourceSpecies() {
 			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
 			datas[(i - 1)]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[11].flavor_text;
 			originalDatasSpecies.push(responseJSON);
-
-            // console.log(responseJSON["names"][5]["name"]);
         });
     });
 
-	// console.log("Species", originalDatasSpecies);
 	loadingSpinner(false);
 }
 
@@ -267,16 +254,12 @@ function lightenColor(hex, amount) {
     if (!/^#[0-9A-F]{6}$/i.test(hex)) {
         throw new Error('Invalid color format. Please provide a color in the format #RRGGBB.');
     }
-
-    // Farbwerte extrahieren
     let [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
 
-    // Farben aufhellen und Grenzwerte für RGB sicherstellen
     r = Math.min(255, r + amount);
     g = Math.min(255, g + amount);
     b = Math.min(255, b + amount);
 
-    // Neue Farbe zurückgeben
     return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
 }
 
@@ -300,7 +283,6 @@ function renderPokedex() {
 		if (datas[(i - 1)].attribute.color == 'blue' ||
 			datas[(i - 1)].attribute.color == 'black') {
 			color = 'white';
-			// console.log("color is ", color)
 		}
 
 		let backgroundColor = getColor(background);
@@ -354,10 +336,6 @@ async function loadmore() {
 
 
 
-
-////////////////////////////////////////////////////////////////////////////////////
-
-
   
   
 function hideDetail() {
@@ -397,7 +375,6 @@ function showDetail(i) {
 	if (datas[(i - 1)].attribute.color == 'blue' ||
 		datas[(i - 1)].attribute.color == 'black') {
 		color = 'white';
-		// console.log("color is ", color)
 	}
 	const background = datas[(i - 1)].attribute.color;
 	let backgroundColor = getColor(background);
@@ -479,14 +456,10 @@ function colorChangeATdetailCardShowInfo(i) {
 	if (backgroundColor === 'black' || 
 		backgroundColor === 'blue') {
 			fontColor = '#FFFFFF';
-			// console.log("ist black oder blue");
-			// console.log(fontColor, backgroundColor);
 	} 
 	if (backgroundColor === 'white' || 
 		backgroundColor === 'yellow') {
-			// console.log("ist white oder yellow");
 			fontColor = '#000000';
-			// console.log(fontColor, backgroundColor);
 	}
 	return fontColor;
 }
@@ -512,13 +485,6 @@ function detailCardShowInfo(i) {
 			</div>
 		</div>
 	`;
-
-	// item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
-	// 	<div>${datas[(i - 1)]["attribute"]["flavor_text_entries"]}</div>
-	// 	<div class="detail-content-image">
-	// 		<img src="${datas[(i - 1)]["technical"]["image_small"]}" alt="Animiertes Bild von ${datas[(i - 1)]["technical"]["name"]}">
-	// 	</div>
-	// `;
 
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
 
@@ -556,10 +522,7 @@ function detailCardShowAttribute (i) {
 
 	const statsTable = item.querySelector('.stats-table');
 	statsTable.innerHTML = '';
-	// console.log(statsTable);
 	datas[i - 1].stats.forEach(stat => {
-		// console.log(stat.name, ":", stat.value);
-
 		let backgroundColor = getColor(datas[(i - 1)].attribute.color);
 		statsTable.innerHTML += /*html*/ `
 			<tr>
@@ -623,27 +586,19 @@ function detailCardShowMoves (i) {
 
 
 function listMovesToDetailCard(i) {
-
-	// Hier noch ändern, dass bei mehr als 10 Moves, die Moves random ausgesucht werden!
-	// Dann noch das CSS anpassen, damit alles hübsch aussieht!
-
 	let content = document.getElementById('moves-container');
     content.innerHTML = '';
 
 	if(datas[(i - 1)]['moves'].length < 10){
-		// console.log("Kleiner 10!");
         for (let j = 0; j < datas[(i - 1)]['moves'].length; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
-			// console.log(move);
             content.innerHTML += /*html*/ `
 				<div class="container-move">${CapitaliseFirstLetter(move)}</div>
 			`;
         }
     } else {
-		// console.log("Größer 10!)");
         for (let j = 0; j < 10; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
-			// console.log(move);
             content.innerHTML += /*html*/ `
 			<div class="container-move">${CapitaliseFirstLetter(move)}</div>
 		`;
@@ -658,24 +613,11 @@ function CapitaliseFirstLetter(word) {
 }
 
 
-
-
-
-
-
-
-
 async function detailCardShowEvo (i) {
-
 	let evoChain = await fetchingPokemonDataFromSourceEvolutionChain(i);
-
-	// console.log(evoChain);
-
 	register = 'evo';
 	document.getElementById('evo').style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
-
 	item.querySelector('.detail-content-stats').innerHTML = /*html*/ ``;
-	
 	evoChain.forEach(evo => {
 		item.querySelector('.detail-content-stats').innerHTML += /*html*/ `
 			<div class="evo-chain-link-container">
@@ -685,7 +627,6 @@ async function detailCardShowEvo (i) {
 		`;
 	});
 	
-
 	item.querySelector('.detail-content-explanation').innerHTML = /*html*/ `
 		<div><i>A Pokémon can evolve in a variety of different ways, such as gaining a level or gaining a new owner, or if it just really likes you.</i></div>
 	`;
@@ -695,17 +636,12 @@ async function detailCardShowEvo (i) {
 
 
 async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
-
 	const index = getId(datas[i-1]["technical"]["url_evolution"]);
-	// console.log(index);
-	// let url = `https://pokeapi.co/api/v2/evolution-chain/${index}/`;
 	const url = datas[i-1]["technical"]["url_evolution"];
-	// console.log(url);
     let response = await fetch(url);
     let responseAsJson = await response.json();
     evoChain = [];
     pushEvo(responseAsJson.chain.species, index);
-
     if (responseAsJson.chain.evolves_to.length > 0) {
         pushEvo(responseAsJson.chain.evolves_to[0].species);
 
@@ -713,20 +649,15 @@ async function fetchingPokemonDataFromSourceEvolutionChain(i) {
             pushEvo(responseAsJson.chain.evolves_to[0].evolves_to[0].species);
         }
     }
-
 	return evoChain;
 }
 
 
 function pushEvo(data, i) {
     let name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-
-	// const name = response.name.charAt(0).toUpperCase() + response.name.slice(1);
-
     let id = getId(data.url)
     let image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
     let evoJson = { 'name': name, 'id': id, 'image': image }
-
     evoChain.push(evoJson);
 }
 
@@ -734,11 +665,6 @@ function pushEvo(data, i) {
 function getId(link) {
     return link.slice(-5).replace(/\D/g, '');
 }
-
-
-
-
-
 
   
 function PokemonShowDetailOverlay() {
@@ -776,20 +702,11 @@ function addMousePositionToCssPokemon() {
   
 
 
-
-//////////////////////////////////////////
-
-
-
-
 function initialiseFindShowWithDatas() {
 	findShow = [];
 	datas.forEach(data => {
 		findShow.push(data);
 	})
-
-	// console.log(datas);
-	// console.log(findShow);
 }
 
 
@@ -800,28 +717,16 @@ function startSearch() {
 	let input, substring;
 	input = document.getElementById('myInput').value;
 
-	// console.log(input);
-	// console.log(input.length);
-
 	if (input.length > 0) {
 		substring = input.toLowerCase();
-
-		console.log("Substring: ", substring);
-
-
 		const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
-
 		allPossiblePokemon.forEach(pokemon => {
 
 			let pokemonName = pokemon.querySelector('.fp-pokemon_card__content-heading').innerHTML;
-			console.log(pokemonName);
-
 			if (pokemonName.toLowerCase().includes(substring)) {
 				pokemon.style.display = 'block';
-				console.log("Gefunden");
 			} else {
 				pokemon.style.display = 'none';
-				console.log("1x raus");
 			}
 		});
 
@@ -836,9 +741,16 @@ function startSearch() {
 
 
 function addEventListenerToLoadMoreButton() {
-	const container = document.getElementById('btn-load-more');
-	container.addEventListener('mouseover', popUpShow);
-	container.addEventListener('mouseout', popUpNoShow);
+	const button = document.getElementById('btn-load-more');
+	button.addEventListener('mouseover', popUpShow);
+	button.addEventListener('mouseout', popUpNoShow);
+}
+
+
+function addEventListenerToClearButton() {
+	const button = document.getElementById('clear');
+	document.querySelector('#myInput').value = ""; 
+	startSearch();
 }
 
 
@@ -847,7 +759,10 @@ function popUpShow() {
     popUp.classList.add("show");
 }
 
+
 function popUpNoShow() {
     const popUp = document.getElementById("myPopup");
     popUp.classList.remove("show");
 }
+
+

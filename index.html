@@ -20,13 +20,23 @@
     <body onload="init()">
 
         <header>
+
             <div class="header-container">
                 <div class="header-logo-container">
                     <img class="glowIMG" src="./src/img/pokedex.png" alt="">
                 </div>
-                <form class="header-inputfield-container">
-                    <input id="myInput" onkeyup="startSearch()" class="header-inputfield" type="text" name="search" placeholder="Search..">
-                </form>
+
+
+                <div class="header-inputfield-container">
+                
+                    <form class="header-inputfield-form">
+                        <input id="myInput" onkeyup="startSearch()" class="header-inputfield" type="text" name="search" placeholder="Show me...">
+                    </form>
+                
+                    <button id="clear" class="input-clear" onclick="addEventListenerToClearButton()">clear</button> <!-- test-->
+                
+                </div>
+
             </div>
         </header>
 
@@ -36,21 +46,14 @@
             <main>
                 
                 <div id="pokedex" class="fp-grid-container">
-
-
-               
                 </div>
-
-
-
-
 
 
                 <div class="load-more-btn popup">
                         <span class="popuptext" id="myPopup">
                             Let me out!!!
                         </span>
-                    <button id="btn-load-more" class="btn" onclick="loadmore()">load more</button>
+                    <button id="btn-load-more" class="btn rainbow-button" onclick="loadmore()">load more</button>
                 </div>
             </main>
 
