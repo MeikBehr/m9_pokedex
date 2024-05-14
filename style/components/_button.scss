@@ -4,21 +4,40 @@
 @use "sass:math";
 
 
-.btn {
-  background-color: green;
-  color: white;
-  font-size: 2rem;
-  width: 200px;
-  height: 100px;
-  margin-top: 2rem;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-
 
 .load-more-btn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-bottom: 2rem;
+}
+
+
+.btn {
+  background-color: green;
+  color: white;
+  font-size: 2rem;
+  width: 12rem;
+  height: 4rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.2);
+  transition: background-color 125ms ease-in-out;
+
+  &:hover {
+    background-color: rgb(7, 189, 7);
+    transition: background-color 125ms ease-in-out;
+    animation: shaking 0.25s infinite;
+  }
+
+}
+
+
+@keyframes shaking {
+  0% {transform: rotate(0deg);}
+  20% {transform: rotate(-2deg);}
+  50% {transform: rotate(0deg);}
+  70% {transform: rotate(2deg);}
+  100% {transform: rotate(0deg);}
 }

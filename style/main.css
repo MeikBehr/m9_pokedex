@@ -339,17 +339,6 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
   height: 50px;
 }
 
-.btn {
-  background-color: green;
-  color: white;
-  font-size: 2rem;
-  width: 200px;
-  height: 100px;
-  margin-top: 2rem;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-
 .load-more-btn {
   display: flex;
   flex-direction: row;
@@ -357,6 +346,41 @@ https://codepen.io/stephenpaton-tech/full/JjRvGmY*/
   margin-bottom: 2rem;
 }
 
+.btn {
+  background-color: green;
+  color: white;
+  font-size: 2rem;
+  width: 12rem;
+  height: 4rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+  transition: background-color 125ms ease-in-out;
+}
+.btn:hover {
+  background-color: rgb(7, 189, 7);
+  transition: background-color 125ms ease-in-out;
+  animation: shaking 0.25s infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 header {
   display: flex;
   justify-content: space-around;
@@ -375,11 +399,43 @@ header {
 header img {
   filter: drop-shadow(5px 5px 8px #000000);
 }
+@media (max-width: 48em) {
+  header {
+    flex-direction: column;
+  }
+}
+
+.header-logo-container {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-self: flex-end;
+  padding-bottom: 1rem;
+}
+@media (max-width: 48em) {
+  .header-logo-container {
+    align-self: center;
+  }
+}
+
+.header-inputfield-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  align-items: end;
+  width: 15rem;
+  padding-bottom: 1rem;
+}
+@media (max-width: 48em) {
+  .header-inputfield-container {
+    align-self: center;
+    align-items: center;
+  }
+}
 
 .glowIMG {
-  font-size: 80px;
-  color: #fff;
-  text-align: center;
+  -o-object-fit: cover;
+     object-fit: cover;
   filter: drop-shadow(0px 0px 10px transparent);
   animation: glowIMG 1s linear infinite alternate;
 }
@@ -392,22 +448,6 @@ header img {
     filter: drop-shadow(0px 0px 20px #ffcd37);
   }
 }
-.header-logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.header-inputfield-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: end;
-  height: 80%;
-  width: 15rem;
-}
-
 .header-inputfield {
   width: 5rem;
   height: 1.75rem;
@@ -438,6 +478,11 @@ footer {
 }
 footer a {
   color: #eeeeee;
+  font-size: clamp(0.7rem, 3dvw, 1.5rem);
+  text-decoration: none;
+}
+footer a:hover {
+  filter: brightness(75%);
 }
 @media (max-width: 28em) {
   footer {

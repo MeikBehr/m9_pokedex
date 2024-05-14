@@ -20,6 +20,12 @@ footer {
 
     & a {
         color: $color-secondary;
+        font-size: clamp(0.7rem, 3dvw, 1.5rem);
+        text-decoration: none;
+
+        &:hover {
+            filter: brightness(75%);
+        }
     }
 
     @media (max-width: $breakpoint-xxs) {

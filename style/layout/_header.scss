@@ -4,6 +4,9 @@
 @use "sass:math";
 
 
+$container-padding-bottom: 1rem;
+
+
 header {
     display: flex;
     justify-content: space-around;
@@ -17,51 +20,62 @@ header {
     color: $color-secondary;
     text-wrap: wrap;
     text-align: center;
+    filter: drop-shadow(2px 2px 9px rgba(0,0,0,0.8));
 
     & img {
         filter: drop-shadow(5px 5px 8px #000000);
     }
 
-    filter: drop-shadow(2px 2px 9px rgba(0,0,0,0.8));
-
-}
-
-
-.glowIMG {
-    font-size: 80px;
-    color: #fff;
-    text-align: center;
-    filter: drop-shadow(0px 0px 10px transparent);
-    animation: glowIMG 1s linear infinite alternate;
-}
-
-
-@keyframes glowIMG {
-    from {
-      filter: drop-shadow(0px 0px 2px blue);
+    @media (max-width: $breakpoint-sm) {
+      flex-direction: column;
     }
-    
-    to {
-      filter: drop-shadow(0px 0px 20px #ffcd37);
-    }
+
 }
 
 
 .header-logo-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-shrink: 0;
+  flex-direction: column;
+  align-self: flex-end;
+  padding-bottom: $container-padding-bottom;
+
+  @media (max-width: $breakpoint-sm) {
+    align-self: center;
+  }
 }
 
 
 .header-inputfield-container {
   display: flex;
-  flex-direction: row;
-  justify-content: end;
+  flex-direction: column;
+  align-self: flex-end;
   align-items: end;
-  height: 80%;
   width: 15rem;
+  padding-bottom: $container-padding-bottom;
+
+  @media (max-width: $breakpoint-sm) {
+    align-self: center;
+    align-items: center;
+  }
+}
+
+
+.glowIMG {
+  object-fit: cover;
+  filter: drop-shadow(0px 0px 10px transparent);
+  animation: glowIMG 1s linear infinite alternate;
+}
+
+
+@keyframes glowIMG {
+  from {
+    filter: drop-shadow(0px 0px 2px blue);
+  }
+  
+  to {
+    filter: drop-shadow(0px 0px 20px #ffcd37);
+  }
 }
 
 
@@ -71,7 +85,6 @@ header {
   padding: 0.5rem;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
-
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
