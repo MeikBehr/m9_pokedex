@@ -195,101 +195,117 @@ function hideDetail() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////
+function showDetail(i) {
+    PokemonShowDetailOverlay();
+    updateItemClass();
+    updateDetailHeader(i);
+    updateDetailTypeContainer(i);
+    updateDetailStyle(i);
+    updatePokemonImage(i);
+    updateDetailHeaderNav(i);
+	detailCardInfoMenu(i);
+    updateDetailContent(i);
+    const closeButton = item.querySelector('.detail-close-button');
+    const pokemonDetail = item.querySelector('.fp-detail-container');
+    updateVisibility(closeButton, pokemonDetail);
+    addEventListeners(i);
+}
 
 
+function updateItemClass() {
+    item.classList.remove('flippingDiv-center', 'd-none');
+    item.classList.add('flippingDiv-center');
+}
 
 
+function updateDetailHeader(i) {
+    const pokemonName = capitalizeFirstLetter(datas[i - 1]["technical"]["name"]);
+    item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
+        <div>${pokemonName}</div>
+        <div>#${datas[i - 1]['id']}</div>
+    `;
+}
 
 
-
-// function showDetail(i) {
-// 	PokemonShowDetailOverlay();
-
-// 	item.classList.remove('flippingDiv-center', 'd-none');
-// 	item.classList.add('flippingDiv-center');
-
-
-// 	const pokemonName = datas[(i - 1)]["technical"]["name"];
-// 	item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
-// 		<div>${pokemonName}</div>
-//         <div>#${datas[(i - 1)]['id']}</div>
-// 	`;
-
-// 	item.querySelector('.detail_type_container').innerHTML = /*html*/ `
-// 		${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
-// 	`;
+function updateDetailTypeContainer(i) {
+    item.querySelector('.detail_type_container').innerHTML = /*html*/ `
+        ${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
+    `;
+}
 
 
-// 	let color = 'white';
-// 	if (datas[(i - 1)].attribute.color == 'blue' ||
-// 		datas[(i - 1)].attribute.color == 'black') {
-// 		color = 'white';
-// 	}
-// 	const background = datas[(i - 1)].attribute.color;
-// 	let backgroundColor = getColor(background);
-// 	let backgroundColorBrighter = lightenColor(backgroundColor, 80)
-// 	item.querySelector('.fp-detail-container').style = `color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);`;
+function updateDetailStyle(i) {
+    let color = 'white';
+    const colorOptions = ['blue', 'black'];
+    if (colorOptions.includes(datas[i - 1].attribute.color)) {
+        color = 'white';
+    }
+    const background = datas[i - 1].attribute.color;
+    const backgroundColor = getColor(background);
+    const backgroundColorBrighter = lightenColor(backgroundColor, 80);
+    item.querySelector('.fp-detail-container').style = `color: ${color};background: linear-gradient(0deg, ${backgroundColor} 0%, ${backgroundColorBrighter} 90%);`;
+}
 
 
-// 	const pokemonImage = datas[(i - 1)]["technical"]["image_big"];
-// 	item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
-	
-	
-// 	const left = (i === 1) ? endID : i - 1;
-// 	const right = (i === endID) ? 1 : i + 1;
-
-// 	item.querySelector('.detail-header-nav').innerHTML = /*html*/ `
-// 		<p onclick="showDetail(${left})"><</p>
-// 		<div class="detail-close-button d-none" onclick="hideDetail()"><div>ESC</div></div>
-// 		<p onclick="showDetail(${right})">></p>
-// 	`;
+function updatePokemonImage(i) {
+    const pokemonImage = datas[i - 1]["technical"]["image_big"];
+    item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
+}
 
 
-// 	detailCardInfoMenu(i);
-
-// 	if (register === 'info') {
-// 		detailCardShowInfo(i);
-// 	}
-
-// 	if (register === 'attribute') {
-// 		detailCardShowAttribute(i);
-// 	}
-
-// 	if (register === 'moves') {
-// 		detailCardShowMoves(i);
-// 	}
-
-// 	if (register === 'evo') {
-// 		detailCardShowEvo(i);
-// 	}
+function updateDetailHeaderNav(i) {
+    const left = (i === 1) ? endID : i - 1;
+    const right = (i === endID) ? 1 : i + 1;
+    item.querySelector('.detail-header-nav').innerHTML = /*html*/ `
+        <p onclick="showDetail(${left})"><</p>
+        <div class="detail-close-button d-none" onclick="hideDetail()"><div>ESC</div></div>
+        <p onclick="showDetail(${right})">></p>
+    `;
+}
 
 
-// 	const closeButton = item.querySelector('.detail-close-button');
-//     const pokemonDetail = item.querySelector('.fp-detail-container');
-//     closeButton.classList.remove('d-none');
-//     pokemonDetail.classList.remove('d-none');
-	
-// 	document.addEventListener('keydown', (event) => {
-//     	if (event.key === "Escape") {
-// 		  hideDetail();
-// 		}
-
-// 		if (event.key === "ArrowLeft") {
-// 			showDetail(left);
-// 		}
-
-// 		if (event.key === "ArrowRight") {
-// 			showDetail(right);
-// 		}
-// 	}, {once: true});
-// }
+function updateDetailContent(i) {
+    switch (register) {
+        case 'info':
+            detailCardShowInfo(i);
+            break;
+        case 'attribute':
+            detailCardShowAttribute(i);
+            break;
+        case 'moves':
+            detailCardShowMoves(i);
+            break;
+        case 'evo':
+            detailCardShowEvo(i);
+            break;
+    }
+}
 
 
+function updateVisibility(closeButton, pokemonDetail) {
+    closeButton.classList.remove('d-none');
+    pokemonDetail.classList.remove('d-none');
+}
 
 
+function addEventListeners(i) {
+	const left = (i === 1) ? endID : i - 1;
+	const right = (i === endID) ? 1 : i + 1;
+	document.addEventListener('keydown', (event) => {
+		    	if (event.key === "Escape") {
+				  hideDetail();
+				}
+		
+				if (event.key === "ArrowLeft") {
+					showDetail(left);
+				}
+		
+				if (event.key === "ArrowRight") {
+					showDetail(right);
+				}
+			}, {once: true});
+}
 
-////////////////////////////////////////////////////////////////////////////
 
 
 function colorChangeATdetailCardShowInfo(i) {
@@ -321,8 +337,6 @@ function setAllRegisterBack() {
 	document.getElementById('moves').style = ``;
 	document.getElementById('evo').style = ``;
 }
-
-
 
 
 
