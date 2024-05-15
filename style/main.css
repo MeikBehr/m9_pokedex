@@ -538,7 +538,6 @@ header img {
   align-items: end;
   width: 20rem;
   padding-right: 12px;
-  padding-bottom: 1rem;
 }
 @media (max-width: 48em) {
   .header-inputfield-form {

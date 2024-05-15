@@ -89,7 +89,6 @@ header {
   align-items: end;
   width: 20rem;
   padding-right: 12px;
-  padding-bottom: $container-padding-bottom;
 
   @media (max-width: $breakpoint-sm) {
     align-self: center;
