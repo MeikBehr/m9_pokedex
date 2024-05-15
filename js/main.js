@@ -33,13 +33,6 @@ async function creatingNewDataArrayWithRootData() {
 }
 
 
-
-
-//////////////////////////////////////////////////////////////////////
-
-
-
-
 async function fetchingPokemonDataFromSourceV2() {
     loadingSpinner(true);
     const responses = await fetchPokemonData();
@@ -87,34 +80,52 @@ function calculateTotalStat(pokemonData) {
 }
 
 
-
-
 async function fetchingPokemonDataFromSourceSpecies() {
-	loadingSpinner(true);
-
-	const promises = [];
-
-	for (let i = startID; i <= endID; i++) {
-        if (datas[(i - 1)]["technical"]["name_de"] === '') {
-            let url = datas[(i - 1)]["technical"]["url_species"];
-            promises.push(fetch(url).then(response => response.json()));
-        }
-    }
-    await Promise.all(promises).then(results => {
-        results.forEach((responseJSON, index) => {
-            const i = startID + index;
-            datas[(i - 1)]["technical"]["name_de"] = responseJSON["names"][5]["name"];
-			datas[(i - 1)]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
-			datas[(i - 1)]["attribute"]["color"] = responseJSON.color.name;
-			datas[(i - 1)]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[11].flavor_text;
-			originalDatasSpecies.push(responseJSON);
-        });
-    });
-
-	loadingSpinner(false);
+    loadingSpinner(true);
+    const promises = createPromisesForSpeciesData();
+    const results = await Promise.all(promises);
+    processSpeciesData(results);
+    loadingSpinner(false);
 }
 
 
+function createPromisesForSpeciesData() {
+    const promises = [];
+    for (let i = startID; i <= endID; i++) {
+        if (datas[i - 1]["technical"]["name_de"] === '') {
+            const url = datas[i - 1]["technical"]["url_species"];
+            promises.push(fetch(url).then(response => response.json()));
+        }
+    }
+    return promises;
+}
+
+
+function processSpeciesData(results) {
+    results.forEach((responseJSON, index) => {
+        const i = startID + index;
+        updateTechnicalData(i, responseJSON);
+        updateAttributeData(i, responseJSON);
+        updateOriginalDataSpecies(responseJSON);
+    });
+}
+
+
+function updateTechnicalData(i, responseJSON) {
+    datas[i - 1]["technical"]["name_de"] = responseJSON["names"][5]["name"];
+    datas[i - 1]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
+}
+
+
+function updateAttributeData(i, responseJSON) {
+    datas[i - 1]["attribute"]["color"] = responseJSON.color.name;
+    datas[i - 1]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[11].flavor_text;
+}
+
+
+function updateOriginalDataSpecies(responseJSON) {
+    originalDatasSpecies.push(responseJSON);
+}
 
 
 function loadingSpinner(showing) {
@@ -128,14 +139,10 @@ function loadingSpinner(showing) {
 }
 
 
-
-
-
 function clearPokedex() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
 }
-
 
 
 function getColor(name) {
@@ -148,11 +155,9 @@ function lightenColor(hex, amount) {
         throw new Error('Invalid color format. Please provide a color in the format #RRGGBB.');
     }
     let [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
-
     r = Math.min(255, r + amount);
     g = Math.min(255, g + amount);
     b = Math.min(255, b + amount);
-
     return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
 }
 
@@ -166,8 +171,6 @@ function renderPokedex() {
 }
 
 
-
-
 async function loadmore() {
 	startID = endID + 1;
 	endID = endID + 25;
@@ -177,9 +180,6 @@ async function loadmore() {
 	popUpNoShow();
 }
 
-
-
-  
   
 function hideDetail() {
 	register = 'info';
@@ -295,11 +295,9 @@ function addEventListeners(i) {
 		    	if (event.key === "Escape") {
 				  hideDetail();
 				}
-		
 				if (event.key === "ArrowLeft") {
 					showDetail(left);
 				}
-		
 				if (event.key === "ArrowRight") {
 					showDetail(right);
 				}
@@ -346,8 +344,6 @@ function changeRegisterHeadingStyle(newRegister, IdToChange, i) {
 }
 
 
-
-
 function detailCardShowAttribute (i) {
 	changeRegisterHeadingStyle('attribute', 'stats', i);
 	item.querySelector('.detail-content-stats').innerHTML = detailCardStatsTableTemplate();
@@ -357,13 +353,18 @@ function detailCardShowAttribute (i) {
 		let backgroundColor = getColor(datas[(i - 1)].attribute.color);
 		statsTable.innerHTML += detailCardStatsTableRowsTemplate(stat, backgroundColor);
 	});
-	const statsBarEmpty = document.querySelectorAll('.statsBarEmpty');
-	setTimeout(() => {
+	adjustEmptyStatBarsWidth();
+	item.querySelector('.detail-content-explanation').innerHTML = detailCardStatsExplanationTemplate();
+}
+
+
+function adjustEmptyStatBarsWidth() {
+    const statsBarEmpty = document.querySelectorAll('.statsBarEmpty');
+    setTimeout(() => {
         statsBarEmpty.forEach (stat => {
 			stat.style = `width: auto;`;
 		})
     }, 500);
-	item.querySelector('.detail-content-explanation').innerHTML = detailCardStatsExplanationTemplate();
 }
 
 
@@ -388,15 +389,9 @@ function detailCardShowMoves (i) {
 }
 
 
-
-
-
-
 function CapitaliseFirstLetter(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
-
-
 
 
 async function detailCardShowEvo (i) {
@@ -406,7 +401,6 @@ async function detailCardShowEvo (i) {
 	evoChain.forEach(evo => {
 		item.querySelector('.detail-content-stats').innerHTML += detailCardEvoTemplate(evo);
 	});
-	
 	item.querySelector('.detail-content-explanation').innerHTML = detailCardEvoExplanationTemplate();
 }
 
@@ -422,7 +416,6 @@ async function fetchingPokemonDataFromSourceEvolutionChain(i) {
     pushEvo(responseAsJson.chain.species, index);
     if (responseAsJson.chain.evolves_to.length > 0) {
         pushEvo(responseAsJson.chain.evolves_to[0].species);
-
         if (responseAsJson.chain.evolves_to[0].evolves_to.length > 0) {
             pushEvo(responseAsJson.chain.evolves_to[0].evolves_to[0].species);
         }
@@ -460,9 +453,6 @@ function hidePokemonOverlay() {
 }
   
   
-  
-  
-  
 function addMousePositionToCssPokemon() {
 	const elements = document.querySelectorAll(".fp-grid-item");
 	for(const element of elements) {
@@ -477,7 +467,7 @@ function addMousePositionToCssPokemon() {
 		});
 	}
 }
-  
+
 
 
 function initialiseFindShowWithDatas() {
@@ -490,32 +480,15 @@ function initialiseFindShowWithDatas() {
 
 
 
-
 function startSearch() {
-	let input, substring;
-	input = document.getElementById('myInput').value;
-
-	if (input.length > 0) {
-		substring = input.toLowerCase();
-		const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
-		allPossiblePokemon.forEach(pokemon => {
-
-			let pokemonName = pokemon.querySelector('.fp-pokemon_card__content-heading').innerHTML;
-			if (pokemonName.toLowerCase().includes(substring)) {
-				pokemon.style.display = 'block';
-			} else {
-				pokemon.style.display = 'none';
-			}
-		});
-
-	} else {
-			const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
-			allPossiblePokemon.forEach(pokemon => {
-				pokemon.style.display = 'block';
-		});
-	}
-
+    const input = document.getElementById('myInput').value.toLowerCase().trim();
+    const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
+    allPossiblePokemon.forEach(pokemon => {
+        const pokemonName = pokemon.querySelector('.fp-pokemon_card__content-heading').textContent.toLowerCase();
+        pokemon.style.display = pokemonName.includes(input) ? 'block' : 'none';
+    });
 }
+
 
 
 function addEventListenerToLoadMoreButton() {

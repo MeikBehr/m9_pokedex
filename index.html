@@ -30,7 +30,7 @@
 
                 <div class="header-inputfield-container">
                 
-                    <form class="header-inputfield-form">
+                    <form class="header-inputfield-form" onsubmit="event.preventDefault(); startSearch()">
                         <input id="myInput" onkeyup="startSearch()" class="header-inputfield" type="text" name="search" placeholder="Show me...">
                     </form>
                 
