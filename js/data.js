@@ -41,6 +41,12 @@ const colors = {
 };
 
 
+/**
+ * Creates a new data object for a Pokémon.
+ * @param {Object} element - The Pokémon data from the API response.
+ * @param {number} index - The index of the Pokémon.
+ * @returns {Object} - The new data object for the Pokémon.
+ */
 function createNewDataObject(element, index) {
 	return {
 		"id": index + 1,
@@ -80,6 +86,16 @@ function createNewDataObject(element, index) {
 }
 
 
+/**
+ * Creates Pokémon data object.
+ * @param {Object} response - The API response containing Pokémon data.
+ * @param {number} pokemonID - The ID of the Pokémon.
+ * @param {string} name - The name of the Pokémon.
+ * @param {string} image - The URL of the main image of the Pokémon.
+ * @param {string} image2 - The URL of the second image of the Pokémon.
+ * @param {string} image_small - The URL of the small image of the Pokémon.
+ * @returns {Object} - The Pokémon data object.
+ */
 function createPokemonData(response, pokemonID, name, image, image2, image_small) {
     return {
         id: pokemonID,

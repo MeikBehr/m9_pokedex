@@ -1,6 +1,11 @@
 "use strict";
 
 
+/**
+ * Renders the grid item for a Pokémon.
+ * @param {number} i - The index of the Pokémon.
+ * @returns {string} - The HTML code for the grid item.
+ */
 function renderGridItem(i) {
     const background = datas[(i - 1)].attribute.color;
 	let backgroundColor = getColor(background);
@@ -35,6 +40,10 @@ function renderGridItem(i) {
 }
 
 
+/**
+ * Updates the detail card info menu.
+ * @param {number} i - The index of the Pokémon.
+ */
 function detailCardInfoMenu(i) {
 	item.querySelector('.detail-content-headline').innerHTML = /*html*/ `
 		<div id="info" class="detail-content-tab" onclick="setAllRegisterBack(), detailCardShowInfo(${i})">Info</div>
@@ -45,6 +54,11 @@ function detailCardInfoMenu(i) {
 }
 
 
+/**
+ * Generates the HTML template for the stats content in the detail card.
+ * @param {number} i - The index of the Pokémon.
+ * @returns {string} - The HTML template.
+ */
 function detailCardContentStatsTemplate(i) {
     return /*html*/ `
         <div class="detailcard-info">
@@ -63,7 +77,10 @@ function detailCardContentStatsTemplate(i) {
 }
 
 
-
+/**
+ * Generates the HTML template for the explanation content in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardContentExplanationTemplate() {
     return  /*html*/ `
         <div><i>Pokémon have existed since ancient times. It's said that Arceus, is known to be the first Pokémon in existence, while Mew is known to be a common a ancestor among all naturally born Pokémon. Pokémon in the dinosauric past have since fossilized and gone extinct, but many can still be revived in the modern day. 
@@ -72,8 +89,10 @@ function detailCardContentExplanationTemplate() {
 }
 
 
-
-
+/**
+ * Generates the HTML template for the stats table in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardStatsTableTemplate() {
     return /*html*/ `
         <table>
@@ -84,7 +103,12 @@ function detailCardStatsTableTemplate() {
 }
 
 
-
+/**
+ * Generates the HTML template for the rows in the stats table.
+ * @param {Object} stat - The stat data.
+ * @param {string} backgroundColor - The background color.
+ * @returns {string} - The HTML template.
+ */
 function detailCardStatsTableRowsTemplate(stat, backgroundColor) {
     return /*html*/ `
 			<tr>
@@ -101,6 +125,10 @@ function detailCardStatsTableRowsTemplate(stat, backgroundColor) {
 }
 
 
+/**
+ * Generates the HTML template for the stats explanation in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardStatsExplanationTemplate() {
     return /*html*/ `
         <div><em>Stats max values taken from <a href="https://www.serebii.net/pokedex-sv/stat/hp.shtml" target="_blank">https://www.serebii.net/pokedex-sm/stat/</a> Gen VII Dex</em></div>
@@ -108,6 +136,10 @@ function detailCardStatsExplanationTemplate() {
 }
 
 
+/**
+ * Generates the HTML template for the moves container in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardMovesContainerTemplate() {
     return /*html*/ `
         <div id="moves-container" class="container-moves"></div>
@@ -115,6 +147,10 @@ function detailCardMovesContainerTemplate() {
 }
 
 
+/**
+ * Generates the HTML template for the moves explanation in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardMovesExplanationTemplate() {
     return /*html*/ `
         <div class="overflow-nohi"><i>A Pokémon can only know four moves at a time. In order to learn new moves once four have been learned, it must forget one old move for every new move. Some moves cannot be forgotten naturally, such as moves learned by HM. To remove these, a Trainer must incorporate the help of a Move Deleter. Here, as example, are shown up to 10 possible moves.</i></div>
@@ -122,7 +158,10 @@ function detailCardMovesExplanationTemplate() {
 }
 
 
-
+/**
+ * Lists moves to the detail card.
+ * @param {number} i - The index of the Pokémon.
+ */
 function listMovesToDetailCard(i) {
 	let content = document.getElementById('moves-container');
     content.innerHTML = '';
@@ -145,7 +184,11 @@ function listMovesToDetailCard(i) {
 }
 
 
-
+/**
+ * Generates the HTML template for the evolution chain in the detail card.
+ * @param {Object} evo - The evolution data.
+ * @returns {string} - The HTML template.
+ */
 function detailCardEvoTemplate(evo) {
     return /*html*/ `
         <div class="evo-chain-link-container">
@@ -156,6 +199,10 @@ function detailCardEvoTemplate(evo) {
 }
 
 
+/**
+ * Generates the HTML template for the evolution explanation in the detail card.
+ * @returns {string} - The HTML template.
+ */
 function detailCardEvoExplanationTemplate() {
     return /*html*/ `
         <div><i>A Pokémon can evolve in a variety of different ways, such as gaining a level or gaining a new owner, or if it just really likes you.</i></div>

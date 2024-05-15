@@ -1,6 +1,8 @@
 "use strict";
 
-
+/**
+ * Initializes the application. 
+ */
 async function init() {
 	await checkNumberOfAvailablePokemon();
 	await creatingNewDataArrayWithRootData();
@@ -13,6 +15,9 @@ async function init() {
 }
 
 
+/**
+ * Retrieves the number of available Pokemon from the PokeAPI.
+ */
 async function checkNumberOfAvailablePokemon() {
 	let url = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=2500`;
 	let response = await fetch(url);
@@ -22,9 +27,11 @@ async function checkNumberOfAvailablePokemon() {
 }
 
 
-// WARNING! Set numerOfAvailablePokemon = endID	for demonstration purposes!
+/**
+ * Creates a new data array with root data.
+ */
 async function creatingNewDataArrayWithRootData() {
-	numerOfAvailablePokemon = endID;
+	numerOfAvailablePokemon = endID;							// WARNING! Set numerOfAvailablePokemon = endID	for demonstration purposes!
 	for (let index = 0; index < numerOfAvailablePokemon; index++) {
 		const element = idNameAndUrlOfAllPokemon[index];
 		const newObject = createNewDataObject(element, index);
@@ -33,6 +40,9 @@ async function creatingNewDataArrayWithRootData() {
 }
 
 
+/**
+ * Fetches Pokemon data from the PokeAPI.
+ */
 async function fetchingPokemonDataFromSourceV2() {
     loadingSpinner(true);
     const responses = await fetchPokemonData();
@@ -41,6 +51,9 @@ async function fetchingPokemonDataFromSourceV2() {
 }
 
 
+/**
+ * Fetches Pokemon data from the PokeAPI.
+ */
 async function fetchPokemonData() {
     const promises = [];
     for (let i = startID; i <= endID; i++) {
@@ -51,6 +64,11 @@ async function fetchPokemonData() {
 }
 
 
+
+/**
+ * Processing Pokemon data
+ * @param {*} responses 
+ */
 function processData(responses) {
     responses.forEach((response, index) => {
         const pokemonID = startID + index;
@@ -65,12 +83,10 @@ function processData(responses) {
 }
 
 
-function capitalizeFirstLetter(name) {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-}
-
-
-
+/**
+ * Calculates the total stat of a Pokemon.
+ * @param {*} pokemonData 
+ */
 function calculateTotalStat(pokemonData) {
     let statTotal = 0;
     pokemonData.stats.forEach(stat => {
@@ -80,6 +96,9 @@ function calculateTotalStat(pokemonData) {
 }
 
 
+/**
+ * Fetches species data from the PokeAPI.
+ */
 async function fetchingPokemonDataFromSourceSpecies() {
     loadingSpinner(true);
     const promises = createPromisesForSpeciesData();
@@ -89,6 +108,10 @@ async function fetchingPokemonDataFromSourceSpecies() {
 }
 
 
+/**
+ * Creates promises for species data.
+ * @returns 
+ */
 function createPromisesForSpeciesData() {
     const promises = [];
     for (let i = startID; i <= endID; i++) {
@@ -101,6 +124,10 @@ function createPromisesForSpeciesData() {
 }
 
 
+/**
+ * Processes species data.
+  * @param {Array} results The array of species data results.
+ */
 function processSpeciesData(results) {
     results.forEach((responseJSON, index) => {
         const i = startID + index;
@@ -111,23 +138,41 @@ function processSpeciesData(results) {
 }
 
 
+/**
+ * Updates technical data for a Pokémon.
+ * @param {number} i 
+ * @param {object} responseJSON 
+ */
 function updateTechnicalData(i, responseJSON) {
     datas[i - 1]["technical"]["name_de"] = responseJSON["names"][5]["name"];
     datas[i - 1]["technical"]["url_evolution"] = responseJSON["evolution_chain"]["url"];
 }
 
 
+/**
+ * Updates attribute data for a Pokémon.
+  * @param {number} i The index of the Pokémon.
+ * @param {object} responseJSON The JSON response containing species data.
+ */
 function updateAttributeData(i, responseJSON) {
     datas[i - 1]["attribute"]["color"] = responseJSON.color.name;
     datas[i - 1]["attribute"]["flavor_text_entries"] = responseJSON.flavor_text_entries[11].flavor_text;
 }
 
 
+/**
+ * Updates original data species array.
+  * @param {object} responseJSON The JSON response containing species data.
+ */
 function updateOriginalDataSpecies(responseJSON) {
     originalDatasSpecies.push(responseJSON);
 }
 
 
+/**
+ * Toggles the loading spinner.
+  * @param {boolean} showing Flag indicating whether to show or hide the spinner.
+ */
 function loadingSpinner(showing) {
     if (showing == true) {
 		document.getElementById('loader_container').classList.remove('d-none');
@@ -139,17 +184,31 @@ function loadingSpinner(showing) {
 }
 
 
+/**
+ * Clears the Pokedex container.
+ */
 function clearPokedex() {
 	const container = document.getElementById('pokedex');
 	container.innerHTML = '';
 }
 
 
+/**
+ * Gets the color for a given name.
+  * @param {string} name The name of the color.
+ * @returns {string} The color code.
+ */
 function getColor(name) {
     return colors[name] || '#FFFFFF';
 }
 
 
+/**
+ * Lightens a given color.
+  * @param {string} hex The hexadecimal color code.
+ * @param {number} amount The amount by which to lighten the color.
+ * @returns {string} The lightened color code.
+ */
 function lightenColor(hex, amount) {
     if (!/^#[0-9A-F]{6}$/i.test(hex)) {
         throw new Error('Invalid color format. Please provide a color in the format #RRGGBB.');
@@ -162,6 +221,9 @@ function lightenColor(hex, amount) {
 }
 
 
+/**
+ * Renders the Pokedex by adding grid items to the container and adding mouse position effect.
+ */
 function renderPokedex() {
 	const container = document.getElementById('pokedex');
 	for (let i = startID; i <= endID; i++) {
@@ -171,6 +233,9 @@ function renderPokedex() {
 }
 
 
+/**
+ * Loads more Pokémon data and updates the Pokedex accordingly.
+ */
 async function loadmore() {
 	startID = endID + 1;
 	endID = endID + 25;
@@ -180,7 +245,10 @@ async function loadmore() {
 	popUpNoShow();
 }
 
-  
+
+/**
+ * Hides the detail card.
+ */
 function hideDetail() {
 	register = 'info';
 	const item = document.getElementById(`flippingCard`);
@@ -195,6 +263,10 @@ function hideDetail() {
 }
 
 
+/**
+ * Shows the detail card for a specific Pokémon.
+  * @param {number} i The index of the Pokémon.
+ */
 function showDetail(i) {
     PokemonShowDetailOverlay();
     updateItemClass();
@@ -212,12 +284,19 @@ function showDetail(i) {
 }
 
 
+/**
+ * Updates the class of the detail card item.
+ */
 function updateItemClass() {
     item.classList.remove('flippingDiv-center', 'd-none');
     item.classList.add('flippingDiv-center');
 }
 
 
+/**
+ * Updates the header of the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function updateDetailHeader(i) {
     const pokemonName = capitalizeFirstLetter(datas[i - 1]["technical"]["name"]);
     item.querySelector('.detail-header-headline').innerHTML = /*html*/ `
@@ -227,6 +306,10 @@ function updateDetailHeader(i) {
 }
 
 
+/**
+ * Updates the type container of the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function updateDetailTypeContainer(i) {
     item.querySelector('.detail_type_container').innerHTML = /*html*/ `
         ${datas[i - 1].attribute.types.map(type => `<div class="detail_type">${type.type.name}</div>`).join('')}
@@ -234,6 +317,10 @@ function updateDetailTypeContainer(i) {
 }
 
 
+/**
+ * Updates the style of the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function updateDetailStyle(i) {
     let color = 'white';
     const colorOptions = ['blue', 'black'];
@@ -247,12 +334,20 @@ function updateDetailStyle(i) {
 }
 
 
+/**
+ * Updates the image of the detail card.
+ * @param {number} i The index of the Pokémon.
+ */
 function updatePokemonImage(i) {
     const pokemonImage = datas[i - 1]["technical"]["image_big"];
     item.querySelector('.fb-detail-shadowpic').style = `background: url('${pokemonImage}') center center/contain fixed no-repeat;`;
 }
 
 
+/**
+ * Updates the navigation buttons of the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function updateDetailHeaderNav(i) {
     const left = (i === 1) ? endID : i - 1;
     const right = (i === endID) ? 1 : i + 1;
@@ -264,6 +359,10 @@ function updateDetailHeaderNav(i) {
 }
 
 
+/**
+ * Updates the content of the detail card based on the selected register.
+  * @param {number} i The index of the Pokémon.
+ */
 function updateDetailContent(i) {
     switch (register) {
         case 'info':
@@ -282,12 +381,21 @@ function updateDetailContent(i) {
 }
 
 
+/**
+ * Updates the visibility of elements in the detail card.
+  * @param {HTMLElement} closeButton The close button element.
+ * @param {HTMLElement} pokemonDetail The detail card element.
+ */
 function updateVisibility(closeButton, pokemonDetail) {
     closeButton.classList.remove('d-none');
     pokemonDetail.classList.remove('d-none');
 }
 
 
+/**
+ * Adds event listeners to the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function addEventListeners(i) {
 	const left = (i === 1) ? endID : i - 1;
 	const right = (i === endID) ? 1 : i + 1;
@@ -305,7 +413,11 @@ function addEventListeners(i) {
 }
 
 
-
+/**
+ * Changes the font color based on the background color for the detail card.
+  * @param {number} i The index of the Pokémon.
+ * @returns {string} The font color.
+ */
 function colorChangeATdetailCardShowInfo(i) {
 	let backgroundColor = datas[(i - 1)].attribute.color;
 	let fontColor = '#000000';
@@ -321,7 +433,10 @@ function colorChangeATdetailCardShowInfo(i) {
 }
 
 
-
+/**
+ * Shows the info register in the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function detailCardShowInfo(i) {
 	changeRegisterHeadingStyle('info', 'info', i);
 	item.querySelector('.detail-content-stats').innerHTML = detailCardContentStatsTemplate(i);
@@ -329,6 +444,9 @@ function detailCardShowInfo(i) {
 }
 
 
+/**
+ * Resets all register styles to default.
+ */
 function setAllRegisterBack() {
 	document.getElementById('info').style = ``;
 	document.getElementById('stats').style = ``;
@@ -337,13 +455,23 @@ function setAllRegisterBack() {
 }
 
 
-
+/**
+ * Changes the heading style for the detail card register.
+  * @param {string} newRegister The new register.
+ * @param {string} IdToChange The ID of the element to change.
+ * @param {number} i The index of the Pokémon.
+ */
 function changeRegisterHeadingStyle(newRegister, IdToChange, i) {
 	register = newRegister;
 	document.getElementById(IdToChange).style = `border: 1px solid rgba(0,0,0,0.9);background-color: ${datas[(i - 1)].attribute.color};color: ${colorChangeATdetailCardShowInfo(i)}`;
 }
 
 
+
+/**
+ * Shows the attribute register in the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function detailCardShowAttribute (i) {
 	changeRegisterHeadingStyle('attribute', 'stats', i);
 	item.querySelector('.detail-content-stats').innerHTML = detailCardStatsTableTemplate();
@@ -358,6 +486,9 @@ function detailCardShowAttribute (i) {
 }
 
 
+/**
+ * Adjusts the width of empty stat bars in the detail card.
+ */
 function adjustEmptyStatBarsWidth() {
     const statsBarEmpty = document.querySelectorAll('.statsBarEmpty');
     setTimeout(() => {
@@ -368,19 +499,32 @@ function adjustEmptyStatBarsWidth() {
 }
 
 
-
+/**
+ * Calculates the width of a stat bar in the detail card.
+  * @param {number} value The value of the stat.
+ * @param {string} name The name of the stat.
+ * @returns {number} The width of the stat bar.
+ */
 function getStatsBarWidth(value, name) {
 	const adjustedStat = Number((value / stats[name]) * 100)
     return adjustedStat;
 }
 
 
+/**
+ * Gets the color for a stat bar in the detail card.
+  * @param {number} i The index of the Pokémon.
+ * @returns {string} The color code.
+ */
 function getStatsBarColor(i) {
 	return colors[datas[(i - 1)]["attribute"]["color"]];
 }
 
 
-
+/**
+ * Shows the moves register in the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 function detailCardShowMoves (i) {
 	changeRegisterHeadingStyle('moves', 'moves', i);
 	item.querySelector('.detail-content-stats').innerHTML = detailCardMovesContainerTemplate();
@@ -389,11 +533,20 @@ function detailCardShowMoves (i) {
 }
 
 
-function CapitaliseFirstLetter(word) {
-    return word[0].toUpperCase() + word.slice(1);
+/**
+ * Capitalizes the first letter of a String.
+ * @param {string} name 
+ * @returns 
+ */
+function capitalizeFirstLetter(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 
+/**
+ * Shows the evolution register in the detail card.
+  * @param {number} i The index of the Pokémon.
+ */
 async function detailCardShowEvo (i) {
 	let evoChain = await fetchingPokemonDataFromSourceEvolutionChain(i);
 	changeRegisterHeadingStyle('evo', 'evo', i);
@@ -406,7 +559,12 @@ async function detailCardShowEvo (i) {
 
 
 
-
+/**
+ * Fetches the evolution chain data for a Pokémon.
+ * 
+ * @param {number} i The index of the Pokémon.
+ * @returns {Array} The array containing evolution chain data.
+ */
 async function fetchingPokemonDataFromSourceEvolutionChain(i) {	
 	const index = getId(datas[i-1]["technical"]["url_evolution"]);
 	const url = datas[i-1]["technical"]["url_evolution"];
@@ -424,6 +582,11 @@ async function fetchingPokemonDataFromSourceEvolutionChain(i) {
 }
 
 
+/**
+ * Pushes evolution data to the evolution chain array.
+  * @param {object} data The evolution data.
+ * @param {number} i The index of the Pokémon.
+ */
 function pushEvo(data, i) {
     let name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
     let id = getId(data.url)
@@ -433,11 +596,19 @@ function pushEvo(data, i) {
 }
 
 
+/**
+ * Extracts the ID from a URL link.
+  * @param {string} link The URL link.
+ * @returns {string} The extracted ID.
+ */
 function getId(link) {
     return link.slice(-5).replace(/\D/g, '');
 }
 
-  
+
+/**
+ * Shows the detail overlay for a Pokémon.
+ */
 function PokemonShowDetailOverlay() {
 	  const overlay = document.getElementById('fp-overlay')
 	  overlay.classList.remove('d-none');
@@ -445,14 +616,19 @@ function PokemonShowDetailOverlay() {
 }
   
   
-  
+/**
+ * Hides the detail overlay for a Pokémon.
+ */
 function hidePokemonOverlay() {
 	 const overlay = document.getElementById('fp-overlay');
 	 overlay.classList.add('d-none');
 	 document.body.classList.remove('no-scroll');
 }
   
-  
+
+/**
+ * Adds mouse position effect to CSS Pokémon elements.
+ */
 function addMousePositionToCssPokemon() {
 	const elements = document.querySelectorAll(".fp-grid-item");
 	for(const element of elements) {
@@ -469,7 +645,9 @@ function addMousePositionToCssPokemon() {
 }
 
 
-
+/**
+ * Initializes the findShow array with datas.
+ */
 function initialiseFindShowWithDatas() {
 	findShow = [];
 	datas.forEach(data => {
@@ -478,8 +656,9 @@ function initialiseFindShowWithDatas() {
 }
 
 
-
-
+/**
+ * Starts the search functionality.
+ */
 function startSearch() {
     const input = document.getElementById('myInput').value.toLowerCase().trim();
     const allPossiblePokemon = document.querySelectorAll('.fp-grid-item');
@@ -490,7 +669,9 @@ function startSearch() {
 }
 
 
-
+/**
+ * Adds event listener to the load more button.
+ */
 function addEventListenerToLoadMoreButton() {
 	const button = document.getElementById('btn-load-more');
 	button.addEventListener('mouseover', popUpShow);
@@ -498,6 +679,9 @@ function addEventListenerToLoadMoreButton() {
 }
 
 
+/**
+ * Adds event listener to the clear button.
+ */
 function addEventListenerToClearButton() {
 	const button = document.getElementById('clear');
 	document.querySelector('#myInput').value = ""; 
@@ -505,15 +689,19 @@ function addEventListenerToClearButton() {
 }
 
 
+/**
+ * Shows the popup.
+ */
 function popUpShow() {
     const popUp = document.getElementById("myPopup");
     popUp.classList.add("show");
 }
 
 
+/**
+ * Hides the popup.
+ */
 function popUpNoShow() {
     const popUp = document.getElementById("myPopup");
     popUp.classList.remove("show");
 }
-
-

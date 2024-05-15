@@ -3,7 +3,6 @@
 <html lang="de">
 
     <head>
-
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,6 @@
         <script defer src="./js/templates.js" type="text/javascript"></script>
         <script defer src="./js/main.js" type="text/javascript"></script>
         <title>Pokedex</title>
-
     </head>
 
     <body onload="init()">
@@ -26,30 +24,19 @@
                 <div class="header-logo-container">
                     <img class="glowIMG" src="./src/img/pokedex.png" alt="">
                 </div>
-
-
                 <div class="header-inputfield-container">
-                
                     <form class="header-inputfield-form" onsubmit="event.preventDefault(); startSearch()">
                         <input id="myInput" onkeyup="startSearch()" class="header-inputfield" type="text" name="search" placeholder="Show me...">
                     </form>
-                
                     <button id="clear" class="input-clear" onclick="addEventListenerToClearButton()">clear</button> <!-- test-->
-                
                 </div>
-
             </div>
         </header>
 
-
         <section class="mainframe">
-
             <main>
-                
                 <div id="pokedex" class="fp-grid-container">
                 </div>
-
-
                 <div class="load-more-btn popup">
                         <span class="popuptext" id="myPopup">
                             Let me out!!!
@@ -57,7 +44,6 @@
                     <button id="btn-load-more" class="btn rainbow-button" onclick="loadmore()">load more</button>
                 </div>
             </main>
-
         </section>
 
 
@@ -65,8 +51,6 @@
             <div id="loader_spinner" >
                 <div class="pokemon"></div>
             </div>
-        
-        
         </div>
 
         <section id="fp-overlay" class="d-none">
@@ -74,45 +58,30 @@
 
 
         <section id="flippingCard" class="flippingCard d-none">
-
             <div class="fp-detail-container">
-
                 <div class="fb-detail-shadowpic">
                 </div>
-
                 <div class="detail-header" style="color: white;">
-
                     <div class="detail-header-nav">
                     </div>
-
                     <div class="detail-header-headline">
                     </div>
                     <div>
                         <div class="detail_type_container">
                         </div>
                     </div>
-
                 </div>
-
 
                 <div class="detail-content">
-
                     <div class="detail-content-headline">
                     </div>
-
                     <div class="detail-content-stats">
                     </div>
-
                     <div class="detail-content-explanation">
                     </div>
-
                 </div>
-
             </div>
-
-
         </section>
-
 
         <footer>
             <section class="footer">
@@ -121,7 +90,5 @@
             </section>
         </footer>
 
-
     </body>
-
 </html>
