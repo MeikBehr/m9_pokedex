@@ -170,14 +170,14 @@ function listMovesToDetailCard(i) {
         for (let j = 0; j < datas[(i - 1)]['moves'].length; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
             content.innerHTML += /*html*/ `
-				<div class="container-move">${CapitaliseFirstLetter(move)}</div>
+				<div class="container-move">${capitalizeFirstLetter(move)}</div>
 			`;
         }
     } else {
         for (let j = 0; j < 10; j++) {
             const move = datas[(i - 1)]['moves'][j]['move']['name'];
             content.innerHTML += /*html*/ `
-			<div class="container-move">${CapitaliseFirstLetter(move)}</div>
+			<div class="container-move">${capitalizeFirstLetter(move)}</div>
 		`;
         }
     }
