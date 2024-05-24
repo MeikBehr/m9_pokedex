@@ -1,0 +1,2 @@
+The Pokedex:
+This is a training webpage that I created during my further training as a frontend developer at the Developer Academy in module 9. It provides guidance on the use of API and navigating through complex JSON.

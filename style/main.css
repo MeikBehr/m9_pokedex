@@ -1033,6 +1033,7 @@ footer a:hover {
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem 0;
+  max-height: 75%;
 }
 
 .detail-content-explanation {
@@ -1188,6 +1189,7 @@ footer a:hover {
   align-items: center;
   margin-left: 30%;
   margin-right: 30%;
+  max-height: 33%;
 }
 @media (max-width: 62em) {
   .evo-chain-link-container {
@@ -1209,8 +1211,8 @@ footer a:hover {
 }
 
 .evo-chain-link-img {
-  width: 75px;
-  height: auto;
+  width: auto;
+  height: 85%;
 }
 
 .detailcard-info {

@@ -92,7 +92,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem 0;
-    // font-size: clamp(0.7rem, 2dvw, 1rem);
+    max-height: 75%;
 }
 
 
@@ -279,6 +279,7 @@
     align-items: center;
     margin-left: 30%;
     margin-right: 30%;
+    max-height: 33%;
 
     @media (max-width: $breakpoint-md) {
         margin-left: 25%;
@@ -299,8 +300,8 @@
 
 
 .evo-chain-link-img {
-    width: 75px;
-    height: auto;
+    width: auto;
+    height: 85%;
 }
 
 
